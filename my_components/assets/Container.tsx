@@ -6,7 +6,7 @@ type Props = {
 
 function Container({ children }: Props) {
   return (
-    <div className="container p-5 mx-auto flex flex-col border-2 md:p-10 lg:p-15 xl:p-20">
+    <div className="container p-5 mx-auto flex flex-col  md:p-10 lg:p-15 xl:p-20">
       {children}
     </div>
   );

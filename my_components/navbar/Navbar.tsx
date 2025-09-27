@@ -82,7 +82,6 @@ export default function Navbar() {
           aria-label="Strona główna"
           className="flex items-center gap-2"
           onClick={(e) => {
-            // płynny powrót do góry na landingu
             if (location.pathname === "/") {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -115,7 +114,7 @@ export default function Navbar() {
 
         <Link
           href="/wizualizator"
-          className="rounded-sm px-4 py-2 font-medium shadow-md bg-teal-500 text-white hover:bg-teal-600 focus-visible:outline-none focus-visible:ring-2"
+          className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-teal-500 to-cyan-500 px-5 py-2.5 font-medium text-white hover:opacity-90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-600"
         >
           Wizualizator
         </Link>

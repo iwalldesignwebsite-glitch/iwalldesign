@@ -94,7 +94,7 @@ export const AnimatedTestimonials = ({
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           />
-          <div className="flex items-center justify-center gap-4 border-2">
+          <div className="flex items-center justify-center gap-4 ">
             <button
               onClick={() =>
                 setActive(

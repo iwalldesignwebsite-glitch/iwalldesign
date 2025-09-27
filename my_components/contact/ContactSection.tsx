@@ -21,7 +21,7 @@ export default function Contact() {
       id="kontakt"
       aria-labelledby="kontakt-tytuł"
       aria-describedby="kontakt-lead"
-      className="mx-auto relative scroll-mt-14 lg:scroll-mt-16"
+      className="mx-auto relative  px-4  scroll-mt-14 lg:scroll-mt-16"
     >
       <Container>
         <Title

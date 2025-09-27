@@ -87,7 +87,7 @@ export default function ContactForm({ onSubmitResult }: Props) {
     const current = getValues("files") ?? [];
     const merged = [...current, ...incoming];
 
-    // unikalność po (name, size, type)
+    // unikalność
     const unique = merged.filter(
       (f, i, arr) =>
         i ===
@@ -108,7 +108,7 @@ export default function ContactForm({ onSubmitResult }: Props) {
     const selected = Array.from(e.target.files ?? []);
     if (!selected.length) return;
     mergeAndSetFiles(selected);
-    e.currentTarget.value = ""; // pozwala dodać ten sam plik ponownie
+    e.currentTarget.value = "";
   };
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -143,7 +143,7 @@ export default function ContactForm({ onSubmitResult }: Props) {
 
   const onSubmit = async (data: FormData) => {
     try {
-      // honeypot – jeśli bot wypełni, udajemy sukces
+      // honeypot
       if (data.website && data.website.trim() !== "") {
         onSubmitResult?.("success");
         fullReset();
@@ -192,7 +192,7 @@ export default function ContactForm({ onSubmitResult }: Props) {
     return `${n} B`;
   };
 
-  /* ------ Blokada nie-cyfr w telefonie (UX + zgodność ze wszystkimi) ------ */
+  /* ------ Blokada nie-cyfr w telefonie ------ */
   const allowOnlyDigits = (e: React.FormEvent<HTMLInputElement>) => {
     // @ts-ignore nativeEvent.data dla beforeinput
     const data: string | null = e.nativeEvent?.data ?? null;
@@ -223,9 +223,25 @@ export default function ContactForm({ onSubmitResult }: Props) {
     if (!/^\d$/.test(e.key)) e.preventDefault();
   };
 
+  /* ------ Zczytywanie projektu z wizualizatora------ */
+
+  useEffect(() => {
+    const saved = localStorage.getItem("visualizerProject");
+    if (!saved) return;
+    fetch(saved)
+      .then((r) => r.blob())
+      .then((blob) => {
+        const file = new File([blob], "projekt.png", { type: "image/png" });
+        setValue("files", [file], { shouldValidate: true });
+        localStorage.removeItem("visualizerProject");
+      })
+      .catch(() => {
+        localStorage.removeItem("visualizerProject");
+      });
+  }, [setValue]);
+
   return (
     <div className="max-w-2xl mx-auto">
-      {/* aria-live dla czytników */}
       <p className="sr-only" aria-live="polite">
         {liveMsg}
       </p>

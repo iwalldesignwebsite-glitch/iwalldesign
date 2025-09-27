@@ -1,124 +1,146 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
-import Container from "../assets/Container";
+import Image from "next/image";
+import { useCallback } from "react";
+import { Facebook, Instagram, Mail, Phone } from "lucide-react";
+
+const SECTIONS = [
+  { slug: "o-nas", label: "O nas" },
+  { slug: "oferta", label: "Oferta" },
+  { slug: "wizualizator", label: "Wizualizator" },
+  { slug: "realizacje", label: "Realizacje" },
+  { slug: "cennik", label: "Cennik" },
+  { slug: "kontakt", label: "Kontakt" },
+];
 
 export default function Footer() {
+  const scrollWithOffset = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    const header = document.querySelector<HTMLElement>("[data-sticky-header]");
+    if (!el) return;
+    const headerH = header?.offsetHeight ?? 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 6;
+    window.scrollTo({ top, behavior: "smooth" });
+  }, []);
+
+  const onSectionClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    slug: string
+  ) => {
+    e.preventDefault();
+    if (location.pathname !== "/") {
+      history.pushState(null, "", `/#${slug}`);
+      location.assign(`/#${slug}`);
+      return;
+    }
+    scrollWithOffset(slug);
+    history.pushState(null, "", `#${slug}`);
+  };
+
+  const year = new Date().getFullYear();
+
   return (
-    <footer role="contentinfo" className="border-t">
-      <Container>
-        <div className="grid gap-10 md:grid-cols-2">
-          {/* LEWA KOLUMNA */}
-          <div>
-            <div className="flex items-center gap-3">
-              {/* podmień na <Image /> jeśli chcesz */}
-              <img
+    <footer className="relative border-t bg-white">
+      <div className="container mx-auto px-4 py-10 lg:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo + opis */}
+          <div className="md:col-span-2">
+            <Link href="/" className="inline-flex items-center gap-2">
+              <Image
                 src="/assets/images/hero/logo.png"
                 alt="iWallDesign"
-                className="h-30 w-auto"
+                width={150}
+                height={40}
+                className="h-auto w-auto"
+                priority={false}
               />
-            </div>
-
+            </Link>
             <p className="mt-4 max-w-prose text-sm text-black/60">
-              Specjalizujemy się w druku UV w Koszalinie i na terenie całego
-              województwa zachodniopomorskiego. Oferujemy nadruki na ścianach,
-              podłogach i tekstyliach, które zachwycają trwałością, estetyką i
-              nowoczesnym designem.
+              Druk UV na niemal każdej powierzchni: ściany, podłogi, meble,
+              szkło, płytki i wiele więcej. Trwałość, kolory i precyzja – Twoje
+              pomysły stają się rzeczywistością.
             </p>
 
-            {/* Social */}
-            <ul className="mt-5 flex items-center gap-4">
-              <li>
-                <a
-                  href="https://instagram.com/"
-                  aria-label="Instagram"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border text-black/60 hover:bg-neutral-50"
-                >
-                  {/* Instagram icon */}
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden
+            <div className="mt-4 flex items-center gap-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border hover:bg-gray-50"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border hover:bg-gray-50"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">Nawigacja</h3>
+            <ul className="mt-3 space-y-2 text-sm">
+              {SECTIONS.map(({ slug, label }) => (
+                <li key={slug}>
+                  <Link
+                    href={`/#${slug}`}
+                    onClick={(e) => onSectionClick(e, slug)}
+                    className="text-black/70 hover:text-black"
                   >
-                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5Zm5-3.25a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17 6.25z" />
-                  </svg>
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">Kontakt</h3>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li className="flex items-center gap-2 text-black/70">
+                <Phone className="h-4 w-4" />
+                <a href="tel:+48500600700" className="hover:text-black">
+                  +48 500 600 700
                 </a>
               </li>
-              <li>
+              <li className="flex items-center gap-2 text-black/70">
+                <Mail className="h-4 w-4" />
                 <a
-                  href="https://facebook.com/"
-                  aria-label="Facebook"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border text-neutral-600 hover:bg-neutral-50"
+                  href="mailto:kontakt@iwalldesign.pl"
+                  className="hover:text-black"
                 >
-                  {/* Facebook icon */}
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden
-                  >
-                    <path d="M13.5 9H16l.5-3h-3V4.5c0-.8.2-1.3 1.4-1.3H16V.1C15.5 0 14.6 0 13.6 0 11.6 0 10 1.3 10 3.8V6H7v3h3v9h3.5V9z" />
-                  </svg>
+                  kontakt@iwalldesign.pl
                 </a>
               </li>
             </ul>
           </div>
-
-          {/* PRAWA KOLUMNA */}
-          <nav
-            aria-labelledby="footer-nav-title"
-            className="md:justify-self-end"
-          >
-            <h2 id="footer-nav-title" className="mb-4 text-base font-medium">
-              Przejdź do
-            </h2>
-            <ul className="space-y-3 text-sm text-neutral-700">
-              <li>
-                <Link href="/" className="hover:underline">
-                  Strona główna
-                </Link>
-              </li>
-              <li>
-                <Link href="/o-nas" className="hover:underline">
-                  O nas – druk UV Koszalin
-                </Link>
-              </li>
-              <li>
-                <Link href="/realizacje" className="hover:underline">
-                  Realizacje nadruków UV
-                </Link>
-              </li>
-              <li>
-                <Link href="/cennik" className="hover:underline">
-                  Cennik druku UV
-                </Link>
-              </li>
-              <li>
-                <Link href="/kontakt" className="hover:underline">
-                  Kontakt – zamów nadruk UV
-                </Link>
-              </li>
-              <li>
-                <Link href="/wizualizator" className="hover:underline">
-                  Wizualizator projektu
-                </Link>
-              </li>
-              <li>
-                <Link href="/polityka-prywatnosci" className="hover:underline">
-                  Polityka prywatności
-                </Link>
-              </li>
-            </ul>
-          </nav>
         </div>
 
-        {/* COPYRIGHT */}
-        <div className="mt-10 border-t pt-6 text-center text-xs text-neutral-500">
-          © iWallDesign 2025
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs text-black/60 md:flex-row">
+          <p>© {year} iWallDesign. Wszelkie prawa zastrzeżone.</p>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/polityka-prywatnosci"
+              className="hover:text-black underline-offset-2 hover:underline"
+            >
+              Polityka prywatności
+            </Link>
+            <Link
+              href="/regulamin"
+              className="hover:text-black underline-offset-2 hover:underline"
+            >
+              Regulamin
+            </Link>
+          </div>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }

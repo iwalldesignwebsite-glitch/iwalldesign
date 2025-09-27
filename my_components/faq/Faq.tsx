@@ -35,7 +35,7 @@ function Faq() {
         </Title>
 
         <div className="grid grid-cols-1 lg:grid-cols-2  justify-items-center gap-16  mt-16  ">
-          <div className="w-full border-2 flex items-center">
+          <div className="w-full flex items-center">
             <FaqAnimateImage />
           </div>
           <div className="w-full  ">

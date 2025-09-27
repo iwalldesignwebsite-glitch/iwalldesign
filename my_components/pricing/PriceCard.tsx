@@ -38,10 +38,13 @@ function PriceCard({ image, title, price, pros, unit }: Props) {
           ))}
         </ul>
 
-        <button className="group flex items-end justify-center gap-1 mt-auto w-full py-2 px-4  rounded-sm border-2 font-semibold transition hover:cursor-pointer">
+        <a
+          href="#kontakt"
+          className="group flex items-end justify-center gap-1 mt-auto w-full py-2 px-4  rounded-sm border-2 font-semibold transition hover:cursor-pointer"
+        >
           Darmowa wycena{" "}
           <ArrowRight className="max-h-[90%] transition-transform duration-200 group-hover:translate-x-5" />
-        </button>
+        </a>
       </div>
     </div>
   );

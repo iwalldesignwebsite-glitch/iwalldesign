@@ -69,7 +69,6 @@ function WhereUV() {
     <section
       aria-labelledby="gdzie-zastosować-druk-uv"
       aria-describedby="lead-gdzie-druk-uv"
-      className="bg-white "
     >
       <Container>
         <Title
@@ -79,7 +78,7 @@ function WhereUV() {
         >
           Gdzie <ShinyWord>druk UV</ShinyWord> sprawdza się najlepiej?
         </Title>
-        <div className="mt-10 border-2 grid grid-cols-1 gap-10 justify-items-center  md:grid-cols-2  lg:grid-cols-3 lg:gap-16 ">
+        <div className="mt-10  grid grid-cols-1 gap-10 justify-items-center  md:grid-cols-2  lg:grid-cols-3 lg:gap-16 ">
           {CardsInfo.map((card) => (
             <CardWhere
               key={card.title}

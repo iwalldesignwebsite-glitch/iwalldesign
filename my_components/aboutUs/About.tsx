@@ -45,8 +45,7 @@ export default function AboutSection() {
     >
       <Container>
         <div className="grid items-start gap-10 lg:grid-cols-2">
-          {/* LEWA KOLUMNA – tekst */}
-          <div className="flex flex-col justify-between gap-6 border-2 md:h-full">
+          <div className="flex flex-col justify-between gap-6  md:h-full">
             <div className="space-y-6">
               <Title
                 titleId={content.titleId}
@@ -63,13 +62,11 @@ export default function AboutSection() {
             <List />
           </div>
 
-          {/* PRAWA KOLUMNA – obraz + statystyki */}
-          <div className="space-y-6 border-2">
+          <div className="space-y-6 ">
             <div className="mx-auto w-full">
               <AnimatedTestimonials testimonials={images} />
             </div>
 
-            {/* Statystyki jako definicje */}
             <StatCard />
           </div>
         </div>

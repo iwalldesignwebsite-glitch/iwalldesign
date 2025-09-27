@@ -67,7 +67,7 @@ function Pricing() {
           Inwestycja w design która się opłaca! Sprawdź{" "}
           <ShinyWord>ile kosztuje druk UV.</ShinyWord>
         </Title>
-        <div className="mt-10 grid grid-cols-1 gap-12 xl:gap-36 lg:grid-cols-3  border-2">
+        <div className="mt-10 grid grid-cols-1 gap-12 xl:gap-36 lg:grid-cols-3  ">
           {PricingCardsInfo.map((card) => (
             <PriceCard
               key={card.title}
@@ -86,10 +86,13 @@ function Pricing() {
             wyzwanie, które zamieniamy w wyjątkową realizację. Skontatuj się z
             nami i uzyskaj indywidualną ofertę dopasowaną do Twoich potrzeb.
           </p>
-          <button className="group inline-flex gap-1 border-2 border-emerald-500 text-emerald-500 px-6 py-3 rounded-sm shadow-md font-semibold hover:cursor-pointer hover:shadow-lg transition-shadow duration-75">
+          <a
+            href="#kontakt"
+            className="group inline-flex gap-1 border-2 border-emerald-500 text-emerald-500 px-6 py-3 rounded-sm shadow-md font-semibold hover:cursor-pointer hover:shadow-lg transition-shadow duration-75"
+          >
             Napisz wiadomość!{" "}
             <Send className="transition-transform duration-75  group-hover:translate-x-3" />
-          </button>
+          </a>
         </div>
       </Container>
     </section>

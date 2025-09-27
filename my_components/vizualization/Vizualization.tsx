@@ -1,5 +1,15 @@
 "use client";
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  UploadCloud,
+  RotateCw,
+  Download,
+  Send,
+  Image as ImageIcon,
+} from "lucide-react";
+
+const LS_KEY = "visualizerProject";
 
 export default function Visualizer() {
   const [bgUrl, setBgUrl] = useState<string | null>(null);
@@ -12,15 +22,14 @@ export default function Visualizer() {
   const [stageSize, setStageSize] = useState({ w: 960, h: 540 });
   const [fgNatural, setFgNatural] = useState({ w: 1, h: 1 });
   const [pos, setPos] = useState({ x: 480, y: 270 });
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(1); // 1 = 100%
   const [rotation, setRotation] = useState(0);
 
-  // 40% szerokości obszaru jako bazowy rozmiar grafiki
   const baseFgWidth = useMemo(() => stageSize.w * 0.4, [stageSize.w]);
   const fgDisplayWidth = baseFgWidth * scale;
   const fgDisplayHeight = (fgNatural.h / fgNatural.w) * fgDisplayWidth;
 
-  // rozmiar obszaru
+  /* ---------- pomiar obszaru ---------- */
   useEffect(() => {
     if (!stageRef.current) return;
     const ro = new ResizeObserver(([e]) => {
@@ -31,12 +40,11 @@ export default function Visualizer() {
     return () => ro.disconnect();
   }, []);
 
-  // jeśli dołożysz grafikę zanim stage się zmierzy – wycentruj po zmianie
   useEffect(() => {
     if (fgUrl) setPos({ x: stageSize.w / 2, y: stageSize.h / 2 });
   }, [stageSize.w, stageSize.h, fgUrl]);
 
-  // inputy
+  /* ---------- inputy ---------- */
   const onPickBackground: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const f = e.target.files?.[0];
     if (!f) return;
@@ -45,6 +53,7 @@ export default function Visualizer() {
       return URL.createObjectURL(f);
     });
   };
+
   const onPickForeground: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const f = e.target.files?.[0];
     if (!f) return;
@@ -60,7 +69,7 @@ export default function Visualizer() {
     img.src = url;
   };
 
-  // DRAG
+  /* ---------- drag ---------- */
   const dragRef = useRef<{
     startX: number;
     startY: number;
@@ -68,7 +77,7 @@ export default function Visualizer() {
     y: number;
   } | null>(null);
   const onPointerDown: React.PointerEventHandler<HTMLImageElement> = (e) => {
-    e.preventDefault(); // ← blokuje domyślne "drag image"
+    e.preventDefault();
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     dragRef.current = {
       startX: e.clientX,
@@ -90,49 +99,84 @@ export default function Visualizer() {
     dragRef.current = null;
   };
 
-  // EKSPORT PNG
-  const exportPng = () => {
-    if (!stageRef.current || !bgImgRef.current || !fgImgRef.current) return;
+  /* ---------- reset ---------- */
+  const resetAll = () => {
+    if (bgUrl) URL.revokeObjectURL(bgUrl);
+    if (fgUrl) URL.revokeObjectURL(fgUrl);
+    setBgUrl(null);
+    setFgUrl(null);
+    setScale(1);
+    setRotation(0);
+    setPos({ x: stageSize.w / 2, y: stageSize.h / 2 });
+  };
 
-    const canvas = document.createElement("canvas");
+  /* ---------- rysowanie i eksport ---------- */
+  const drawToCanvas = (canvas: HTMLCanvasElement) => {
+    if (!stageRef.current) return;
+    const ctx = canvas.getContext("2d")!;
     const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
     canvas.width = stageSize.w * dpr;
     canvas.height = stageSize.h * dpr;
 
-    const ctx = canvas.getContext("2d")!;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, stageSize.w, stageSize.h);
 
-    // tło (object-contain, wycentrowane)
-    const bg = bgImgRef.current;
-    const s = Math.min(
-      stageSize.w / bg.naturalWidth,
-      stageSize.h / bg.naturalHeight
-    );
-    const w = bg.naturalWidth * s;
-    const h = bg.naturalHeight * s;
-    const dx = (stageSize.w - w) / 2;
-    const dy = (stageSize.h - h) / 2;
-    ctx.drawImage(bg, dx, dy, w, h);
+    if (bgImgRef.current) {
+      const bg = bgImgRef.current;
+      const s = Math.min(
+        stageSize.w / bg.naturalWidth,
+        stageSize.h / bg.naturalHeight
+      );
+      const w = bg.naturalWidth * s;
+      const h = bg.naturalHeight * s;
+      const dx = (stageSize.w - w) / 2;
+      const dy = (stageSize.h - h) / 2;
+      ctx.drawImage(bg, dx, dy, w, h);
+    }
 
-    // grafika z transformacjami
-    const w2 = fgDisplayWidth;
-    const h2 = fgDisplayHeight;
-    ctx.save();
-    ctx.translate(pos.x, pos.y);
-    ctx.rotate((rotation * Math.PI) / 180);
-    ctx.drawImage(fgImgRef.current, -w2 / 2, -h2 / 2, w2, h2);
-    ctx.restore();
+    if (fgImgRef.current) {
+      ctx.save();
+      ctx.translate(pos.x, pos.y);
+      ctx.rotate((rotation * Math.PI) / 180);
+      ctx.drawImage(
+        fgImgRef.current,
+        -fgDisplayWidth / 2,
+        -fgDisplayHeight / 2,
+        fgDisplayWidth,
+        fgDisplayHeight
+      );
+      ctx.restore();
+    }
+  };
 
+  const exportPng = () => {
+    if (!stageRef.current || !bgImgRef.current) return;
+    const canvas = document.createElement("canvas");
+    drawToCanvas(canvas);
     const a = document.createElement("a");
     a.download = "projekt.png";
     a.href = canvas.toDataURL("image/png");
     a.click();
   };
 
+  const sendToForm = () => {
+    if (!bgUrl) return;
+    const canvas = document.createElement("canvas");
+    drawToCanvas(canvas);
+    const dataUrl = canvas.toDataURL("image/png");
+    try {
+      localStorage.setItem(LS_KEY, dataUrl);
+    } catch {}
+    window.open("/#kontakt", "_blank");
+  };
+
+  const clamp = (val: number, min: number, max: number) =>
+    Math.min(max, Math.max(min, val));
+
   return (
-    <section className="mx-auto max-w-5xl px-4 py-6">
+    <section className="mx-auto max-w-6xl px-4 pt-24 md:pt-20 pb-10">
+      {/* toolbar */}
       <div className="mb-3 flex flex-wrap items-center gap-3">
         <label className="cursor-pointer rounded-md border px-3 py-2 text-sm hover:bg-neutral-50">
           <input
@@ -148,6 +192,7 @@ export default function Visualizer() {
           className={`cursor-pointer rounded-md border px-3 py-2 text-sm ${
             bgUrl ? "hover:bg-neutral-50" : "opacity-50 cursor-not-allowed"
           }`}
+          aria-disabled={!bgUrl}
         >
           <input
             type="file"
@@ -161,18 +206,45 @@ export default function Visualizer() {
 
         <button
           type="button"
-          onClick={exportPng}
-          disabled={!bgUrl || !fgUrl}
-          className={`ml-auto rounded-md bg-emerald-600 px-4 py-2 text-sm text-white ${
-            bgUrl && fgUrl
-              ? "hover:bg-emerald-700"
-              : "opacity-50 cursor-not-allowed"
-          }`}
+          onClick={resetAll}
+          className="inline-flex items-center gap-2 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700 hover:bg-red-100"
         >
-          Eksportuj PNG
+          <RotateCw className="h-4 w-4" />
+          Zacznij od nowa
         </button>
+
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            type="button"
+            onClick={exportPng}
+            disabled={!bgUrl}
+            className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-white ${
+              bgUrl
+                ? "bg-gray-800 hover:bg-black"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
+            title={!bgUrl ? "Najpierw dodaj tło" : "Pobierz PNG"}
+          >
+            <Download className="h-4 w-4" />
+            Eksport PNG
+          </button>
+
+          <button
+            type="button"
+            onClick={sendToForm}
+            disabled={!bgUrl}
+            className={`inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-teal-500 to-cyan-500 px-4 py-2 text-sm font-medium text-white ${
+              bgUrl ? "hover:opacity-90" : "opacity-50 cursor-not-allowed"
+            }`}
+            title={!bgUrl ? "Najpierw dodaj tło" : "Wyślij projekt do nas"}
+          >
+            <Send className="h-4 w-4" />
+            Wyślij projekt do nas
+          </button>
+        </div>
       </div>
 
+      {/* STAGE */}
       <div
         ref={stageRef}
         className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border bg-neutral-100 select-none"
@@ -205,7 +277,6 @@ export default function Visualizer() {
                 }px) rotate(${rotation}deg)`,
                 transformOrigin: "center center",
                 cursor: dragRef.current ? "grabbing" : "grab",
-                // kluczowe na mobile – nie przewijaj strony podczas dragów
                 touchAction: "none",
               }}
               draggable={false}
@@ -216,9 +287,10 @@ export default function Visualizer() {
               onPointerCancel={onPointerUp}
             />
 
-            {/* panele suwaków – UI jak miałeś */}
+            {/* panele suwaków */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-md bg-white/90 p-3 shadow">
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
+                {/* SKALA + input % */}
                 <label className="flex items-center gap-2 text-sm">
                   Skala
                   <input
@@ -229,7 +301,36 @@ export default function Visualizer() {
                     value={scale}
                     onChange={(e) => setScale(parseFloat(e.target.value))}
                   />
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="number"
+                      className="w-16 rounded border px-2 py-1 text-xs"
+                      min={20}
+                      max={300}
+                      step={1}
+                      value={Math.round(scale * 100)}
+                      onChange={(e) => {
+                        const pct = clamp(
+                          parseFloat(e.target.value || "100"),
+                          20,
+                          300
+                        );
+                        setScale(pct / 100);
+                      }}
+                      onBlur={(e) => {
+                        const pct = clamp(
+                          parseFloat(e.target.value || "100"),
+                          20,
+                          300
+                        );
+                        setScale(pct / 100);
+                      }}
+                    />
+                    <span className="text-xs text-neutral-600">%</span>
+                  </div>
                 </label>
+
+                {/* OBRÓT + input ° */}
                 <label className="flex items-center gap-2 text-sm">
                   Obrót
                   <input
@@ -240,9 +341,27 @@ export default function Visualizer() {
                     value={rotation}
                     onChange={(e) => setRotation(parseFloat(e.target.value))}
                   />
-                  <span className="w-10 text-right text-xs text-neutral-600">
-                    {Math.round(rotation)}°
-                  </span>
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="number"
+                      className="w-16 rounded border px-2 py-1 text-xs"
+                      min={-180}
+                      max={180}
+                      step={1}
+                      value={Math.round(rotation)}
+                      onChange={(e) =>
+                        setRotation(
+                          clamp(parseFloat(e.target.value || "0"), -180, 180)
+                        )
+                      }
+                      onBlur={(e) =>
+                        setRotation(
+                          clamp(parseFloat(e.target.value || "0"), -180, 180)
+                        )
+                      }
+                    />
+                    <span className="text-xs text-neutral-600">°</span>
+                  </div>
                 </label>
               </div>
             </div>
@@ -250,10 +369,44 @@ export default function Visualizer() {
         )}
 
         {!bgUrl && (
-          <p className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded bg-white/80 px-3 py-2 text-sm text-neutral-700">
-            Najpierw dodaj tło
-          </p>
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="flex flex-col items-center gap-2 rounded-lg bg-white/80 px-4 py-3 text-neutral-700">
+              <UploadCloud className="h-6 w-6" />
+              <p className="text-sm">Najpierw dodaj tło</p>
+            </div>
+          </div>
         )}
+      </div>
+
+      {/* Instrukcja */}
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="rounded-md border bg-white p-4">
+          <div className="mb-2 flex items-center gap-2 font-medium">
+            <UploadCloud className="h-4 w-4" /> 1. Dodaj tło
+          </div>
+          <p className="text-sm text-neutral-600">
+            Wgraj zdjęcie miejsca (ściana, podłoga, mebel). Tło dopasuje się do
+            okna podglądu.
+          </p>
+        </div>
+        <div className="rounded-md border bg-white p-4">
+          <div className="mb-2 flex items-center gap-2 font-medium">
+            <ImageIcon className="h-4 w-4" /> 2. Dodaj grafikę i ustaw
+          </div>
+          <p className="text-sm text-neutral-600">
+            Przeciągnij, zmieniaj skalę i obrót suwakami lub polami obok (np.{" "}
+            <kbd>100%</kbd>, <kbd>0°</kbd>).
+          </p>
+        </div>
+        <div className="rounded-md border bg-white p-4">
+          <div className="mb-2 flex items-center gap-2 font-medium">
+            <Send className="h-4 w-4" /> 3. Zapisz / wyślij do nas
+          </div>
+          <p className="text-sm text-neutral-600">
+            Pobierz PNG albo kliknij „Wyślij projekt do nas” – otworzymy stronę
+            główną i przewiniemy do formularza.
+          </p>
+        </div>
       </div>
     </section>
   );
