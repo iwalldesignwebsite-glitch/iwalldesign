@@ -90,8 +90,8 @@ export default function Navbar() {
           }}
         >
           <Image
-            src="/assets/images/hero/logo.png"
-            alt="iWallDesign"
+            src="/assets/images/logo.png"
+            alt="iWallDesign logo"
             width={150}
             height={40}
             priority
