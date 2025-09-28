@@ -4,8 +4,6 @@ import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // limity i typy plików
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB / plik
 const ALLOWED_TYPES = new Set<string>([
@@ -56,7 +54,6 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    // jeśli są pliki → sprawdź typ i rozmiar
     for (const f of files) {
       if (!ALLOWED_TYPES.has(f.type)) {
         return NextResponse.json(
@@ -72,10 +69,8 @@ export async function POST(req: Request) {
       }
     }
 
-    // przygotuj załączniki tylko jeśli są pliki
-    let attachments: { filename: string; content: Buffer }[] | undefined =
-      undefined;
-
+    // załączniki tylko jeśli są pliki
+    let attachments: { filename: string; content: Buffer }[] | undefined;
     if (files.length > 0) {
       attachments = await Promise.all(
         files.map(async (file) => ({
@@ -85,14 +80,21 @@ export async function POST(req: Request) {
       );
     }
 
+    // konfiguracja maila
+    const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CONTACT_TO_EMAIL;
     const from = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
-    if (!process.env.RESEND_API_KEY || !to) {
+
+    if (!apiKey || !to) {
+      console.error("Missing RESEND_API_KEY or CONTACT_TO_EMAIL");
       return NextResponse.json(
         { error: "Brak konfiguracji maila." },
         { status: 500 }
       );
     }
+
+    // inicjalizacja dopiero tutaj
+    const resend = new Resend(apiKey);
 
     const html = `
       <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#111">
@@ -126,7 +128,7 @@ ${message || "(brak)"}
       subject: `[iWallDesign] Zapytanie od ${name}`,
       html,
       text,
-      ...(attachments ? { attachments } : {}), // <-- tylko gdy są
+      ...(attachments ? { attachments } : {}),
     });
 
     return NextResponse.json({ ok: true });
