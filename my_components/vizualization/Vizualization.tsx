@@ -175,10 +175,10 @@ export default function Visualizer() {
     Math.min(max, Math.max(min, val));
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-24 md:pt-20 pb-10">
+    <section className="mx-auto max-w-6xl px-4 pt-28 md:pt-24 pb-10">
       {/* toolbar */}
       <div className="mb-3 flex flex-wrap items-center gap-3">
-        <label className="cursor-pointer rounded-md border px-3 py-2 text-sm hover:bg-neutral-50">
+        <label className="flex items-center justify-center cursor-pointer rounded-md border px-3 py-2 text-sm hover:bg-neutral-50">
           <input
             type="file"
             accept="image/*"
@@ -189,7 +189,7 @@ export default function Visualizer() {
         </label>
 
         <label
-          className={`cursor-pointer rounded-md border px-3 py-2 text-sm ${
+          className={`flex items-center justify-center cursor-pointer rounded-md border px-3 py-2 text-sm ${
             bgUrl ? "hover:bg-neutral-50" : "opacity-50 cursor-not-allowed"
           }`}
           aria-disabled={!bgUrl}
@@ -214,33 +214,27 @@ export default function Visualizer() {
         </button>
 
         <div className="ml-auto flex items-center gap-2">
-          <button
-            type="button"
-            onClick={exportPng}
-            disabled={!bgUrl}
-            className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm text-white ${
-              bgUrl
-                ? "bg-gray-800 hover:bg-black"
-                : "bg-gray-400 cursor-not-allowed"
-            }`}
-            title={!bgUrl ? "Najpierw dodaj tło" : "Pobierz PNG"}
-          >
-            <Download className="h-4 w-4" />
-            Eksport PNG
-          </button>
+          {bgUrl && (
+            <>
+              <button
+                type="button"
+                onClick={exportPng}
+                className="inline-flex items-center gap-2 rounded-md bg-gray-800 px-4 py-2 text-sm text-white hover:bg-black"
+              >
+                <Download className="h-4 w-4" />
+                Eksport PNG
+              </button>
 
-          <button
-            type="button"
-            onClick={sendToForm}
-            disabled={!bgUrl}
-            className={`inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-teal-500 to-cyan-500 px-4 py-2 text-sm font-medium text-white ${
-              bgUrl ? "hover:opacity-90" : "opacity-50 cursor-not-allowed"
-            }`}
-            title={!bgUrl ? "Najpierw dodaj tło" : "Wyślij projekt do nas"}
-          >
-            <Send className="h-4 w-4" />
-            Wyślij projekt do nas
-          </button>
+              <button
+                type="button"
+                onClick={sendToForm}
+                className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-teal-500 to-cyan-500 px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+              >
+                <Send className="h-4 w-4" />
+                Wyślij projekt do nas
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -263,109 +257,28 @@ export default function Visualizer() {
 
         {/* GRAFIKA */}
         {fgUrl && (
-          <>
-            <img
-              ref={fgImgRef}
-              src={fgUrl}
-              alt="Grafika"
-              className="absolute left-0 top-0 select-none"
-              style={{
-                width: `${fgDisplayWidth}px`,
-                height: `${fgDisplayHeight}px`,
-                transform: `translate(${pos.x - fgDisplayWidth / 2}px, ${
-                  pos.y - fgDisplayHeight / 2
-                }px) rotate(${rotation}deg)`,
-                transformOrigin: "center center",
-                cursor: dragRef.current ? "grabbing" : "grab",
-                touchAction: "none",
-              }}
-              draggable={false}
-              onDragStart={(e) => e.preventDefault()}
-              onPointerDown={onPointerDown}
-              onPointerMove={onPointerMove}
-              onPointerUp={onPointerUp}
-              onPointerCancel={onPointerUp}
-            />
-
-            {/* panele suwaków */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-md bg-white/90 p-3 shadow">
-              <div className="flex flex-wrap items-center gap-4">
-                {/* SKALA + input % */}
-                <label className="flex items-center gap-2 text-sm">
-                  Skala
-                  <input
-                    type="range"
-                    min={0.2}
-                    max={3}
-                    step={0.01}
-                    value={scale}
-                    onChange={(e) => setScale(parseFloat(e.target.value))}
-                  />
-                  <div className="flex items-center gap-1">
-                    <input
-                      type="number"
-                      className="w-16 rounded border px-2 py-1 text-xs"
-                      min={20}
-                      max={300}
-                      step={1}
-                      value={Math.round(scale * 100)}
-                      onChange={(e) => {
-                        const pct = clamp(
-                          parseFloat(e.target.value || "100"),
-                          20,
-                          300
-                        );
-                        setScale(pct / 100);
-                      }}
-                      onBlur={(e) => {
-                        const pct = clamp(
-                          parseFloat(e.target.value || "100"),
-                          20,
-                          300
-                        );
-                        setScale(pct / 100);
-                      }}
-                    />
-                    <span className="text-xs text-neutral-600">%</span>
-                  </div>
-                </label>
-
-                {/* OBRÓT + input ° */}
-                <label className="flex items-center gap-2 text-sm">
-                  Obrót
-                  <input
-                    type="range"
-                    min={-180}
-                    max={180}
-                    step={1}
-                    value={rotation}
-                    onChange={(e) => setRotation(parseFloat(e.target.value))}
-                  />
-                  <div className="flex items-center gap-1">
-                    <input
-                      type="number"
-                      className="w-16 rounded border px-2 py-1 text-xs"
-                      min={-180}
-                      max={180}
-                      step={1}
-                      value={Math.round(rotation)}
-                      onChange={(e) =>
-                        setRotation(
-                          clamp(parseFloat(e.target.value || "0"), -180, 180)
-                        )
-                      }
-                      onBlur={(e) =>
-                        setRotation(
-                          clamp(parseFloat(e.target.value || "0"), -180, 180)
-                        )
-                      }
-                    />
-                    <span className="text-xs text-neutral-600">°</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-          </>
+          <img
+            ref={fgImgRef}
+            src={fgUrl}
+            alt="Grafika"
+            className="absolute left-0 top-0 select-none  border-2 border-blue-400 shadow-sm"
+            style={{
+              width: `${fgDisplayWidth}px`,
+              height: `${fgDisplayHeight}px`,
+              transform: `translate(${pos.x - fgDisplayWidth / 2}px, ${
+                pos.y - fgDisplayHeight / 2
+              }px) rotate(${rotation}deg)`,
+              transformOrigin: "center center",
+              cursor: dragRef.current ? "grabbing" : "grab",
+              touchAction: "none",
+            }}
+            draggable={false}
+            onDragStart={(e) => e.preventDefault()}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+          />
         )}
 
         {!bgUrl && (
@@ -377,6 +290,85 @@ export default function Visualizer() {
           </div>
         )}
       </div>
+
+      {/* TOOLBOX pod canvase */}
+      {fgUrl && (
+        <div className="mt-4 rounded-md bg-white/90 p-3 shadow flex flex-wrap items-center justify-center gap-6">
+          {/* SKALA + input % */}
+          <label className="flex items-center gap-2 text-sm">
+            Skala
+            <input
+              type="range"
+              min={0.2}
+              max={3}
+              step={0.01}
+              value={scale}
+              onChange={(e) => setScale(parseFloat(e.target.value))}
+            />
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                className="w-16 rounded border px-2 py-1 text-xs"
+                min={20}
+                max={300}
+                step={1}
+                value={Math.round(scale * 100)}
+                onChange={(e) => {
+                  const pct = clamp(
+                    parseFloat(e.target.value || "100"),
+                    20,
+                    300
+                  );
+                  setScale(pct / 100);
+                }}
+                onBlur={(e) => {
+                  const pct = clamp(
+                    parseFloat(e.target.value || "100"),
+                    20,
+                    300
+                  );
+                  setScale(pct / 100);
+                }}
+              />
+              <span className="text-xs text-neutral-600">%</span>
+            </div>
+          </label>
+
+          {/* OBRÓT + input ° */}
+          <label className="flex items-center gap-2 text-sm">
+            Obrót
+            <input
+              type="range"
+              min={-180}
+              max={180}
+              step={1}
+              value={rotation}
+              onChange={(e) => setRotation(parseFloat(e.target.value))}
+            />
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                className="w-16 rounded border px-2 py-1 text-xs"
+                min={-180}
+                max={180}
+                step={1}
+                value={Math.round(rotation)}
+                onChange={(e) =>
+                  setRotation(
+                    clamp(parseFloat(e.target.value || "0"), -180, 180)
+                  )
+                }
+                onBlur={(e) =>
+                  setRotation(
+                    clamp(parseFloat(e.target.value || "0"), -180, 180)
+                  )
+                }
+              />
+              <span className="text-xs text-neutral-600">°</span>
+            </div>
+          </label>
+        </div>
+      )}
 
       {/* Instrukcja */}
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
