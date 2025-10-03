@@ -4,6 +4,7 @@ import { ShinyWord } from "../navbar/ShinyWord";
 import { Tabs } from "@/components/ui/tabs";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
+import RevealOnScroll from "../assets/RevealWrapper";
 
 type Material = { label: string; img: string };
 type Category = {
@@ -164,9 +165,11 @@ export default function Surfaces() {
           Drukujemy na każdej <ShinyWord>powierzchni</ShinyWord>
         </Title>
 
-        <div className="mt-12 h-[40rem] md:h-[20rem] [perspective:10000px]   relative  flex flex-col  mx-auto w-full  items-start justify-start mb-20">
-          <Tabs tabs={surfaces} />
-        </div>
+        <RevealOnScroll>
+          <div className="mt-12 h-[40rem] md:h-[20rem] [perspective:10000px]   relative  flex flex-col  mx-auto w-full  items-start justify-start mb-20">
+            <Tabs tabs={surfaces} />
+          </div>
+        </RevealOnScroll>
       </Container>
     </section>
   );

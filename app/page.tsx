@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="relative mt-20 space-y-12 lg:space-y-24">
+      <main className="relative mt-20 space-y-12 lg:space-y-24 overflow-hidden ">
         <Hero />
         <About />
         <BeforeAfter />

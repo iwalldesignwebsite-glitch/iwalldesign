@@ -11,6 +11,7 @@ import CardWhere from "./CardWhere";
 import { ShinyWord } from "../navbar/ShinyWord";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
+import RevealOnScroll from "../assets/RevealWrapper";
 
 const CardsInfo = [
   {
@@ -79,14 +80,15 @@ function WhereUV() {
           Gdzie <ShinyWord>druk UV</ShinyWord> sprawdza się najlepiej?
         </Title>
         <div className="mt-10  grid grid-cols-1 gap-10 justify-items-center  md:grid-cols-2  lg:grid-cols-3 lg:gap-16 ">
-          {CardsInfo.map((card) => (
-            <CardWhere
-              key={card.title}
-              image={card.image}
-              title={card.title}
-              description={card.description}
-              Icon={card.icon}
-            />
+          {CardsInfo.map((card, id) => (
+            <RevealOnScroll key={card.title} delay={+`0.${id}`}>
+              <CardWhere
+                image={card.image}
+                title={card.title}
+                description={card.description}
+                Icon={card.icon}
+              />
+            </RevealOnScroll>
           ))}
         </div>
       </Container>

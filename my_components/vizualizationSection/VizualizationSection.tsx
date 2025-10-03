@@ -6,6 +6,7 @@ import Image from "next/image";
 import Container from "../assets/Container";
 import Title from "../assets/Title";
 import { ShinyWord } from "../navbar/ShinyWord";
+import RevealOnScroll from "../assets/RevealWrapper";
 
 export function VisualizerSection() {
   return (
@@ -13,7 +14,6 @@ export function VisualizerSection() {
       id="wizualizator"
       aria-labelledby="wiz-title"
       aria-describedby="wiz-lead"
-      className="scroll-mt-14 lg:scroll-mt-16"
     >
       <Container>
         <div className="flex flex-col gap-10 md:gap-12 lg:gap-14 xl:gap-12">
@@ -31,23 +31,23 @@ export function VisualizerSection() {
             </Title>
           </div>
 
-          {/* Oś kroków */}
           <ol className="flex flex-col gap-16 md:gap-20 lg:gap-16 xl:gap-0">
-            {/* KROK 1 */}
             <li className="relative grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-10 lg:gap-12 pb-10 md:pb-14">
-              <div className="justify-self-center">
-                <div className="relative w-full max-w-[250px] md:max-w-[300px] lg:max-w-[340px]">
-                  <div className="absolute inset-0 rounded-2xl bg-gray-200/70 blur-2xl" />
-                  <Image
-                    src="/assets/images/timeline/uploadStep.png"
-                    alt="Krok 1 — przesyłanie zdjęcia powierzchni"
-                    width={800}
-                    height={520}
-                    className="relative z-10 w-full h-auto rounded-xl"
-                    priority
-                  />
+              <RevealOnScroll>
+                <div className="justify-self-center">
+                  <div className="relative w-full max-w-[250px] md:max-w-[300px] lg:max-w-[340px]">
+                    <div className="absolute inset-0 rounded-2xl bg-gray-200/70 blur-2xl" />
+                    <Image
+                      src="/assets/images/timeline/uploadStep.png"
+                      alt="Krok 1 — przesyłanie zdjęcia powierzchni"
+                      width={800}
+                      height={520}
+                      className="relative z-10 w-full h-auto rounded-xl"
+                      priority
+                    />
+                  </div>
                 </div>
-              </div>
+              </RevealOnScroll>
 
               <div className="max-w-prose justify-self-center md:justify-self-start">
                 <div className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full border font-semibold">
@@ -60,7 +60,6 @@ export function VisualizerSection() {
                 </p>
               </div>
 
-              {/* Strzałka — tylko od md */}
               <Image
                 src="/assets/images/timeline/arrow-down-first.png"
                 alt=""
@@ -71,19 +70,20 @@ export function VisualizerSection() {
               />
             </li>
 
-            {/* KROK 2 */}
             <li className="relative grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-10 lg:gap-12 pb-10 md:pb-14">
               <div className="order-1 md:order-2 justify-self-center">
-                <div className="relative w-full max-w-[250px] md:max-w-[300px] lg:max-w-[340px]">
-                  <div className="absolute inset-0 rounded-2xl bg-gray-200/70 blur-2xl" />
-                  <Image
-                    src="/assets/images/timeline/adjustStep.png"
-                    alt="Krok 2 — dopasowanie grafiki"
-                    width={800}
-                    height={520}
-                    className="relative z-10 w-full h-auto rounded-xl"
-                  />
-                </div>
+                <RevealOnScroll>
+                  <div className="relative w-full max-w-[250px] md:max-w-[300px] lg:max-w-[340px]">
+                    <div className="absolute inset-0 rounded-2xl bg-gray-200/70 blur-2xl" />
+                    <Image
+                      src="/assets/images/timeline/adjustStep.png"
+                      alt="Krok 2 — dopasowanie grafiki"
+                      width={800}
+                      height={520}
+                      className="relative z-10 w-full h-auto rounded-xl"
+                    />
+                  </div>
+                </RevealOnScroll>
               </div>
 
               <div className="order-2 md:order-1 max-w-prose justify-self-center md:justify-self-start">
@@ -99,7 +99,6 @@ export function VisualizerSection() {
                 </p>
               </div>
 
-              {/* Strzałka — tylko od md */}
               <Image
                 src="/assets/images/timeline/arrow-down-second.png"
                 alt=""
@@ -109,21 +108,21 @@ export function VisualizerSection() {
                 className="hidden md:block pointer-events-none select-none absolute left-1/2 -translate-x-1/2 bottom-[-26px] w-24 md:w-28 lg:w-32 rotate-15"
               />
             </li>
-
-            {/* KROK 3 */}
             <li className="relative grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-10 lg:gap-12">
-              <div className="justify-self-center">
-                <div className="relative w-full max-w-[250px] md:max-w-[300px] lg:max-w-[340px]">
-                  <div className="absolute inset-0 rounded-2xl bg-gray-200/70 blur-2xl" />
-                  <Image
-                    src="/assets/images/timeline/finalStep.png"
-                    alt="Krok 3 — realistyczny podgląd i zatwierdzenie"
-                    width={800}
-                    height={520}
-                    className="relative z-10 w-full h-auto rounded-xl"
-                  />
+              <RevealOnScroll>
+                <div className="justify-self-center">
+                  <div className="relative w-full max-w-[250px] md:max-w-[300px] lg:max-w-[340px]">
+                    <div className="absolute inset-0 rounded-2xl bg-gray-200/70 blur-2xl" />
+                    <Image
+                      src="/assets/images/timeline/finalStep.png"
+                      alt="Krok 3 — realistyczny podgląd i zatwierdzenie"
+                      width={800}
+                      height={520}
+                      className="relative z-10 w-full h-auto rounded-xl"
+                    />
+                  </div>
                 </div>
-              </div>
+              </RevealOnScroll>
 
               <div className="max-w-prose justify-self-center md:justify-self-start">
                 <div className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full border font-semibold">

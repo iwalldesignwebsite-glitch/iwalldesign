@@ -6,6 +6,7 @@ import { AlarmClockCheck, Mail, MapPinned, Phone } from "lucide-react";
 import ContactForm from "./ContactForm";
 import Container from "../assets/Container";
 import AlertToast from "./AlertToast";
+import RevealOnScroll from "../assets/RevealWrapper";
 
 const content = {
   titleId: "kontakt-tytuł",
@@ -21,7 +22,7 @@ export default function Contact() {
       id="kontakt"
       aria-labelledby="kontakt-tytuł"
       aria-describedby="kontakt-lead"
-      className="mx-auto relative  px-4  scroll-mt-14 lg:scroll-mt-16"
+      className="mx-auto relative  px-4  "
     >
       <Container>
         <Title
@@ -37,7 +38,6 @@ export default function Contact() {
         </Title>
 
         <div className="mt-10 grid gap-8 md:grid-cols-2">
-          {/* LEWA KOLUMNA */}
           <aside className="space-y-6">
             <section
               aria-labelledby="skontaktuj-się"
@@ -52,80 +52,90 @@ export default function Contact() {
 
               <address className="not-italic">
                 <ul className="space-y-12 text-lg">
-                  <li className="flex items-center gap-3 ">
-                    <span
-                      aria-hidden
-                      className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
-                    >
-                      <Mail className=" aspect-square" />
-                    </span>
-                    <div className=" h-full flex flex-col items-start ">
-                      <span className="text-sm text-black/40">
-                        Napisz do nas!
-                      </span>
-                      <a
-                        href="mailto:example@mail.com"
-                        className="underline-offset-2 hover:underline font-semibold"
+                  <RevealOnScroll>
+                    <li className="flex items-center gap-3 ">
+                      <span
+                        aria-hidden
+                        className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
                       >
-                        example@mail.com
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-center gap-3 ">
-                    <span
-                      aria-hidden
-                      className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
-                    >
-                      <Phone className=" aspect-square" />
-                    </span>
-                    <div className=" h-full flex flex-col items-start ">
-                      <span className="text-sm text-black/40">
-                        Zadzwoń do nas
+                        <Mail className=" aspect-square" />
                       </span>
-                      <a
-                        href="tel:+48123456789"
-                        className="underline-offset-2 hover:underline font-semibold"
+                      <div className=" h-full flex flex-col items-start ">
+                        <span className="text-sm text-black/40">
+                          Napisz do nas!
+                        </span>
+                        <a
+                          href="mailto:example@mail.com"
+                          className="underline-offset-2 hover:underline font-semibold"
+                        >
+                          example@mail.com
+                        </a>
+                      </div>
+                    </li>
+                  </RevealOnScroll>
+                  <RevealOnScroll delay={0.2}>
+                    <li className="flex items-center gap-3 ">
+                      <span
+                        aria-hidden
+                        className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
                       >
-                        +48 123 456 789
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-center gap-3 ">
-                    <span
-                      aria-hidden
-                      className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
-                    >
-                      <MapPinned className=" aspect-square" />
-                    </span>
-                    <div className=" h-full flex flex-col items-start ">
-                      <span className="text-sm text-black/40">Odwiedź nas</span>
-                      <span className="font-semibold">
-                        Ul. Drukarek 5, 75-344 Koszalin
+                        <Phone className=" aspect-square" />
                       </span>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3 ">
-                    <span
-                      aria-hidden
-                      className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
-                    >
-                      <AlarmClockCheck className=" aspect-square" />
-                    </span>
-                    <div className=" h-full flex flex-col items-start ">
-                      <span className="text-sm text-black/40">
-                        Szybka odpowiedź
+                      <div className=" h-full flex flex-col items-start ">
+                        <span className="text-sm text-black/40">
+                          Zadzwoń do nas
+                        </span>
+                        <a
+                          href="tel:+48123456789"
+                          className="underline-offset-2 hover:underline font-semibold"
+                        >
+                          +48 123 456 789
+                        </a>
+                      </div>
+                    </li>
+                  </RevealOnScroll>
+                  <RevealOnScroll delay={0.4}>
+                    <li className="flex items-center gap-3 ">
+                      <span
+                        aria-hidden
+                        className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
+                      >
+                        <MapPinned className=" aspect-square" />
                       </span>
-                      <span className="font-semibold">
-                        Odpowiadamy tego samego dnia
+                      <div className=" h-full flex flex-col items-start ">
+                        <span className="text-sm text-black/40">
+                          Odwiedź nas
+                        </span>
+                        <span className="font-semibold">
+                          Ul. Drukarek 5, 75-344 Koszalin
+                        </span>
+                      </div>
+                    </li>
+                  </RevealOnScroll>
+                  <RevealOnScroll delay={0.6}>
+                    <li className="flex items-start gap-3 ">
+                      <span
+                        aria-hidden
+                        className="mt-0.5  p-3 rounded-md bg-gray-200 text-gray-500"
+                      >
+                        <AlarmClockCheck className=" aspect-square" />
                       </span>
-                      <span className="text-xs text-black/40">
-                        Dokładamy wszelkich starań aby dostarczyć Wam
-                        natychmiastowych odpowiedzi, jednak w wyjątkowych
-                        sytuacjach czas odpowiedzi może wydłużyć się do 24h.
-                        Dziękujemy za cierpliwość!
-                      </span>
-                    </div>
-                  </li>
+                      <div className=" h-full flex flex-col items-start ">
+                        <span className="text-sm text-black/40">
+                          Szybka odpowiedź
+                        </span>
+                        <span className="font-semibold">
+                          Odpowiadamy tego samego dnia
+                        </span>
+                        <span className="text-xs text-black/40">
+                          Dokładamy wszelkich starań aby dostarczyć Wam
+                          natychmiastowych odpowiedzi, jednak w wyjątkowych
+                          sytuacjach czas odpowiedzi może wydłużyć się do 24h.
+                          Dziękujemy za cierpliwość!
+                        </span>
+                      </div>
+                    </li>
+                  </RevealOnScroll>
                 </ul>
               </address>
             </section>

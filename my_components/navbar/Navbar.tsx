@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const SECTIONS = [
@@ -17,56 +17,25 @@ const SECTIONS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
-  // Zablokuj scroll gdy panel mobilny otwarty + ESC zamyka
+  // Zablokuj scroll tła kiedy panel mobilny jest otwarty
   useEffect(() => {
-    const { documentElement, body } = document;
+    const { body } = document;
     if (open) {
-      documentElement.style.overflow = "hidden";
       body.style.overflow = "hidden";
       body.style.touchAction = "none";
     } else {
-      documentElement.style.overflow = "";
       body.style.overflow = "";
       body.style.touchAction = "";
     }
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("keydown", onEsc);
-    return () => document.removeEventListener("keydown", onEsc);
   }, [open]);
-
-  // Smooth scroll z offsetem headera
-  const scrollWithOffset = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    const header = document.querySelector<HTMLElement>("[data-sticky-header]");
-    if (!el) return;
-    const headerH = header?.offsetHeight ?? 0;
-    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 6;
-    window.scrollTo({ top, behavior: "smooth" });
-  }, []);
-
-  const onSectionClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    slug: string
-  ) => {
-    e.preventDefault();
-    setOpen(false);
-    if (location.pathname !== "/") {
-      history.pushState(null, "", `/#${slug}`);
-      location.assign(`/#${slug}`);
-      return;
-    }
-    scrollWithOffset(slug);
-    history.pushState(null, "", `#${slug}`);
-  };
 
   const linkCls =
     "relative px-2 py-3 font-medium text-gray-800 transition-colors duration-200 hover:text-black " +
-    "after:absolute after:content-[''] after:left-0 after:bottom-1 after:h-[2px] after:w-0 after:bg-teal-500 " +
+    "after:absolute after:left-0 after:bottom-1 after:h-[2px] after:w-0 after:bg-teal-500 " +
     "after:transition-all after:duration-300 hover:after:w-full";
 
   return (
     <>
-      {/* FIX: zawsze fixed; żadnych transformów. Półprzezroczne tło + blur dla czytelności */}
       <header
         className="fixed inset-x-0 top-0 z-[100] border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
         data-sticky-header
@@ -77,13 +46,6 @@ export default function Navbar() {
             href="/"
             aria-label="Strona główna"
             className="flex items-center gap-2"
-            onClick={(e) => {
-              if (location.pathname === "/") {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-                history.pushState(null, "", "/");
-              }
-            }}
           >
             <Image
               src="/assets/images/logo.png"
@@ -97,11 +59,7 @@ export default function Navbar() {
           <ul className="flex items-center gap-8">
             {SECTIONS.map(({ slug, label }) => (
               <li key={slug}>
-                <Link
-                  href={`/#${slug}`}
-                  className={linkCls}
-                  onClick={(e) => onSectionClick(e, slug)}
-                >
+                <Link href={`/#${slug}`} className={linkCls}>
                   {label}
                 </Link>
               </li>
@@ -122,13 +80,6 @@ export default function Navbar() {
             href="/"
             aria-label="Strona główna"
             className="flex items-center"
-            onClick={(e) => {
-              if (location.pathname === "/") {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-                history.pushState(null, "", "/");
-              }
-            }}
           >
             <Image
               src="/assets/images/logo.png"
@@ -148,11 +99,20 @@ export default function Navbar() {
           </button>
         </div>
 
+        {/* MOBILE – overlay blokujący scroll i zamykający panel po tapnięciu */}
+        {open && (
+          <button
+            aria-hidden
+            onClick={() => setOpen(false)}
+            className="lg:hidden fixed top-14 left-0 right-0 bottom-0 z-[80] bg-black/20"
+          />
+        )}
+
         {/* MOBILE – panel */}
         <div
           className={[
             "lg:hidden fixed left-0 right-0 z-[90]",
-            "top-14", // pod belką 56px
+            "top-14", // 56px (h-14)
             "bg-white border-t shadow-sm",
             "transition-[max-height] duration-300 overflow-hidden",
             open ? "max-h-[calc(100dvh-56px)]" : "max-h-0",
@@ -163,7 +123,7 @@ export default function Navbar() {
               <li key={slug} className="border-b">
                 <Link
                   href={`/#${slug}`}
-                  onClick={(e) => onSectionClick(e, slug)}
+                  onClick={() => setOpen(false)}
                   className={linkCls + " block w-full"}
                 >
                   {label}
@@ -182,9 +142,6 @@ export default function Navbar() {
           </ul>
         </div>
       </header>
-
-      {/* SPACER pod fixed headerem (zapobiega "podskakiwaniu" contentu) */}
-      <div aria-hidden className="h-14 lg:h-16" />
     </>
   );
 }

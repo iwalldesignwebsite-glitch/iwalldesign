@@ -4,6 +4,7 @@ import PriceCard from "./PriceCard";
 import { Send } from "lucide-react";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
+import RevealOnScroll from "../assets/RevealWrapper";
 
 const PricingCardsInfo = [
   {
@@ -53,7 +54,6 @@ const content = {
 function Pricing() {
   return (
     <section
-      className="scroll-mt-14 lg:scroll-mt-16 "
       aria-labelledby="cennik"
       aria-describedby="lead-cennik"
       id="cennik"
@@ -68,15 +68,16 @@ function Pricing() {
           <ShinyWord>ile kosztuje druk UV.</ShinyWord>
         </Title>
         <div className="mt-10 grid grid-cols-1 gap-12 xl:gap-36 lg:grid-cols-3  ">
-          {PricingCardsInfo.map((card) => (
-            <PriceCard
-              key={card.title}
-              image={card.image}
-              title={card.title}
-              pros={card.pros}
-              price={card.price}
-              unit={card.unit}
-            />
+          {PricingCardsInfo.map((card, id) => (
+            <RevealOnScroll key={card.title} delay={+`0.${id}`}>
+              <PriceCard
+                image={card.image}
+                title={card.title}
+                pros={card.pros}
+                price={card.price}
+                unit={card.unit}
+              />
+            </RevealOnScroll>
           ))}
         </div>
         <div className="space-y-4 text-center mt-16 max-w-3xl mx-auto">

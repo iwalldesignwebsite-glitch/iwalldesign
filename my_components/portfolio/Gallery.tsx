@@ -72,7 +72,7 @@ const content = {
 function Gallery() {
   return (
     <section
-      className="scroll-mt-14 lg:scroll-mt-16 "
+      
       aria-labelledby="realizacje-druku-uv"
       aria-describedby="lead-realizacje-druku-uv"
       id="realizacje"

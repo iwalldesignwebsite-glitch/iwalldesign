@@ -4,6 +4,7 @@ import Title from "../assets/Title";
 import Container from "../assets/Container";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import List from "./List";
+import RevealOnScroll from "../assets/RevealWrapper";
 
 const images = [
   {
@@ -41,7 +42,6 @@ export default function AboutSection() {
       id="o-nas"
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
-      className="scroll-mt-14 lg:scroll-mt-16"
     >
       <Container>
         <div className="grid items-start gap-10 lg:grid-cols-2">
@@ -59,13 +59,17 @@ export default function AboutSection() {
                 materiałów po montaż. Dbamy o kolory, detale i terminowość.
               </p>
             </div>
-            <List />
+            <RevealOnScroll>
+              <List />
+            </RevealOnScroll>
           </div>
 
           <div className="space-y-6 ">
-            <div className="mx-auto w-full">
-              <AnimatedTestimonials testimonials={images} />
-            </div>
+            <RevealOnScroll>
+              <div className="mx-auto w-full">
+                <AnimatedTestimonials testimonials={images} />
+              </div>
+            </RevealOnScroll>
 
             <StatCard />
           </div>

@@ -1,6 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
+import RevealOnScroll from "../assets/RevealWrapper";
 
 const content = {
   titleId: "lokalizacja",
@@ -43,19 +44,20 @@ export default function Map() {
               </div>
             </address>
           </div>
-
-          <div className="w-full">
-            <div className="relative w-full overflow-hidden rounded-md shadow aspect-square md:max-h-[400px]">
-              <iframe
-                title="Mapa Koszalina"
-                aria-label="Mapa Koszalina"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12248.76426043767!2d16.1619351!3d54.1947325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4700f0a4a62d91f3%3A0x84c17ed3d2f1b2d9!2sKoszalin!5e0!3m2!1spl!2spl!4v1694091200000"
-                className="absolute inset-0 h-full w-full border-0"
-              />
+          <RevealOnScroll>
+            <div className="w-full">
+              <div className="relative w-full overflow-hidden rounded-md shadow aspect-square md:max-h-[400px]">
+                <iframe
+                  title="Mapa Koszalina"
+                  aria-label="Mapa Koszalina"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12248.76426043767!2d16.1619351!3d54.1947325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4700f0a4a62d91f3%3A0x84c17ed3d2f1b2d9!2sKoszalin!5e0!3m2!1spl!2spl!4v1694091200000"
+                  className="absolute inset-0 h-full w-full border-0"
+                />
+              </div>
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </Container>
     </section>

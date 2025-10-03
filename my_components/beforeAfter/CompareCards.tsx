@@ -1,9 +1,11 @@
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-import { Layers } from "lucide-react";
+import RevealOnScroll from "../assets/RevealWrapper";
 export function CompareCards() {
   return (
     <div className="max-w-5xl">
-      <HoverEffect items={projects} />
+      <RevealOnScroll>
+        <HoverEffect items={projects} />
+      </RevealOnScroll>
     </div>
   );
 }

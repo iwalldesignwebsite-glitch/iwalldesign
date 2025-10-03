@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { ShinyWord } from "../navbar/ShinyWord";
+import RevealOnScroll from "../assets/RevealWrapper";
 export default function Hero() {
   return (
     <section className="bg-white " aria-labelledby="hero-heading" id="/">
@@ -46,18 +47,24 @@ export default function Hero() {
             </a>
           </div>
           <div className="grid grid-cols-3 place-items-center  border-t-2 border-black/20 pt-5 xl:pt-10">
-            <div className="flex flex-col items-center text-black/50 space-y-2">
-              <BrickWall />
-              <span>Ściany</span>
-            </div>
-            <div className="flex flex-col items-center text-black/50 space-y-2">
-              <Columns3 />
-              <span>Podłogi</span>
-            </div>
-            <div className="flex flex-col items-center text-black/50 space-y-2">
-              <Shirt />
-              <span>Odzież</span>
-            </div>
+            <RevealOnScroll>
+              <div className="flex flex-col items-center text-black/50 space-y-2">
+                <BrickWall />
+                <span>Ściany</span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll delay={0.2}>
+              <div className="flex flex-col items-center text-black/50 space-y-2">
+                <Columns3 />
+                <span>Podłogi</span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll delay={0.4}>
+              <div className="flex flex-col items-center text-black/50 space-y-2">
+                <Shirt />
+                <span>Odzież</span>
+              </div>
+            </RevealOnScroll>
           </div>
         </div>
         <div className="w-[95%] md:w-[95%] grid grid-cols-12 gap-3  lg:gap-5 lg:max-w-[500px]">

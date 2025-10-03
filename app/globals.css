@@ -2,6 +2,21 @@
 @import "tw-animate-css";
 
 /* @custom-variant dark (&:is(.dark *)); */
+
+:root {
+  --header-h-mobile: 56px; /* h-14 */
+  --header-h-desktop: 56px; /* h-16 */
+}
+
+[id] {
+  scroll-margin-top: var(--header-h-mobile);
+}
+@media (min-width: 1024px) {
+  [id] {
+    scroll-margin-top: var(--header-h-desktop);
+  }
+}
+
 .scroller {
   --animation-direction: forwards;
   --animation-duration: 40s;
@@ -13,7 +28,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 @keyframes scroll {
