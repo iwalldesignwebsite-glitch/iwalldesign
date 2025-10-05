@@ -36,14 +36,23 @@ export default function GalleryGrid({ cards }: Props) {
     <div className="w-full mx-auto">
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-12 xl:grid-flow-dense ">
         {cards.map((card) => (
-          <div
+          <RevealOnScroll
             key={card.id}
+            delay={0.5 * Math.random()}
             className={cn(
               "relative rounded-xl overflow-hidden shadow-sm bg-white",
               "aspect-square md:aspect-[4/2]",
               card.className
             )}
           >
+            {/* <div
+              key={card.id}
+              className={cn(
+                "relative rounded-xl overflow-hidden shadow-sm bg-white",
+                "aspect-square md:aspect-[4/2]",
+                card.className
+              )}
+            > */}
             <motion.img
               src={card.thumbnail}
               alt={card.content}
@@ -61,7 +70,8 @@ export default function GalleryGrid({ cards }: Props) {
                 {card.content}
               </span>
             </div>
-          </div>
+            {/* </div> */}
+          </RevealOnScroll>
         ))}
       </div>
 

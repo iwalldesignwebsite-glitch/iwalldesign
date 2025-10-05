@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-[100] border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
+        className="fixed inset-x-0 top-0 z-[100] border-b bg-white   "
         data-sticky-header
       >
         {/* DESKTOP */}
@@ -50,8 +50,8 @@ export default function Navbar() {
             <Image
               src="/assets/images/logo.png"
               alt="iWallDesign logo"
-              width={150}
-              height={40}
+              width={140}
+              height={70}
               priority
             />
           </Link>
@@ -84,8 +84,8 @@ export default function Navbar() {
             <Image
               src="/assets/images/logo.png"
               alt="iWallDesign logo"
-              width={120}
-              height={60}
+              width={100}
+              height={50}
               priority
             />
           </Link>
@@ -99,7 +99,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* MOBILE – overlay blokujący scroll i zamykający panel po tapnięciu */}
         {open && (
           <button
             aria-hidden
@@ -108,7 +107,6 @@ export default function Navbar() {
           />
         )}
 
-        {/* MOBILE – panel */}
         <div
           className={[
             "lg:hidden fixed left-0 right-0 z-[90]",
