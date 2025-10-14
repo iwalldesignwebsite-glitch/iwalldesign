@@ -5,6 +5,7 @@ import { Tabs } from "@/components/ui/tabs";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
 import RevealOnScroll from "../assets/RevealWrapper";
+import ContactBtn from "../assets/ContactBtn";
 
 type Material = { label: string; img: string };
 type Category = {
@@ -147,7 +148,7 @@ const content = {
   titleId: "powierzchnie",
   leadId: "lead-powierzchnie",
   description:
-    "Poznaj szeroką gamę materiałów do druku UV – od ścian i podłóg po tekstylia. Oferujemy nadruki na betonie, cegle, parkiecie, panelach winylowych, bawełnie, poliestrze i wielu innych powierzchniach.",
+    "Poznaj szeroką gamę materiałów do druku UV – od ścian i podłóg po tekstylia. Drukujemy na niemal każdej płaskiej powierzchni: betonie, szkle, drewnie, panelach winylowych, tkaninach i wielu innych. Warunek jest jeden – powierzchnia musi być płaska, bez wypukleń. Jeśli nie masz pewności, czy Twój materiał się nadaje – skontaktuj się z nami, a doradzimy. Poniżej znajdziesz tylko przykładowe podłoża, na których wykonujemy nadruki.",
 };
 
 export default function Surfaces() {
@@ -162,22 +163,28 @@ export default function Surfaces() {
           description={content.description}
           lead={content.leadId}
         >
-          Drukujemy na każdej <ShinyWord>powierzchni</ShinyWord>
+          Druk UV na każdej <ShinyWord>płaskiej powierzchni</ShinyWord>
         </Title>
 
         <RevealOnScroll>
-          <div className="mt-12 h-[40rem] md:h-[20rem] [perspective:10000px]   relative  flex flex-col  mx-auto w-full  items-start justify-start mb-20">
+          <div className="mt-12 h-[40rem] md:h-[20rem] [perspective:10000px]   relative  flex flex-col  mx-auto w-full  items-start justify-start mb-36">
             <Tabs tabs={surfaces} />
           </div>
         </RevealOnScroll>
+        <div className="mx-auto space-x-8 text-center flex items-center justify-center">
+          <p className="text-xl">
+            Nie jesteś pewien, czy Twój materiał się nadaje?
+          </p>
+          <ContactBtn variant="solid" />
+        </div>
       </Container>
     </section>
   );
 }
 
-function slugify(s: string) {
-  return s
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w-]+/g, "");
-}
+// function slugify(s: string) {
+//   return s
+//     .toLowerCase()
+//     .replace(/\s+/g, "-")
+//     .replace(/[^\w-]+/g, "");
+// }

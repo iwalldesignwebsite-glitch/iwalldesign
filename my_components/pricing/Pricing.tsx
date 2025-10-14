@@ -5,6 +5,7 @@ import { Send } from "lucide-react";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
 import RevealOnScroll from "../assets/RevealWrapper";
+import ContactBtn from "../assets/ContactBtn";
 
 const PricingCardsInfo = [
   {
@@ -87,13 +88,7 @@ function Pricing() {
             wyzwanie, które zamieniamy w wyjątkową realizację. Skontatuj się z
             nami i uzyskaj indywidualną ofertę dopasowaną do Twoich potrzeb.
           </p>
-          <a
-            href="#kontakt"
-            className="group inline-flex gap-1 border-2 border-emerald-500 text-emerald-500 px-6 py-3 rounded-sm shadow-md font-semibold hover:cursor-pointer hover:shadow-lg transition-shadow duration-75"
-          >
-            Napisz wiadomość!{" "}
-            <Send className="transition-transform duration-75  group-hover:translate-x-3" />
-          </a>
+          <ContactBtn variant="solid" />
         </div>
       </Container>
     </section>

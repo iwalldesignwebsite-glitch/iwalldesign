@@ -110,7 +110,7 @@ export default function Navbar() {
         <div
           className={[
             "lg:hidden fixed left-0 right-0 z-[90]",
-            "top-14", // 56px (h-14)
+            "top-14", 
             "bg-white border-t shadow-sm",
             "transition-[max-height] duration-300 overflow-hidden",
             open ? "max-h-[calc(100dvh-56px)]" : "max-h-0",

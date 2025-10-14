@@ -9,7 +9,6 @@ import {
   Shirt,
   Columns3,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { ShinyWord } from "../navbar/ShinyWord";
 import RevealOnScroll from "../assets/RevealWrapper";
 export default function Hero() {
@@ -22,8 +21,7 @@ export default function Hero() {
             okolice
           </p>
           <h1 className="text-3xl font-bold lg:text-4xl xl:text-6xl  ">
-            Każda <ShinyWord> powierzchnia </ShinyWord>
-            może być płótnem
+            Każda <ShinyWord> powierzchnia</ShinyWord> może być płótnem
           </h1>
           <h2 className="text-black/70 mb-10 xl:text-2xl xl:mb-20 ">
             Dzięki technologii druku UV wprowadzamy kolor, design i trwałość w
@@ -33,14 +31,14 @@ export default function Hero() {
           <div className="flex justify-start text-sm gap-5 mb-5 xl:text-md xl:font-regular xl:gap-5">
             <a
               href="#kontakt"
-              className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-teal-500 to-cyan-500 px-5 py-2.5 font-medium text-white hover:opacity-90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-600"
+              className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-teal-500 to-cyan-500 px-4 py-2 font-medium text-white hover:opacity-90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-600"
             >
               <Check className="scale-80 xl:scale-100" />
               Zamów nadruk
             </a>
             <a
               href="#realizacje"
-              className="inline-flex items-center gap-2 rounded-md  px-5 py-2.5 font-medium border-2 hover:bg-gray-50 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-600"
+              className="inline-flex items-center gap-2 rounded-md  px-4 py-2 font-medium border-2 hover:bg-gray-50 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-600"
             >
               <Search className="scale-80" />
               Nasze realizacje

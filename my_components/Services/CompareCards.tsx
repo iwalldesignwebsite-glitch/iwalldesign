@@ -13,7 +13,7 @@ export const projects = [
   {
     title: "Bez ograniczeń materiałowych",
     description:
-      "Ściany, podłogi, ubrania – zamień wszystko w swoje płótno. Twój pomysł, nasza technologia.",
+      "Ściany, podłogi, ubrania, szkło, metal, drewno – jeśli powierzchnia jest płaska, możemy ją zadrukować.",
     image: "Layers",
   },
   {

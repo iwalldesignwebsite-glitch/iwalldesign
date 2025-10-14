@@ -4,12 +4,13 @@ import Title from "../assets/Title";
 import { ShinyWord } from "../navbar/ShinyWord";
 import { CompareBlock } from "./CompareBlock";
 import { CompareCards } from "./CompareCards";
+import PeelSticker from "./Sticker";
 
 const content = {
   titleId: "dlaczego-druk-uv",
   leadId: "lead-dlaczego",
   description:
-    "Druk UV to technologia, która pozwala nanosić grafikę bezpośrednio na niemal każdą powierzchnię – od szkła i metalu po drewno czy tekstylia. Atrament utwardzany światłem UV daje niezwykłą trwałość i jakość, której nie zapewnią tradycyjne metody. To rozwiązanie, które łączy design, funkcjonalność i nowoczesność.",
+    "Druk UV to technologia, która pozwala nanosić grafikę bezpośrednio na niemal każdą płaską powierzchnię – od szkła, metalu i drewna, po płytki, płyty meblowe czy kompozyty. Atrament utwardzany światłem UV gwarantuje doskonałą przyczepność, głębię kolorów i trwałość, której nie zapewniają tradycyjne metody. To rozwiązanie, które łączy design, funkcjonalność i nowoczesność, pozwalając zamienić dowolny materiał w unikalny element dekoracji lub reklamy.",
 };
 
 function BeforeAfter() {
@@ -36,6 +37,13 @@ function BeforeAfter() {
             <CompareCards />
           </div>
         </div>
+      </Container>
+      <Container>
+        <PeelSticker
+          imageSrc="/assets/images/logo.png"
+          alt="Naklejka demo"
+          size={320}
+        />
       </Container>
     </section>
   );
