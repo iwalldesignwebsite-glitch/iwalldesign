@@ -45,14 +45,7 @@ export default function GalleryGrid({ cards }: Props) {
               card.className
             )}
           >
-            {/* <div
-              key={card.id}
-              className={cn(
-                "relative rounded-xl overflow-hidden shadow-sm bg-white",
-                "aspect-square md:aspect-[4/2]",
-                card.className
-              )}
-            > */}
+           
             <motion.img
               src={card.thumbnail}
               alt={card.content}

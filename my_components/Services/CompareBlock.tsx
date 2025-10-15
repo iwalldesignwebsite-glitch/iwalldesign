@@ -4,7 +4,7 @@ import RevealOnScroll from "../assets/RevealWrapper";
 
 export function CompareBlock() {
   return (
-    <div className="relative border-2 text-center shadow-md flex flex-col items-center w-[100%] md:max-w-[600px]  rounded-sm overflow-hidden">
+    <div className="relative border-2 text-center shadow-md flex flex-col items-center w-[100%] md:max-w-[500px]  rounded-sm overflow-hidden">
       <RevealOnScroll>
         <div className="aspect-square     ">
           <span className="absolute z-20 right-0 m-3 py-1 px-5 bg-gradient-to-tr from-blue-900/70 via-blue-500/80  to-emerald-500/80 rounded-sm font-medium text-white">
