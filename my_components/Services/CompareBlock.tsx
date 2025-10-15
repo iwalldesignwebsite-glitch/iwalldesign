@@ -4,9 +4,9 @@ import RevealOnScroll from "../assets/RevealWrapper";
 
 export function CompareBlock() {
   return (
-    <div className="relative border-2 text-center shadow-xl flex flex-col items-center w-[100%] md:max-w-[600px]  rounded-sm overflow-hidden">
+    <div className="relative border-2 text-center shadow-md flex flex-col items-center w-[100%] md:max-w-[600px]  rounded-sm overflow-hidden">
       <RevealOnScroll>
-        <div className="aspect-square lg:aspect-[5/8] xl:aspect-[6/5] w-[100%]   ">
+        <div className="aspect-square     ">
           <span className="absolute z-20 right-0 m-3 py-1 px-5 bg-gradient-to-tr from-blue-900/70 via-blue-500/80  to-emerald-500/80 rounded-sm font-medium text-white">
             Po nadruku UV
           </span>
@@ -20,7 +20,7 @@ export function CompareBlock() {
             autoplay={false}
           />
         </div>
-        <div className="p-4 max-w-[600px] space-y-1">
+        <div className="p-3 max-w-[600px] space-y-1">
           <p className="text-xl font-medium ">
             Ta sama przestrzeń przed i po nadruku UV
           </p>

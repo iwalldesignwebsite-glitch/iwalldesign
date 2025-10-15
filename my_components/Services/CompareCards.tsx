@@ -1,34 +1,22 @@
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import RevealOnScroll from "../assets/RevealWrapper";
-export function CompareCards() {
+
+type Project = {
+  title: string;
+  description: string;
+  image?: string; // opcjonalnie – nie każdy projekt musi mieć obrazek
+};
+
+type CompareCardsProps = {
+  projects: Project[];
+}
+
+export function CompareCards({projects}: CompareCardsProps) {
   return (
-    <div className="max-w-5xl">
+    <div className="max-w-5xl py-10 lg:py-0">
       <RevealOnScroll>
         <HoverEffect items={projects} />
       </RevealOnScroll>
     </div>
   );
 }
-export const projects = [
-  {
-    title: "Bez ograniczeń materiałowych",
-    description:
-      "Ściany, podłogi, ubrania, szkło, metal, drewno – jeśli powierzchnia jest płaska, możemy ją zadrukować.",
-    image: "Layers",
-  },
-  {
-    title: "Perfekcyjna jakość",
-    description:
-      "Fotograficzne detale, głębia barw i profesjonalne wykończenie – design, który wygląda lepiej niż w wyobraźni.",
-  },
-  {
-    title: "Niezrównana trwałość",
-    description:
-      "Kolory, które nie blakną i nadruki, które się nie ścierają – efekt, który zostaje z Tobą na długo.",
-  },
-  {
-    title: "Ekspresowa realizacja",
-    description:
-      "Nie czekasz tygodniami. Projekt dziś – efekt, który zachwyca, szybciej niż myślisz.",
-  },
-];

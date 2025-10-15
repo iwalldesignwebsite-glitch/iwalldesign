@@ -19,11 +19,3 @@ function Title({ children, titleId, lead, description }: Props) {
 }
 
 export default Title;
-
-
-const content = {
-  titleId: "dlaczego-druk-uv",
-  leadId: "lead-dlaczego",
-  description:
-    "Znudziły Cię puste ściany? Zmieńmy to! Druk UV pozwala Ci stworzyć przestrzeń, która inspiruje, zachwyca i zostaje w głowie na długo. To inwestycja w design, który naprawdę robi różnicę.",
-};

@@ -49,7 +49,6 @@ const slides: Slide[] = [
 export default function HeroNew() {
   const [i, setI] = useState(0);
   const s = slides[i];
-
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const prefersReducedMotion = useMemo(
@@ -71,7 +70,7 @@ export default function HeroNew() {
     clearTimer();
     intervalRef.current = setInterval(() => {
       setI((x) => (x + 1) % slides.length);
-    }, 5000); // resetowany co 5 sekund
+    }, 5000);
   };
 
   useEffect(() => {
@@ -81,12 +80,12 @@ export default function HeroNew() {
 
   const next = () => {
     setI((x) => (x + 1) % slides.length);
-    startTimer(); // reset timera po kliknięciu
+    startTimer();
   };
 
   const prev = () => {
     setI((x) => (x - 1 + slides.length) % slides.length);
-    startTimer(); // reset timera po kliknięciu
+    startTimer();
   };
 
   return (
@@ -94,14 +93,46 @@ export default function HeroNew() {
       id="/"
       aria-labelledby="hero-heading"
       aria-roledescription="Slajder promocyjny"
-      className="relative isolate overflow-hidden bg-white mt-14 h-[80vh] md:h-[50vh] lg:h-[50vh] xl:mt-16 xl:h-[70vh]"
+      className="relative isolate overflow-hidden bg-white mt-14 xl:mt-16     "
     >
-      {/* ===== DESKTOP TŁO (70vw po prawej, od md) ===== */}
-      <div
-        className="hidden md:block absolute inset-0 -z-10"
-        aria-hidden="true"
-      >
-        <div className="absolute inset-y-0 right-0 w-svw">
+      <div className="container  mx-auto flex flex-col items-center md:flex-row md:items-center p-2 px-5 md:px-10 lg:px-15 xl:px-20 h-[72svh] md:h-[60svh] xl:h-[72svh]">
+        {/* ===== DESKTOP TŁO (od lg) ===== */}
+        <div
+          className="hidden md:block absolute inset-0 -z-10 "
+          aria-hidden="true"
+        >
+          <div className="absolute inset-y-0 right-0 w-svw">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={s.image}
+                src={s.image}
+                alt=""
+                role="presentation"
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "auto"}
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover"
+                initial={{ opacity: 0, x: "-5%" }}
+                animate={{ opacity: 1, x: "0%" }}
+                exit={{ opacity: 0, x: "5%" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              />
+            </AnimatePresence>
+
+            <div
+              className="
+            absolute inset-0 pointer-events-none w-full
+              bg-[linear-gradient(to_right,white_0%,white_35%,rgba(255,255,255,0.1)_75%,transparent_100%)]
+            "
+            />
+          </div>
+        </div>
+
+        {/* ===== MOBILE / TABLET TŁO ===== */}
+        <div
+          className="md:hidden absolute inset-x-0 bottom-0 h-full -z-10 "
+          aria-hidden="true"
+        >
           <AnimatePresence mode="wait">
             <motion.img
               key={s.image}
@@ -112,54 +143,22 @@ export default function HeroNew() {
               fetchPriority={i === 0 ? "high" : "auto"}
               decoding="async"
               className="absolute inset-0 h-full w-full object-cover"
-              initial={{ opacity: 0, x: "-5%" }} // start lekko z lewej
-              animate={{ opacity: 1, x: "0%" }} // płynny wjazd
-              exit={{ opacity: 0, x: "5%" }} // lekki wyjazd w prawo przy zmianie
+              initial={{ opacity: 0, x: "-5%" }}
+              animate={{ opacity: 1, x: "0%" }}
+              exit={{ opacity: 0, x: "5%" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             />
           </AnimatePresence>
-
-          <div
-            className="
-              absolute inset-0 pointer-events-none w-full
-              bg-[linear-gradient(to_right,white_0%,white_45%,rgba(255,255,255,0.1)_75%,transparent_100%)]
-            "
-          />
         </div>
-      </div>
 
-      {/* ===== MOBILE TŁO ===== */}
-      <div
-        className="md:hidden absolute inset-x-0 bottom-0 h-[62vh] -z-10"
-        aria-hidden="true"
-      >
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={s.image}
-            src={s.image}
-            alt=""
-            role="presentation"
-            loading={i === 0 ? "eager" : "lazy"}
-            fetchPriority={i === 0 ? "high" : "auto"}
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover"
-            initial={{ opacity: 0, x: "-5%" }} // start lekko z lewej
-            animate={{ opacity: 1, x: "0%" }} // płynny wjazd
-            exit={{ opacity: 0, x: "5%" }} // lekki wyjazd w prawo przy zmianie
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          />
-        </AnimatePresence>
-      </div>
-
-      <div
-        className="md:hidden absolute inset-0 pointer-events-none -z-10 
+        <div
+          className="md:hidden absolute inset-0 pointer-events-none -z-10 
                    bg-[linear-gradient(to_bottom,white_0%,white_25%,rgba(255,255,255,0.7),transparent_100%)]"
-        aria-hidden="true"
-      />
+          aria-hidden="true"
+        />
 
-      {/* ===== KOLUMNA TEKSTOWA ===== */}
-      <Container className="items-center md:items-start md:justify-center h-full">
-        <div className="max-w-[500px] z-10 mt-5 md:max-w-[400px] md:mt-0 xl:max-w-[600px]">
+        {/* ===== TEKST ===== py-32 md:py-20 lg:py-26 xl:py-32 */}
+        <div className="max-w-[500px] z-10  md:max-w-[400px]  xl:max-w-[650px]  py-5 ">
           <p className="inline-flex items-center justify-center gap-2 text-sm text-black/70 bg-[#16B1C2]/10 w-fit mx-auto md:mx-0 px-2 py-1 border border-[#16B1C2]/30 rounded-md">
             <MapPin className="w-4 h-4" aria-hidden="true" />
             <span>Koszalin, Kołobrzeg, Białogard i okolice</span>
@@ -190,86 +189,70 @@ export default function HeroNew() {
             </a>
           </div>
         </div>
-      </Container>
 
-      {/* ===== KONTROLKI – desktop (od md) ===== */}
-      <div
-        className="
-          absolute bottom-5 right-0 hidden md:flex w-[70vw]
-          items-center justify-center gap-3 pointer-events-none
-        "
-        role="group"
-        aria-label="Sterowanie slajdami"
-      >
-        <button
-          onClick={prev}
-          aria-label="Poprzedni slajd"
-          className="pointer-events-auto rounded-full p-2 bg-white/85 hover:bg-white transition shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
-        >
-          <ChevronLeft className="w-5 h-5 text-zinc-700" aria-hidden="true" />
-        </button>
-
-        <div className="pointer-events-auto flex flex-wrap items-center justify-center gap-2 bg-white/65 backdrop-blur px-3 py-2 rounded-full border border-white/70 shadow">
-          {slides.map((slide, idx) => (
+        {/* ===== breadcrumb ===== */}
+        <div className=" w-fit mx-auto     items-end justify-center">
+          <div
+            className="absolute right-3 bottom-3 md:right-6 md:top-6 pointer-events-none"
+            role="status"
+            aria-live="polite"
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={s.label} // ważne: zmienia się przy slajdzie
+                initial={{ opacity: 0, x: "-5%" }}
+                animate={{ opacity: 1, x: "0%" }}
+                exit={{ opacity: 0, x: "5%" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                role="status"
+                aria-live="polite"
+                className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-medium text-zinc-700 shadow"
+              >
+                {s.label}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+        </div>
+        {/* KONTROLKI*/}
+        <div className="w-full h-full   flex items-end justify-center mb-5">
+          <div
+            className="z-20 flex items-center gap-2 "
+            role="group"
+            aria-label="Sterowanie slajdami (mobile)"
+          >
             <button
-              key={slide.label}
-              onClick={() => {
-                setI(idx);
-                startTimer(); // reset timera po kliknięciu
-              }}
-              aria-label={`Pokaż slajd: ${slide.label}`}
-              className={`text-xs px-3 py-1 rounded-full border transition
-                ${
-                  idx === i
-                    ? "border-emerald-500 text-emerald-700 bg-emerald-50"
-                    : "border-transparent text-black/80 hover:bg-white/70"
-                }`}
+              onClick={prev}
+              aria-label="Poprzedni"
+              className="rounded-full p-1 bg-white/85 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
             >
-              {slide.label}
+              <ChevronLeft
+                className="w-5 h-5 text-zinc-700"
+                aria-hidden="true"
+              />
             </button>
-          ))}
+            <div className="flex gap-2 bg-white/75 px-3 py-2 rounded-full">
+              {slides.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`h-2 w-2 rounded-full transition-all ${
+                    idx === i ? "bg-emerald-500 w-4" : "bg-zinc-400"
+                  }`}
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
+            <button
+              onClick={next}
+              aria-label="Następny"
+              className="rounded-full p-1 bg-white/85 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
+            >
+              <ChevronRight
+                className="w-5 h-5 text-zinc-700"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
         </div>
-
-        <button
-          onClick={next}
-          aria-label="Następny slajd"
-          className="pointer-events-auto rounded-full p-2 bg-white/85 hover:bg-white transition shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
-        >
-          <ChevronRight className="w-5 h-5 text-zinc-700" aria-hidden="true" />
-        </button>
-      </div>
-
-      {/* ===== KONTROLKI – mobile (do md) ===== */}
-      <div
-        className="md:hidden absolute left-1/2 -translate-x-1/2 bottom-6 z-20 flex items-center gap-2"
-        role="group"
-        aria-label="Sterowanie slajdami (mobile)"
-      >
-        <button
-          onClick={prev}
-          aria-label="Poprzedni"
-          className="rounded-full p-2 bg-white/85 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
-        >
-          <ChevronLeft className="w-5 h-5 text-zinc-700" aria-hidden="true" />
-        </button>
-        <div className="flex gap-2 bg-white/75 px-3 py-2 rounded-full ">
-          {slides.map((_, idx) => (
-            <div
-              key={idx}
-              className={`h-2 w-2 rounded-full transition-all ${
-                idx === i ? "bg-emerald-500 w-4" : "bg-zinc-400"
-              }`}
-              aria-hidden="true"
-            />
-          ))}
-        </div>
-        <button
-          onClick={next}
-          aria-label="Następny"
-          className="rounded-full p-2 bg-white/85 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
-        >
-          <ChevronRight className="w-5 h-5 text-zinc-700" aria-hidden="true" />
-        </button>
       </div>
     </section>
   );
