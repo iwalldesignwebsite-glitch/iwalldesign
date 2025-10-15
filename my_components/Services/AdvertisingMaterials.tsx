@@ -13,19 +13,17 @@ const content = {
 const AdvertisingMaterials = () => {
   return (
     <Container>
-       <div className="w-full flex flex-col justify-between  items-center gap-10 ">
-
-      <Title
-        titleId={content.titleId}
-        lead={content.leadId}
-        description={content.description}
-      >
-        {" "}
-        <ShinyWord>Naklejki, plakaty i wizytówki </ShinyWord>— profesjonalny
-        druk reklamowy w Koszalinie
-      </Title>
-      <CompareCards/>
-        </div>
+      <div className="w-full flex flex-col justify-between  items-center gap-10 ">
+        <Title
+          titleId={content.titleId}
+          lead={content.leadId}
+          description={content.description}
+        >
+          {" "}
+          <ShinyWord>Naklejki, plakaty i wizytówki </ShinyWord>— profesjonalny
+          druk reklamowy w Koszalinie
+        </Title>
+      </div>
     </Container>
   );
 };
