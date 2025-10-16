@@ -119,8 +119,9 @@ import { useState, type ReactNode } from "react";
 
 type HoverItem = {
   title: string;
-  description: string;
-  icon: ReactNode; // 👈 dodajemy ikonę jako props
+  description: string | ReactNode; // ← może być JSX
+  icon: ReactNode;
+  codeblock?: ReactNode; // ← opcjonalny blok pod opisem
 };
 
 export const HoverEffect = ({
@@ -152,21 +153,17 @@ export const HoverEffect = ({
                 className="absolute inset-0 h-full w-full bg-slate-200 block rounded-sm"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.1 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.1, delay: 0.5 },
-                }}
+                animate={{ opacity: 1, transition: { duration: 0.1 } }}
+                exit={{ opacity: 0, transition: { duration: 0.1, delay: 0.5 } }}
               />
             )}
           </AnimatePresence>
 
           <Card>
             <CardTitle icon={item.icon}>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
+            <CardDescription codeblock={item.codeblock}>
+              {item.description}
+            </CardDescription>
           </Card>
         </div>
       ))}
@@ -202,7 +199,7 @@ export const CardTitle = ({
 }: {
   className?: string;
   children: ReactNode;
-  icon?: ReactNode; // 👈 przyjmujemy ikonę
+  icon?: ReactNode;
 }) => {
   return (
     <div className="flex gap-2 items-center">
@@ -219,11 +216,18 @@ export const CardTitle = ({
 export const CardDescription = ({
   className,
   children,
+  codeblock,
 }: {
   className?: string;
   children: ReactNode;
+  codeblock?: ReactNode; // ← nowy prop
 }) => {
   return (
-    <p className={cn("mt-2 text-black/70 text-sm", className)}>{children}</p>
+    <div className={cn("mt-2 text-black/70 text-sm space-y-2", className)}>
+      <p>{children}</p>
+      {codeblock && (
+        <div className="border-t border-emerald-100 pt-2">{codeblock}</div>
+      )}
+    </div>
   );
 };

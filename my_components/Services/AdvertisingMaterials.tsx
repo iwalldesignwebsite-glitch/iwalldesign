@@ -4,6 +4,7 @@ import Title from "../assets/Title";
 import { ShinyWord } from "../navbar/ShinyWord";
 import { CompareCards } from "./CompareCards";
 import { Sticker, Image as ImageLucide, IdCard, FileText } from "lucide-react";
+import { SimpleCarousel } from "../assets/Carousel";
 
 const content = {
   titleId: "naklejki-plakaty-druk-uv",
@@ -38,32 +39,75 @@ const projects = [
     icon: <FileText className="w-5 h-5" />,
   },
 ];
+
+const gallery = [
+  {
+    src: "/assets/images/services.png",
+    alt: "Materiały reklamowe — naklejki, plakaty, wizytówki i ulotki",
+  },
+  {
+    src: "/assets/images/after.png",
+    alt: "Naklejki i etykiety — cięcie po obrysie",
+  },
+  {
+    src: "/assets/images/before.png",
+    alt: "Plakaty premium — mat/satin, duże formaty",
+  },
+];
+
 const AdvertisingMaterials = () => {
   return (
-    <Container className="gap-10 lg:flex-row lg:gap-20">
-      <div className="w-full flex flex-col justify-between  items-center gap-10 ">
+    <>
+      <Container className="flex flex-col items-center justify-center gap-10 md:gap-10 2xl:hidden">
         <Title
           titleId={content.titleId}
           lead={content.leadId}
           description={content.description}
         >
-          {" "}
-          <ShinyWord>Naklejki, plakaty i wizytówki </ShinyWord>— profesjonalny
+          <ShinyWord>Naklejki, plakaty i wizytówki</ShinyWord> – profesjonalny
           druk reklamowy w Koszalinie
         </Title>
-        <CompareCards projects={projects} />
-      </div>
-      <div className="relative w-full max-w-[500px] mx-auto aspect-square overflow-hidden rounded-md shadow-lg">
-        <Image
-          src="/assets/images/services.png"
-          alt="Materiały reklamowe — naklejki, plakaty, wizytówki i ulotki"
-          fill
+
+        {/* na mniejszych ekranach: najpierw treść (kafle), niżej grafika */}
+        <div className="w-full flex flex-col justify-between lg:flex-row-reverse  items-start gap-10 md:gap-5">
+          <SimpleCarousel
+            items={gallery}
+            sizes="(max-width: 768px) 100vw, 600px"
+            autoRotate
+            interval={5000}
+            className="relative w-full  mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[500px]"
+            aria-label="Galeria materiałów reklamowych: naklejki, plakaty i wizytówki"
+          />
+          <div className="w-full">
+            <CompareCards projects={projects} />
+          </div>
+        </div>
+      </Container>
+
+      <Container className="hidden 2xl:flex flex-col items-center justify-center lg:flex-row gap-20">
+        <div className="w-full flex flex-col justify-between items-start gap-10">
+          <Title
+            titleId={content.titleId}
+            lead={content.leadId}
+            description={content.description}
+          >
+            <ShinyWord>Naklejki, plakaty i wizytówki</ShinyWord> – profesjonalny
+            druk reklamowy w Koszalinie
+          </Title>
+
+          <CompareCards projects={projects} />
+        </div>
+
+        <SimpleCarousel
+          items={gallery}
           sizes="(max-width: 768px) 100vw, 600px"
-          className="object-cover object-center"
-          priority
+          autoRotate
+          interval={5000}
+          className="relative w-full max-w-[600px] mx-auto aspect-square overflow-hidden rounded-md shadow-lg"
+          aria-label="Galeria materiałów reklamowych: naklejki, plakaty i wizytówki"
         />
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 

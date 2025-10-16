@@ -4,8 +4,9 @@ import { ReactNode } from "react";
 
 type Project = {
   title: string;
-  description: string;
-  icon: ReactNode; // opcjonalnie – nie każdy projekt musi mieć obrazek
+  description: string | ReactNode;
+  icon: ReactNode;
+  codeblock?: ReactNode;
 };
 
 type CompareCardsProps = {
