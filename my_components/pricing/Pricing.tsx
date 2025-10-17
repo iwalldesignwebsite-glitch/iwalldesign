@@ -43,6 +43,30 @@ const PricingCardsInfo = [
       "Zamówienia już od 1 sztuki – brak limitów",
     ],
   },
+  {
+    image: "/assets/images/pricing/textile.png",
+    title: "Tekstyliaxd",
+    price: "25",
+    unit: "sztuka",
+    pros: [
+      "Elastyczny nadruk odporny na pękanie",
+      "Intensywne kolory zachowane nawet po praniu",
+      "Nadaje się do codziennego użytku",
+      "Zamówienia już od 1 sztuki – brak limitów",
+    ],
+  },
+  {
+    image: "/assets/images/pricing/textile.png",
+    title: "Tekstyliaxx",
+    price: "25",
+    unit: "sztuka",
+    pros: [
+      "Elastyczny nadruk odporny na pękanie",
+      "Intensywne kolory zachowane nawet po praniu",
+      "Nadaje się do codziennego użytku",
+      "Zamówienia już od 1 sztuki – brak limitów",
+    ],
+  },
 ];
 
 const content = {
@@ -68,10 +92,11 @@ function Pricing() {
           Inwestycja w design która się opłaca! Sprawdź{" "}
           <ShinyWord>ile kosztuje druk UV.</ShinyWord>
         </Title>
-        <div className="mt-10 grid grid-cols-1 gap-12 xl:gap-36 lg:grid-cols-3  ">
+        <div className="mt-10 grid items-stretch gap-6 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
           {PricingCardsInfo.map((card, id) => (
             <RevealOnScroll key={card.title} delay={+`0.${id}`}>
               <PriceCard
+                // ← zadbaj, by karta rozciągała się na wysokość
                 image={card.image}
                 title={card.title}
                 pros={card.pros}
@@ -81,13 +106,16 @@ function Pricing() {
             </RevealOnScroll>
           ))}
         </div>
-        <div className="space-y-4 text-center mt-16 max-w-3xl mx-auto">
-          <p className="text-2xl">Masz nieszablonowy projekt?</p>
-          <p className="mb-8">
-            Dla nas nie ma rzeczy niemożliwych! Każdy pomysł traktujemy jako
-            wyzwanie, które zamieniamy w wyjątkową realizację. Skontatuj się z
-            nami i uzyskaj indywidualną ofertę dopasowaną do Twoich potrzeb.
-          </p>
+        <div className="mt-16 mx-auto gap-6  flex items-center justify-center">
+          <div>
+            <p className="text-xl max-w-2xl font-medium">
+              Twój projekt jest nieszablonowy?
+            </p>
+            <p className="text-lg max-w-[550px]">
+              Dla nas nie ma rzeczy niemożliwych! Skontatuj się z nami i uzyskaj
+              indywidualną ofertę dopasowaną do Twoich potrzeb.
+            </p>
+          </div>
           <ContactBtn variant="solid" />
         </div>
       </Container>

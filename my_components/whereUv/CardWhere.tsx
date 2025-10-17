@@ -10,9 +10,9 @@ type Props = {
 
 const CardWhere = ({ image, title, description, Icon }: Props) => {
   return (
-    <div className="border-2 rounded-md overflow-hidden shadow-md  hover:-translate-y-3 duration-75">
+    <div className="border-2 rounded-md overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 duration-75">
       <figure className="relative    overflow-hidden">
-        <div className="relative aspect-[5/2] lg:aspect-[5/3] xl:aspect-[5/2] w-full hover:scale-110 duration-75">
+        <div className="relative aspect-[5/2] lg:aspect-[5/3] xl:aspect-[5/2] w-full hover:scale-105 duration-200">
           <Image
             src={image}
             alt="Zespół WallDesign obsługuje maszynę do druku UV"

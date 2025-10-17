@@ -148,7 +148,7 @@ const content = {
   titleId: "powierzchnie",
   leadId: "lead-powierzchnie",
   description:
-    "Poznaj szeroką gamę materiałów do druku UV – od ścian i podłóg po tekstylia. Drukujemy na niemal każdej płaskiej powierzchni: betonie, szkle, drewnie, panelach winylowych, tkaninach i wielu innych. Warunek jest jeden – powierzchnia musi być płaska, bez wypukleń. Jeśli nie masz pewności, czy Twój materiał się nadaje – skontaktuj się z nami, a doradzimy. Poniżej znajdziesz tylko przykładowe podłoża, na których wykonujemy nadruki.",
+    "Poznaj szeroką gamę materiałów do druku UV – od ścian i podłóg po tekstylia. Drukujemy na niemal każdej płaskiej powierzchni: betonie, szkle, drewnie, panelach winylowych, tkaninach i wielu innych. Warunek jest jeden – powierzchnia musi być płaska, bez wypukleń. Poniżej znajdziesz tylko przykładowe materiały, na których wykonujemy nadruki.",
 };
 
 export default function Surfaces() {
@@ -171,10 +171,15 @@ export default function Surfaces() {
             <Tabs tabs={surfaces} />
           </div>
         </RevealOnScroll>
-        <div className="mx-auto space-x-8 text-center flex items-center justify-center">
-          <p className="text-xl">
-            Nie jesteś pewien, czy Twój materiał się nadaje?
-          </p>
+        <div className="mx-auto gap-6  flex items-center justify-center">
+          <div>
+            <p className="text-xl max-w-2xl font-medium">
+              Nie masz pewności, czy powierzchnia nadaje się do nadruku UV?
+            </p>
+            <p className="text-lg max-w-[550px]">
+              Sprawdzimy to za Ciebie i razem wybierzemy najlepsze rozwiązanie!
+            </p>
+          </div>
           <ContactBtn variant="solid" />
         </div>
       </Container>

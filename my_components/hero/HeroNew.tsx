@@ -166,13 +166,13 @@ export default function HeroNew() {
 
           <h1 className="text-3xl font-bold md:text-4xl xl:text-6xl mt-4">
             Każda <ShinyWord>powierzchnia</ShinyWord> może być płótnem <br />
-            <span className="text-black/80 text-xl md:text-2xl block mt-6 font-medium">
-              Druk UV Koszalin – nadruki na każdej powierzchni, plakaty i
-              naklejki
+            <span className="text-black/80 text-xl md:text-2xl block mt-4 font-medium">
+              Druk UV Koszalin – nadruki na każdej powierzchni, plakaty,
+              wizytówki i naklejki
             </span>
           </h1>
 
-          <div className="mt-10 flex justify-start gap-4 text-sm w-full md:mt-12">
+          <div className="mt-10 flex justify-start gap-4 text-sm w-full md:mt-16">
             <a
               href="#realizacje"
               className="inline-flex w-full md:w-auto items-center justify-center gap-1 rounded-md px-3 py-2 font-medium border-2 bg-white hover:bg-gray-50 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2"

@@ -13,7 +13,6 @@ const content = {
 export default function Map() {
   return (
     <section
-      className=""
       id="lokalizacja"
       aria-labelledby="lokalizacja"
       aria-describedby="lead-lokalizacja"
@@ -29,7 +28,7 @@ export default function Map() {
               Twój partner w druku UV – Koszalin i okolice
             </Title>
 
-            <address className=" text-black/70 leading-relaxed font-medium space-y-2 text-sm lg:text-xl">
+            <address className=" text-black/90 leading-relaxed font-medium space-y-2 text-sm lg:text-xl">
               <div className=" flex gap-2 items-center ">
                 <MapPin className="text-emerald-500" />
                 ul. Drukarek 5 Koszalin 75-000
