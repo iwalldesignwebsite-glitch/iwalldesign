@@ -34,7 +34,7 @@ export default function GalleryGrid({ cards }: Props) {
 
   return (
     <div className="w-full mx-auto">
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-12 xl:grid-flow-dense ">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3  xl:grid-flow-dense ">
         {cards.map((card) => (
           <RevealOnScroll
             key={card.id}
@@ -45,7 +45,6 @@ export default function GalleryGrid({ cards }: Props) {
               card.className
             )}
           >
-           
             <motion.img
               src={card.thumbnail}
               alt={card.content}
@@ -82,7 +81,7 @@ export default function GalleryGrid({ cards }: Props) {
             <motion.div
               role="dialog"
               aria-modal="true"
-              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 mt-16"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
@@ -90,7 +89,7 @@ export default function GalleryGrid({ cards }: Props) {
             >
               <div
                 ref={contentRef}
-                className="relative max-w-[92vw] max-h-[86vh]"
+                className="relative max-w-[92vw] max-h-[86vh] "
               >
                 <img
                   src={selected.thumbnail}
