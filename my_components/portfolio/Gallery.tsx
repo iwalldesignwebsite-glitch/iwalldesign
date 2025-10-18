@@ -74,7 +74,7 @@ const cards = [
 
   {
     id: 13,
-    content: "Podłoga",
+    content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery13.webp",
     className: "apsect-square ",
   },

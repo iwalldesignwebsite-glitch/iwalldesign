@@ -38,11 +38,9 @@ const StatCard = () => {
       <RevealOnScroll delay={0.4}>
         <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center">
           <dd className="text-2xl font-semibold ">
-            <ShinyWord>101%</ShinyWord>
+            <ShinyWord>2+</ShinyWord>
           </dd>
-          <dt className="mt-1 text-sm text-neutral-600">
-            Kreatywności i pasji
-          </dt>
+          <dt className="mt-1 text-sm text-neutral-600">lata doświadczenia</dt>
         </div>
       </RevealOnScroll>
     </dl>

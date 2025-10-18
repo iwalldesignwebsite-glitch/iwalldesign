@@ -42,16 +42,16 @@ const projects = [
 
 const gallery = [
   {
-    src: "/assets/images/services.png",
-    alt: "Materiały reklamowe — naklejki, plakaty, wizytówki i ulotki",
-  },
-  {
-    src: "/assets/images/after.png",
+    src: "/assets/images/services/stickers.webp",
     alt: "Naklejki i etykiety — cięcie po obrysie",
   },
   {
-    src: "/assets/images/before.png",
-    alt: "Plakaty premium — mat/satin, duże formaty",
+    src: "/assets/images/services/posters.webp",
+    alt: "Plakaty premium — , duże formaty",
+  },
+  {
+    src: "/assets/images/services/card.webp",
+    alt: "Wizytówki",
   },
 ];
 
@@ -72,10 +72,10 @@ const AdvertisingMaterials = () => {
         <div className="w-full flex flex-col justify-between lg:flex-row-reverse  items-start gap-10 md:gap-5">
           <SimpleCarousel
             items={gallery}
-            sizes="(max-width: 768px) 100vw, 600px"
+            sizes="(max-width: 1024px) 100vw, 500px"
             autoRotate
             interval={5000}
-            className="relative w-full  mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[500px]"
+            className="relative w-full mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[500px]"
             aria-label="Galeria materiałów reklamowych: naklejki, plakaty i wizytówki"
           />
           <div className="w-full">
@@ -100,7 +100,7 @@ const AdvertisingMaterials = () => {
 
         <SimpleCarousel
           items={gallery}
-          sizes="(max-width: 768px) 100vw, 600px"
+          sizes="(max-width: 1536px) 100vw, 1500px"
           autoRotate
           interval={5000}
           className="relative w-full max-w-[600px] mx-auto aspect-square overflow-hidden rounded-md shadow-lg"

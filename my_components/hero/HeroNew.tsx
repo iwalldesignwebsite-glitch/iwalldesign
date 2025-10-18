@@ -9,40 +9,29 @@ import Container from "../assets/Container";
 type Slide = {
   label: string;
   image: string;
-  headline: string;
-  desc: string;
+  alt: string;
 };
 
 const slides: Slide[] = [
   {
     label: "Ściany",
-    image: "/assets/images/hero/hero_big.png",
-    headline: "Każda powierzchnia może być płótnem",
-    desc: "",
+    image: "/assets/images/hero/hero_wall.png",
+    alt: "Turkusowo-zielony nadruk naścienny",
   },
   {
     label: "Podłogi",
-    image: "/assets/images/hero/hero_rectangle.png",
-    headline: "Każda powierzchnia może być płótnem",
-    desc: "",
+    image: "/assets/images/hero/hero_floor.png",
+    alt: "Kolorowy nadruk podłogowy",
   },
   {
     label: "Odzież",
-    image: "/assets/images/hero/hero_square.png",
-    headline: "Każda powierzchnia może być płótnem",
-    desc: "",
+    image: "/assets/images/hero/hero_clothing.png",
+    alt: "Nadruk papugi na białej koszulce",
   },
   {
     label: "Plakaty",
-    image: "/assets/images/hero/hero_rectangle.png",
-    headline: "Każda powierzchnia może być płótnem",
-    desc: "",
-  },
-  {
-    label: "Naklejki",
-    image: "/assets/images/hero/hero_square.png",
-    headline: "Każda powierzchnia może być płótnem",
-    desc: "",
+    image: "/assets/images/hero/hero_printing.png",
+    alt: "Drukarka drukująca plakat",
   },
 ];
 

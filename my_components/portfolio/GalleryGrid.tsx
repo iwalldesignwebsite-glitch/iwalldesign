@@ -8,9 +8,9 @@ import RevealOnScroll from "../assets/RevealWrapper";
 
 export type Card = {
   id: number;
-  content: string; // podpis na badge
-  thumbnail: string; // src obrazka
-  className?: string; // dodatkowe custom klasy (np. xl:col-span-8)
+  content: string; 
+  thumbnail: string; 
+  className?: string; 
 };
 
 type Props = { cards: Card[] };
@@ -62,7 +62,6 @@ export default function GalleryGrid({ cards }: Props) {
                 {card.content}
               </span>
             </div>
-            {/* </div> */}
           </RevealOnScroll>
         ))}
       </div>

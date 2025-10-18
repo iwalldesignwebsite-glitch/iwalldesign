@@ -12,20 +12,15 @@ type CarouselItem = {
 };
 
 type SimpleCarouselProps = {
-  /** Slajdy: ścieżka obrazka + alt */
   items: CarouselItem[];
-  /** Klasy wrappera (domyślnie: w-full, aspect-square, max 600px) */
   className?: string;
-  /** sizes dla <Image/>, ważne dla responsywności i LCP */
+
   sizes?: string;
-  /** Autoplay włącz/wyłącz */
   autoRotate?: boolean;
-  /** Interwał autoplay w ms */
   interval?: number;
-  /** Czy pokazywać kropki na dole */
   showDots?: boolean;
-  /** Czy pokazywać strzałki */
   showArrows?: boolean;
+  quality?: number;
 };
 
 function useReducedMotion() {
@@ -43,11 +38,12 @@ function useReducedMotion() {
 export function SimpleCarousel({
   items,
   className = "relative w-full max-w-[600px] mx-auto aspect-square overflow-hidden rounded-md shadow-lg",
-  sizes = "(max-width: 768px) 100vw, 600px",
+  sizes = "(max-width: 1024px) 100vw, 500px",
   autoRotate = true,
   interval = 5000,
   showDots = true,
   showArrows = true,
+  quality = 90,
 }: SimpleCarouselProps) {
   const [i, setI] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -72,7 +68,6 @@ export function SimpleCarousel({
   };
 
   useEffect(() => {
-    // IntersectionObserver – pauza poza viewportem
     const el = containerRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -84,7 +79,6 @@ export function SimpleCarousel({
   }, []);
 
   useEffect(() => {
-    // Page Visibility – pauza w tle
     const onVis = () => (document.hidden ? clear() : start());
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
@@ -97,7 +91,6 @@ export function SimpleCarousel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoRotate, prefersReduced, visible, interval, items.length]);
 
-  // reset timera po interakcji
   const resetAnd = (fn: () => void) => {
     clear();
     fn();
@@ -115,7 +108,6 @@ export function SimpleCarousel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items.length]);
 
-  // swipe
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     clear();
@@ -141,31 +133,29 @@ export function SimpleCarousel({
       aria-roledescription="carousel"
       aria-label="Karuzela zdjęć"
     >
-      {/* Slajd */}
       <AnimatePresence mode="wait">
         <motion.div
           key={s.src}
-          initial={{ opacity: 0, x: "3%" }}
-          animate={{ opacity: 1, x: "0%" }}
-          exit={{ opacity: 0, x: "-3%" }}
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -24 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="absolute inset-0"
+          className="absolute inset-0 will-change-transform will-change-opacity"
         >
           <Image
             src={s.src}
             alt={s.alt}
             fill
             priority={i === 0}
+            quality={quality}
             sizes={sizes}
             className="object-cover object-center"
           />
 
-          {/* delikatny overlay dla czytelności strzałek/dots */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Strzałki */}
       {showArrows && items.length > 1 && (
         <>
           <button
@@ -174,8 +164,8 @@ export function SimpleCarousel({
             className="
               absolute left-3 top-1/2 -translate-y-1/2 z-20
               rounded-full p-2 shadow
-              bg-white/60 backdrop-blur-sm hover:bg-white/80 transition
-              opacity-0 group-hover:opacity-100 focus:opacity-100
+              bg-white/70 backdrop-blur-sm hover:bg-white/80 transition
+              focus:outline-none focus:ring-2 focus:ring-emerald-500
             "
           >
             <ChevronLeft className="h-5 w-5 text-zinc-800" />
@@ -187,8 +177,8 @@ export function SimpleCarousel({
             className="
               absolute right-3 top-1/2 -translate-y-1/2 z-20
               rounded-full p-2 shadow
-              bg-white/60 backdrop-blur-sm hover:bg-white/80 transition
-              opacity-0 group-hover:opacity-100 focus:opacity-100
+              bg-white/70 backdrop-blur-sm hover:bg-white/80 transition
+              focus:outline-none focus:ring-2 focus:ring-emerald-500
             "
           >
             <ChevronRight className="h-5 w-5 text-zinc-800" />
