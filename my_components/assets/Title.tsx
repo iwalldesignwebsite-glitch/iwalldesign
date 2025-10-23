@@ -3,7 +3,7 @@ type Props = {
   children: React.ReactNode;
   titleId: string;
   lead: string;
-  description: string;
+  description?: string;
 };
 function Title({ children, titleId, lead, description }: Props) {
   return (

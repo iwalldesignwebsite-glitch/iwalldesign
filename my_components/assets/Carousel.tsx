@@ -43,7 +43,7 @@ export function SimpleCarousel({
   interval = 5000,
   showDots = true,
   showArrows = true,
-  quality = 90,
+  // quality = 90,
 }: SimpleCarouselProps) {
   const [i, setI] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -147,7 +147,7 @@ export function SimpleCarousel({
             alt={s.alt}
             fill
             priority={i === 0}
-            quality={quality}
+            // quality={quality}
             sizes={sizes}
             className="object-cover object-center"
           />
