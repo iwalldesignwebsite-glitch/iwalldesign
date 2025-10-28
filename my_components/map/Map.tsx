@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
 import RevealOnScroll from "../assets/RevealWrapper";
@@ -14,12 +14,12 @@ export default function Map() {
   return (
     <section
       id="lokalizacja"
-      aria-labelledby="lokalizacja"
-      aria-describedby="lead-lokalizacja"
+      aria-labelledby={content.titleId}
+      aria-describedby={content.leadId}
     >
       <Container>
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:items-start">
-          <div className="flex flex-col  items-start gap-8 md:gap-4 justify-evenly md:h-full ">
+          <div className="flex flex-col items-start gap-8 md:gap-4 justify-evenly md:h-full">
             <Title
               titleId={content.titleId}
               description={content.description}
@@ -28,14 +28,21 @@ export default function Map() {
               Twój partner w druku UV – Koszalin i okolice
             </Title>
 
-            <address className=" text-black/90 leading-relaxed font-medium space-y-2 text-sm lg:text-xl">
-              <div className=" flex gap-2 items-center ">
-                <Phone className="text-emerald-500" />
-                882 945 714
+            <address className="not-italic text-black/90 leading-relaxed font-medium space-y-2 text-sm lg:text-xl">
+              <div className="flex gap-2 items-center">
+                <Phone className="text-emerald-500" aria-hidden="true" />
+                <a href="tel:+48882945714" className="hover:underline">
+                  +48 882 945 714
+                </a>
               </div>
-              <div className=" flex gap-2 items-center ">
-                <Mail className="text-emerald-500" />
-                iwalldesign@mail.com
+              <div className="flex gap-2 items-center">
+                <Mail className="text-emerald-500" aria-hidden="true" />
+                <a
+                  href="mailto:iwalldesign@mail.com"
+                  className="hover:underline"
+                >
+                  biuro@iwalldesign.pl
+                </a>
               </div>
             </address>
           </div>
