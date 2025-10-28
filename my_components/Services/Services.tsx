@@ -1,4 +1,3 @@
-"use client";
 import Container from "../assets/Container";
 import Title from "../assets/Title";
 import { ShinyWord } from "../navbar/ShinyWord";
@@ -72,7 +71,7 @@ function Services() {
       aria-labelledby="dlaczego-druk-uv"
       aria-describedby="lead-dlaczego"
     >
-      <Container className=" flex flex-col items-center justify-center gap-10 md:gap-10 2xl:hidden">
+      <Container className=" flex flex-col items-center justify-center gap-10 md:gap-10 ">
         <Title
           titleId={content.titleId}
           lead={content.leadId}
@@ -82,26 +81,12 @@ function Services() {
           <ShinyWord>Druk UV</ShinyWord> - nowoczesna technologia nadruku bez
           ograniczeń
         </Title>
-        <div className="w-full flex flex-col-reverse justify-between lg:flex-row-reverse items-center lg:items-start gap-10 md:gap-5 ">
+        <div className="w-full flex flex-col-reverse justify-between lg:grid lg:grid-cols-[1fr_1.2fr] items-center lg:items-center gap-10 md:gap-5 lg:gap-20 ">
           <CompareCards projects={projects} />
           <CompareBlock />
         </div>
       </Container>
-      <Container className="hidden    2xl:flex flex-col items-center justify-center lg:flex-row gap-20">
-        <CompareBlock />
-        <div className="w-full flex flex-col justify-between  items-start gap-10 ">
-          <Title
-            titleId={content.titleId}
-            lead={content.leadId}
-            description={content.description}
-          >
-            {" "}
-            <ShinyWord>Druk UV</ShinyWord> - nowoczesna technologia nadruku bez
-            ograniczeń
-          </Title>
-          <CompareCards projects={projects} />
-        </div>
-      </Container>
+    
       <AdvertisingMaterials />
     </section>
   );

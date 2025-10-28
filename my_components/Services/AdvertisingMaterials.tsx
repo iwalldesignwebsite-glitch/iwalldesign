@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Container from "../assets/Container";
 import Title from "../assets/Title";
 import { ShinyWord } from "../navbar/ShinyWord";
@@ -57,8 +56,8 @@ const gallery = [
 
 const AdvertisingMaterials = () => {
   return (
-    <>
-      <Container className="flex flex-col items-center justify-center gap-10 md:gap-10 2xl:hidden">
+
+      <Container className="flex flex-col items-center justify-center gap-10 md:gap-10 ">
         <Title
           titleId={content.titleId}
           lead={content.leadId}
@@ -68,14 +67,13 @@ const AdvertisingMaterials = () => {
           druk reklamowy w Koszalinie
         </Title>
 
-        {/* na mniejszych ekranach: najpierw treść (kafle), niżej grafika */}
-        <div className="w-full flex flex-col justify-between lg:flex-row-reverse  items-start gap-10 md:gap-5">
+        <div className="w-full flex flex-col justify-between lg:grid lg:grid-cols-[1.2fr_1fr]  items-center gap-10 md:gap-5 lg:gap-20">
           <SimpleCarousel
             items={gallery}
             sizes="(max-width: 1024px) 100vw, 500px"
             autoRotate
             interval={5000}
-            className="relative w-full mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[500px]"
+            className="relative w-full mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[600px] lg:order-2"
             aria-label="Galeria materiałów reklamowych: naklejki, plakaty i wizytówki"
           />
           <div className="w-full">
@@ -84,30 +82,8 @@ const AdvertisingMaterials = () => {
         </div>
       </Container>
 
-      <Container className="hidden 2xl:flex flex-col items-center justify-center lg:flex-row gap-20">
-        <div className="w-full flex flex-col justify-between items-start gap-10">
-          <Title
-            titleId={content.titleId}
-            lead={content.leadId}
-            description={content.description}
-          >
-            <ShinyWord>Naklejki, plakaty i wizytówki</ShinyWord> – profesjonalny
-            druk reklamowy w Koszalinie
-          </Title>
-
-          <CompareCards projects={projects} />
-        </div>
-
-        <SimpleCarousel
-          items={gallery}
-          sizes="(max-width: 1536px) 100vw, 1500px"
-          autoRotate
-          interval={5000}
-          className="relative w-full max-w-[600px] mx-auto aspect-square overflow-hidden rounded-md shadow-lg"
-          aria-label="Galeria materiałów reklamowych: naklejki, plakaty i wizytówki"
-        />
-      </Container>
-    </>
+    
+    
   );
 };
 

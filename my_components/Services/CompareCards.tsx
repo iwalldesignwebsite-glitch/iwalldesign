@@ -15,7 +15,7 @@ type CompareCardsProps = {
 
 export function CompareCards({ projects }: CompareCardsProps) {
   return (
-    <div className="max-w-5xl  lg:py-0">
+    <div className="  lg:py-0 lg:order-2">
       <RevealOnScroll>
         <HoverEffect items={projects} />
       </RevealOnScroll>

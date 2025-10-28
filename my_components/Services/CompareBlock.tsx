@@ -4,8 +4,8 @@ import RevealOnScroll from "../assets/RevealWrapper";
 
 export function CompareBlock() {
   return (
-    <RevealOnScroll className="w-full ">
-      <div className="relative w-full  aspect-square  rounded-md shadow-md overflow-hidden   ">
+    <RevealOnScroll className="w-full lg:order-1">
+      <div className="relative w-full  aspect-square  rounded-md shadow-md overflow-hidden  lg:max-w-[600px] ">
         <span className="absolute z-20 right-0 m-3 py-1 px-5 bg-gradient-to-tr from-blue-900/70 via-blue-500/80  to-emerald-500/80 rounded-sm font-medium text-white">
           Po nadruku UV
         </span>
@@ -20,6 +20,5 @@ export function CompareBlock() {
         />
       </div>
     </RevealOnScroll>
-    
   );
 }
