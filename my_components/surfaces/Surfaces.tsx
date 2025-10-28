@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { ShinyWord } from "../navbar/ShinyWord";
 import { Tabs } from "@/components/ui/tabs";
@@ -101,7 +100,7 @@ const surfaces = [
                 alt={item.label}
                 fill
                 className="object-cover"
-                sizes="(max-width: 120px) 70vw, (max-width: 1400px) 70vw, 70vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 70vw, 70vw"
                 priority={false}
               />
               <p className="absolute left-2 bottom-2 text-lg  md:text-xl text-wrap max-w-[50%] lg:text-2xl lg:left-4 lg:bottom-4 text-white/90 z-20   ">
@@ -154,8 +153,8 @@ const content = {
 export default function Surfaces() {
   return (
     <section
-      aria-labelledby="powierzchnie"
-      aria-describedby="lead-powierzchnie"
+      aria-labelledby={content.titleId}
+      aria-describedby={content.leadId}
     >
       <Container>
         <Title
@@ -187,9 +186,3 @@ export default function Surfaces() {
   );
 }
 
-// function slugify(s: string) {
-//   return s
-//     .toLowerCase()
-//     .replace(/\s+/g, "-")
-//     .replace(/[^\w-]+/g, "");
-// }

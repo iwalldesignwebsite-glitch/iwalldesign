@@ -15,9 +15,9 @@ const CardWhere = ({ image, title, description, Icon }: Props) => {
         <div className="relative aspect-[5/2] lg:aspect-[5/3] xl:aspect-[5/2] w-full hover:scale-105 duration-200">
           <Image
             src={image}
-            alt="Zespół WallDesign obsługuje maszynę do druku UV"
+            alt={`grafika przedstawiająca ${title} `}
             fill
-            priority
+            loading="lazy"
             className="object-cover "
             sizes="(min-width: 1024px) 640px, 100vw"
           />
