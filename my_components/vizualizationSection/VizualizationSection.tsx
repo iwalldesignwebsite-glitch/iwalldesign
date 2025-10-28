@@ -1,6 +1,3 @@
-// components/sections/Visualizer.tsx
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import Container from "../assets/Container";
@@ -12,14 +9,13 @@ export function VisualizerSection() {
   return (
     <section
       id="wizualizator"
-      aria-labelledby="wiz-title"
-      aria-describedby="wiz-lead"
+      aria-labelledby="wizualizator-title"
+      aria-describedby="wizualizator-lead"
     >
       <Container className="gap-10">
-        {/* Nagłówek */}
         <Title
-          titleId="wiz-title"
-          lead="wiz-lead"
+          titleId="wizualizator-title"
+          lead="wizualizator-lead"
           description="Nie wiesz, jak będzie wyglądał nadruk w realnym miejscu? Nasz
               wizualizator pokaże to zanim złożysz zamówienie.
               Dodajesz zdjęcie powierzchni, dopasowujesz grafikę i od razu
