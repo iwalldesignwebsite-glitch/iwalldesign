@@ -216,7 +216,7 @@ export default function ContactSection() {
                           Napisz do nas
                         </span>
                         <a
-                          href="mailto:iwalldesign@mail.com"
+                          href="mailto:biuro@iwalldesign.pl"
                           className="underline-offset-2 hover:underline font-semibold"
                         >
                           biuro@iwalldesign.pl

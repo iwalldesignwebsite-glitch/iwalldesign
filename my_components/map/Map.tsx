@@ -38,7 +38,7 @@ export default function Map() {
               <div className="flex gap-2 items-center">
                 <Mail className="text-emerald-500" aria-hidden="true" />
                 <a
-                  href="mailto:iwalldesign@mail.com"
+                  href="mailto:biuro@iwalldesign.pl"
                   className="hover:underline"
                 >
                   biuro@iwalldesign.pl
