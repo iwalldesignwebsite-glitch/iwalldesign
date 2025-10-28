@@ -106,7 +106,7 @@ export const CardDescription = ({
 }: {
   className?: string;
   children: ReactNode;
-  codeblock?: ReactNode; // ← nowy prop
+  codeblock?: ReactNode; 
 }) => {
   return (
     <div className={cn("mt-2 text-black/70 text-sm space-y-2", className)}>

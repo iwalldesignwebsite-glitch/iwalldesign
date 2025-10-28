@@ -44,7 +44,7 @@ const CardsInfo = [
   },
   {
     image: "/assets/images/places/public-spaces.png",
-    title: "Publicznie przestrzenie",
+    title: "Przestrzenie publiczne",
     description:
       "Nadaj charakter miejscom, które łączą ludzi. Druk UV sprawia, że przestrzenie wspólne stają się atrakcyjne, unikalne i odporne na codzienne użytkowanie.",
     icon: Landmark,
@@ -59,7 +59,7 @@ const CardsInfo = [
 ];
 
 const content = {
-  titleId: "gdzie-zastosować-druk-uv",
+  titleId: "gdzie-zastosowac-druk-uv",
   leadId: "lead-gdzie-druk-uv",
   description:
     "Od domowych wnętrz po przestrzenie publiczne – druk UV nadaje wyjątkowy charakter każdemu miejscu. Niezależnie, czy chodzi o biuro, restaurację, czy projekt architektoniczny, nasze realizacje podkreślają design i budują niezapomniane wrażenia.",
@@ -68,8 +68,8 @@ const content = {
 function WhereUV() {
   return (
     <section
-      aria-labelledby="gdzie-zastosować-druk-uv"
-      aria-describedby="lead-gdzie-druk-uv"
+      aria-labelledby={content.titleId}
+      aria-describedby={content.leadId}
     >
       <Container>
         <Title
