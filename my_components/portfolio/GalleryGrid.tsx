@@ -8,9 +8,10 @@ import RevealOnScroll from "../assets/RevealWrapper";
 
 export type Card = {
   id: number;
-  content: string; 
-  thumbnail: string; 
-  className?: string; 
+  content: string;
+  thumbnail: string;
+  className?: string;
+  alt: string;
 };
 
 type Props = { cards: Card[] };
@@ -47,7 +48,7 @@ export default function GalleryGrid({ cards }: Props) {
           >
             <motion.img
               src={card.thumbnail}
-              alt={card.content}
+              alt={card.alt}
               className="absolute inset-0 h-full w-full object-cover hover:cursor-pointer"
               whileHover={isMdUp ? { scale: 1.02 } : undefined}
               transition={{ duration: 0.25 }}
@@ -92,7 +93,7 @@ export default function GalleryGrid({ cards }: Props) {
               >
                 <img
                   src={selected.thumbnail}
-                  alt={selected.content}
+                  alt={selected.alt}
                   className="max-w-full max-h-[86vh] object-contain rounded-lg shadow-2xl"
                 />
 

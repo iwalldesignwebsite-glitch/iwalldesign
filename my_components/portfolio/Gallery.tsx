@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import GalleryGrid from "./GalleryGrid";
 import { ShinyWord } from "../navbar/ShinyWord";
@@ -10,73 +9,85 @@ const cards = [
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery1.webp",
     className: " aspect-square",
+    alt: "Superbohaterowie marvela - druk uv na ścianie",
   },
   {
     id: 2,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery2.webp",
     className: " aspect-square",
+    alt: "orzeł - druk uv na ścianie",
   },
   {
     id: 3,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery3.webp",
     className: " aspect-square",
+    alt: "Krajobraz - druk uv na ścianie",
   },
   {
     id: 4,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery4.webp",
     className: "  aspect-square",
+    alt: "Formuła 1 - druk uv na ścianie",
   },
   {
     id: 5,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery5.webp",
     className: " aspect-square ",
+    alt: "zielone gobliny - druk uv na ścianie",
   },
   {
     id: 6,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery6.webp",
-    className: "apsect-square ",
+    className: "aspect-square ",
+    alt: "Mario w gokarcie - druk uv na ścianie",
   },
   {
     id: 7,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery7.webp",
-    className: "apsect-square  ",
+    className: "aspect-square  ",
+    alt: "squid game - druk uv na ścianie",
   },
   {
     id: 8,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery8.webp",
-    className: "apsect-square",
+    className: "aspect-square",
+    alt: "Banknot jednodolarowy - druk uv na ścianie",
   },
   {
     id: 9,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery9.webp",
-    className: "apsect-square ",
+    className: "aspect-square ",
+    alt: "Wonder Woman niosąca zakupy - druk uv na ścianie",
   },
   {
     id: 10,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery10.webp",
-    className: " apsect-square",
+    className: " aspect-square",
+    alt: "Druk Uv, realistyczna kompozycja roślin na ścianie",
   },
   {
     id: 11,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery11.webp",
-    className: "apsect-square",
+    className: "aspect-square",
+    alt: "Druk UV Myszka Mickey na białej ścianie",
   },
 
   {
     id: 13,
     content: "Ściana",
     thumbnail: "/assets/images/gallery/gallery13.webp",
-    className: "apsect-square ",
+    className: "aspect-square ",
+    alt: "Druk UV różowe krzesła na białej ścianie",
   },
 ];
 
