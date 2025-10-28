@@ -2,37 +2,38 @@ import { ShinyWord } from "../navbar/ShinyWord";
 import StatCard from "./StatCard";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import List from "./List";
 import RevealOnScroll from "../assets/RevealWrapper";
 import Image from "next/image";
 
-const images = [
-  {
-    name: "zdjecie",
-    src: "/assets/images/about/about.png",
-  },
-  {
-    name: "zdjecie 2",
-    src: "/assets/images/gallery/gallery1.png",
-  },
-  {
-    name: "zdjecie 3",
-    src: "/assets/images/gallery/gallery2.png",
-  },
-  {
-    name: "zdjecie 4",
-    src: "/assets/images/gallery/gallery3.png",
-  },
-  {
-    name: "zdjecie 5",
-    src: "/assets/images/gallery/gallery4.png",
-  },
-];
+// const images = [
+//   {
+//     name: "zdjecie",
+//     src: "/assets/images/about/about.png",
+//   },
+//   {
+//     name: "zdjecie 2",
+//     src: "/assets/images/gallery/gallery1.png",
+//   },
+//   {
+//     name: "zdjecie 3",
+//     src: "/assets/images/gallery/gallery2.png",
+//   },
+//   {
+//     name: "zdjecie 4",
+//     src: "/assets/images/gallery/gallery3.png",
+//   },
+//   {
+//     name: "zdjecie 5",
+//     src: "/assets/images/gallery/gallery4.png",
+//   },
+// ];
 
 const content = {
-  titleId: "o-nas-tytuł",
+  titleId: "o-nas-tytul",
   leadId: "o-nas-opis",
+  description:
+    "Personalizujemy wnętrza i marki — od szkła i ścian po drewno, tkaniny i metal. Dbamy o każdy detal, dlatego zaufały nam firmy i klienci z całej Polski.",
 };
 
 export default function AboutSection() {
@@ -42,54 +43,57 @@ export default function AboutSection() {
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
     >
-      <Container className="border-2">
-        <div className="grid items-start gap-10 lg:grid-cols-2">
-          <div className="flex flex-col justify-evenly gap-6  md:h-full border-2">
-            {/* <div className="space-y-6"> */}
-            <Title titleId={content.titleId} lead={content.leadId}>
+      <Container>
+        <div className="grid items-start gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+          <div className="flex flex-col justify-evenly  md:h-full ">
+            <Title
+              titleId={content.titleId}
+              lead={content.leadId}
+              description={content.description}
+            >
               Kim jesteśmy? <ShinyWord>Poznaj nas</ShinyWord>
             </Title>
-            <p className="xl:text-xl text-black/80">
-              Jesteśmy drukarnią z Koszalina, która łączy technologię UV z
-              kreatywnością. Drukujemy na wszystkim, co płaskie – od ścian i
-              szkła po drewno, tkaniny i metal.
+            <p className="xl:text-xl text-black/80 my-6">
+              Oferujemy naklejki, plakaty, wizytówki, banery reklamowe oraz
+              wydruki UV na szkle, drewnie i innych materiałach. Doradzamy na
+              każdym etapie — od projektu po realizację — tak, aby efekt
+              idealnie pasował do wnętrza, marki i Twojej wizji.
             </p>
 
-            <p className="xl:text-xl text-black/80">
-              Oferujemy także naklejki, plakaty, wizytówki i banery reklamowe,
-              tworzone z myślą o trwałości i estetyce. Wierzymy, że druk to nie
-              tylko produkt, ale sposób wyrażenia pomysłów i marki. Dlatego
-              każdy projekt traktujemy indywidualnie – doradzamy, dopasowujemy
-              technologię i dbamy o każdy detal.
+            <p className="xl:text-xl text-black/80 mb-6">
+              Stawiamy na trwałość, estetykę i nowoczesną technologię. Nasz druk
+              UV jest odporny na zarysowania i warunki zewnętrzne, dlatego
+              sprawdza się zarówno w domach i biurach, jak i w przestrzeniach
+              usługowych oraz reklamie outdoorowej.
             </p>
-            <p className="xl:text-xl text-black/80">
+            <p className="xl:text-xl text-black/80 mb-6">
               Działamy lokalnie w Koszalinie, Kołobrzegu, Białogardzie i całym
-              zachodniopomorskim, ale nasze realizacje trafiają do klientów w
-              całej Polsce.
+              Pomorzu Zachodnim, ale realizujemy projekty dla klientów w całej
+              Polsce. Jeśli szukasz partnera, który zadba o szczegóły i pomoże
+              wyróżnić Twoją przestrzeń lub markę — jesteśmy tu dla Ciebie.
             </p>
-            {/* </div> */}
             <RevealOnScroll>
               <List />
             </RevealOnScroll>
           </div>
 
-          <div className="space-y-6 border-2">
+          <div className="space-y-6 ">
             <RevealOnScroll>
               {/* <AnimatedTestimonials testimonials={images} /> */}
-              <div className="relative w-full max-w-[600px] mx-auto aspect-square overflow-hidden rounded-md">
+              <div className="relative w-full  mx-auto aspect-square overflow-hidden rounded-md">
                 <Image
                   src="/assets/images/about/aboutUs.jpg"
-                  alt="Plakat reklamowy — druk UV Koszalin"
+                  alt="Zdjęcie zespołu iWallDesign"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                   quality={80}
-                  loading="lazy" // ← to jest idealne dla sekcji poniżej folda
+                  loading="lazy"
                   className="object-cover object-[50%_40%] "
                 />
               </div>
             </RevealOnScroll>
 
-            {/* <StatCard /> */}
+            <StatCard />
           </div>
         </div>
       </Container>

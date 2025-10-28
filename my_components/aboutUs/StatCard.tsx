@@ -6,7 +6,7 @@ const StatCard = () => {
   return (
     <dl className="grid grid-cols-2 gap-4">
       <RevealOnScroll>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center">
+        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
           <dd className="text-2xl font-semibold ">
             <ShinyWord>500+</ShinyWord>
           </dd>
@@ -16,7 +16,7 @@ const StatCard = () => {
         </div>
       </RevealOnScroll>
       <RevealOnScroll delay={0.2}>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center">
+        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
           <dd className="text-2xl font-semibold ">
             <ShinyWord>100%</ShinyWord>
           </dd>
@@ -26,7 +26,7 @@ const StatCard = () => {
         </div>
       </RevealOnScroll>
       <RevealOnScroll delay={0.3}>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center">
+        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
           <dd className="text-2xl font-semibold ">
             <ShinyWord>8/10</ShinyWord>
           </dd>
@@ -36,7 +36,7 @@ const StatCard = () => {
         </div>
       </RevealOnScroll>
       <RevealOnScroll delay={0.4}>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center">
+        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
           <dd className="text-2xl font-semibold ">
             <ShinyWord>2+</ShinyWord>
           </dd>
