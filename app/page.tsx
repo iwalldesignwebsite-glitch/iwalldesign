@@ -11,13 +11,14 @@ import Surfaces from "@/my_components/surfaces/Surfaces";
 import { VisualizerSection } from "@/my_components/vizualizationSection/VizualizationSection";
 import WhereUV from "@/my_components/whereUv/WhereUV";
 import Services from "@/my_components/Services/Services";
+import Hero from "@/my_components/hero/Hero";
 export default function Home() {
   return (
     <>
       <Navbar />
       <main className="relative  space-y-12  overflow-hidden ">
-        {/* <Hero /> */}
-        <HeroNew />
+        <Hero />
+        {/* <HeroNew /> */}
         <About />
         <Services />
         <WhereUV />
