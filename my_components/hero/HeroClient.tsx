@@ -2,6 +2,7 @@
 
 // import { useEffect, useMemo, useRef, useState } from "react";
 // import { motion, AnimatePresence } from "framer-motion";
+// import Image from "next/image";
 // import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // type Slide = {
@@ -84,6 +85,12 @@
 //     startTimer();
 //   };
 
+//   const variants = {
+//     initial: { opacity: 0, x: "-5%" },
+//     enter: { opacity: 1, x: "0%" },
+//     exit: { opacity: 0, x: "5%" },
+//   };
+
 //   return (
 //     <>
 //       <div
@@ -92,51 +99,62 @@
 //       >
 //         <div className="absolute inset-y-0 right-0 w-svw">
 //           <AnimatePresence mode="wait">
-//             <motion.img
+//             <motion.div
 //               key={s.image}
-//               src={s.image}
-//               alt={s.alt}
-//               role="presentation"
-//               loading={i === 0 ? "eager" : "lazy"}
-//               fetchPriority={i === 0 ? "high" : "auto"}
-//               decoding="async"
-//               className="absolute inset-0 h-full w-full object-cover"
-//               initial={{ opacity: 0, x: "-5%" }}
-//               animate={{ opacity: 1, x: "0%" }}
-//               exit={{ opacity: 0, x: "5%" }}
+//               className="absolute inset-0"
+//               initial="initial"
+//               animate="enter"
+//               exit="exit"
 //               transition={{ duration: 0.8, ease: "easeOut" }}
-//             />
+//               variants={variants}
+//             >
+//               <Image
+//                 src={s.image}
+//                 alt={s.alt}
+//                 fill
+//                 priority={i === 0}
+//                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1280px"
+//                 quality={70}
+//                 placeholder="empty"
+//                 draggable={false}
+//                 className="object-cover"
+//               />
+//             </motion.div>
 //           </AnimatePresence>
 
 //           <div
-//             className="
-//               absolute inset-0 pointer-events-none w-full
-//               bg-[linear-gradient(to_right,white_0%,white_35%,rgba(255,255,255,0.1)_75%,transparent_100%)]
-//             "
+//             className="absolute inset-0 pointer-events-none w-full
+//                        bg-[linear-gradient(to_right,white_0%,white_35%,rgba(255,255,255,0.1)_75%,transparent_100%)]"
 //           />
 //         </div>
 //       </div>
 
-//       {/* ===== MOBILE / TABLET TŁO — identyczne ===== */}
 //       <div
 //         className="md:hidden absolute inset-x-0 bottom-0 h-full -z-10"
 //         aria-hidden="true"
 //       >
 //         <AnimatePresence mode="wait">
-//           <motion.img
+//           <motion.div
 //             key={s.image}
-//             src={s.image}
-//             alt={s.alt}
-//             role="presentation"
-//             loading={i === 0 ? "eager" : "lazy"}
-//             fetchPriority={i === 0 ? "high" : "auto"}
-//             decoding="async"
-//             className="absolute inset-0 h-full w-full object-cover"
-//             initial={{ opacity: 0, x: "-5%" }}
-//             animate={{ opacity: 1, x: "0%" }}
-//             exit={{ opacity: 0, x: "5%" }}
+//             className="absolute inset-0"
+//             initial="initial"
+//             animate="enter"
+//             exit="exit"
 //             transition={{ duration: 0.8, ease: "easeOut" }}
-//           />
+//             variants={variants}
+//           >
+//             <Image
+//               src={s.image}
+//               alt={s.alt}
+//               fill
+//               priority={i === 0}
+//               sizes="100vw"
+//               quality={70}
+//               placeholder="empty"
+//               draggable={false}
+//               className="object-cover"
+//             />
+//           </motion.div>
 //         </AnimatePresence>
 //       </div>
 
@@ -146,7 +164,6 @@
 //         aria-hidden="true"
 //       />
 
-//       {/* ===== ETYKIETA W PRAWYM GÓRNYM/NAROŻNIKU — identycznie ===== */}
 //       <div className="w-fit mx-auto items-end justify-center">
 //         <div
 //           className="absolute right-3 bottom-3 md:right-6 md:top-6 pointer-events-none"
@@ -160,8 +177,6 @@
 //               animate={{ opacity: 1, x: "0%" }}
 //               exit={{ opacity: 0, x: "5%" }}
 //               transition={{ duration: 0.8, ease: "easeOut" }}
-//               role="status"
-//               aria-live="polite"
 //               className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-medium text-zinc-700 shadow"
 //             >
 //               {s.label}
@@ -170,7 +185,6 @@
 //         </div>
 //       </div>
 
-//       {/* ===== KONTROLKI NA DOLE — identycznie ===== */}
 //       <div className="w-full h-full flex items-end justify-center mb-5">
 //         <div
 //           className="z-20 flex items-center gap-2"
@@ -184,7 +198,6 @@
 //           >
 //             <ChevronLeft className="w-5 h-5 text-zinc-700" aria-hidden="true" />
 //           </button>
-
 //           <div className="flex gap-2 bg-white/75 px-3 py-2 rounded-full">
 //             {slides.map((_, idx) => (
 //               <div
@@ -196,7 +209,6 @@
 //               />
 //             ))}
 //           </div>
-
 //           <button
 //             onClick={next}
 //             aria-label="Następny"
@@ -299,7 +311,6 @@ export default function HeroClient() {
     startTimer();
   };
 
-  // wspólne warianty animacji dla kontenera
   const variants = {
     initial: { opacity: 0, x: "-5%" },
     enter: { opacity: 1, x: "0%" },
@@ -308,7 +319,7 @@ export default function HeroClient() {
 
   return (
     <>
-      {/* ===== DESKTOP TŁO ===== */}
+      {/* ===== DESKTOP ===== */}
       <div
         className="hidden md:block absolute inset-0 -z-10"
         aria-hidden="true"
@@ -328,14 +339,15 @@ export default function HeroClient() {
                 src={s.image}
                 alt={s.alt}
                 fill
-                // LCP dla pierwszego slajdu
+                // LCP boost – tylko pierwszy slajd
                 priority={i === 0}
-                // ważne: dopasuj do realnego renderu
+                fetchPriority={i === 0 ? "high" : "auto"}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1280px"
                 quality={70}
                 placeholder="empty"
                 draggable={false}
                 className="object-cover"
+                decoding="async"
               />
             </motion.div>
           </AnimatePresence>
@@ -347,7 +359,7 @@ export default function HeroClient() {
         </div>
       </div>
 
-      {/* ===== MOBILE / TABLET TŁO ===== */}
+      {/* ===== MOBILE/TABLET ===== */}
       <div
         className="md:hidden absolute inset-x-0 bottom-0 h-full -z-10"
         aria-hidden="true"
@@ -367,11 +379,13 @@ export default function HeroClient() {
               alt={s.alt}
               fill
               priority={i === 0}
+              fetchPriority={i === 0 ? "high" : "auto"}
               sizes="100vw"
               quality={70}
               placeholder="empty"
               draggable={false}
               className="object-cover"
+              decoding="async"
             />
           </motion.div>
         </AnimatePresence>
@@ -383,7 +397,7 @@ export default function HeroClient() {
         aria-hidden="true"
       />
 
-      {/* ===== ETYKIETA ===== */}
+      {/* ===== LABEL ===== */}
       <div className="w-fit mx-auto items-end justify-center">
         <div
           className="absolute right-3 bottom-3 md:right-6 md:top-6 pointer-events-none"
@@ -405,7 +419,7 @@ export default function HeroClient() {
         </div>
       </div>
 
-      {/* ===== KONTROLKI ===== */}
+      {/* ===== CONTROLS ===== */}
       <div className="w-full h-full flex items-end justify-center mb-5">
         <div
           className="z-20 flex items-center gap-2"
@@ -419,6 +433,7 @@ export default function HeroClient() {
           >
             <ChevronLeft className="w-5 h-5 text-zinc-700" aria-hidden="true" />
           </button>
+
           <div className="flex gap-2 bg-white/75 px-3 py-2 rounded-full">
             {slides.map((_, idx) => (
               <div
@@ -430,6 +445,7 @@ export default function HeroClient() {
               />
             ))}
           </div>
+
           <button
             onClick={next}
             aria-label="Następny"
