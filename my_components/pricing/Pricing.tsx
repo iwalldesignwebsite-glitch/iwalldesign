@@ -32,7 +32,7 @@ const PricingCardsInfo = [
       "Zużycie atramentu jest większe przy ciemnych odcieniach dlatego cena jest inna niż w przypadku druku na białej ścianie.",
   },
   {
-    image: "/assets/images/pricing/floor.png",
+    image: "/assets/images/pricing/floor.jpg",
     title: "Podłoga",
     price: "399zł",
     unit: "/m²",
