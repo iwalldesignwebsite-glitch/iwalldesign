@@ -4,46 +4,61 @@ import RevealOnScroll from "../assets/RevealWrapper";
 
 const StatCard = () => {
   return (
-    <dl className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4">
       <RevealOnScroll>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
-          <dd className="text-2xl font-semibold ">
+        <dl
+          aria-label="Statystyka — liczba zrealizowanych projektów"
+          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+        >
+          <dt className="text-2xl font-semibold">
             <ShinyWord>500+</ShinyWord>
-          </dd>
-          <dt className="mt-1 text-sm text-neutral-600">
+          </dt>
+          <dd className="mt-1 text-sm text-neutral-600">
             Zrealizowanych projektów
-          </dt>
-        </div>
+          </dd>
+        </dl>
       </RevealOnScroll>
+
       <RevealOnScroll delay={0.2}>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
-          <dd className="text-2xl font-semibold ">
+        <dl
+          aria-label="Statystyka — procent zadowolonych klientów"
+          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+        >
+          <dt className="text-2xl font-semibold">
             <ShinyWord>100%</ShinyWord>
-          </dd>
-          <dt className="mt-1 text-sm text-neutral-600">
+          </dt>
+          <dd className="mt-1 text-sm text-neutral-600">
             Zadowolonych klientów
-          </dt>
-        </div>
+          </dd>
+        </dl>
       </RevealOnScroll>
+
       <RevealOnScroll delay={0.3}>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
-          <dd className="text-2xl font-semibold ">
+        <dl
+          aria-label="Statystyka — liczba klientów powracających"
+          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+        >
+          <dt className="text-2xl font-semibold">
             <ShinyWord>8/10</ShinyWord>
-          </dd>
-          <dt className="mt-1 text-sm text-neutral-600">
-            Klientów wraca po więcej
           </dt>
-        </div>
-      </RevealOnScroll>
-      <RevealOnScroll delay={0.4}>
-        <div className="rounded-lg border bg-white p-4 shadow-sm flex flex-col items-center text-center h-full">
-          <dd className="text-2xl font-semibold ">
-            <ShinyWord>2+</ShinyWord>
+          <dd className="mt-1 text-sm text-neutral-600">
+            Klientów wraca po więcej
           </dd>
-          <dt className="mt-1 text-sm text-neutral-600">lata doświadczenia</dt>
-        </div>
+        </dl>
       </RevealOnScroll>
-    </dl>
+
+      <RevealOnScroll delay={0.4}>
+        <dl
+          aria-label="Statystyka — lata doświadczenia firmy"
+          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+        >
+          <dt className="text-2xl font-semibold">
+            <ShinyWord>2+</ShinyWord>
+          </dt>
+          <dd className="mt-1 text-sm text-neutral-600">Lata doświadczenia</dd>
+        </dl>
+      </RevealOnScroll>
+    </div>
   );
 };
 
