@@ -46,10 +46,10 @@ export default function ContactSection() {
                 Bądźmy w kontakcie!
               </h3>
 
-              <address className="not-italic">
-                <ul className="space-y-12 text-lg">
-                  <li className="flex items-center gap-3">
-                    <RevealOnScroll>
+              <RevealOnScroll>
+                <address className="not-italic">
+                  <ul className="space-y-12 text-lg">
+                    <li className="flex items-center gap-3">
                       <span
                         aria-hidden
                         className="mt-0.5 p-3 rounded-md bg-gray-200 text-gray-500"
@@ -67,11 +67,9 @@ export default function ContactSection() {
                           biuro@iwalldesign.pl
                         </a>
                       </div>
-                    </RevealOnScroll>
-                  </li>
+                    </li>
 
-                  <li className="flex items-center gap-3">
-                    <RevealOnScroll delay={0.2}>
+                    <li className="flex items-center gap-3">
                       <span
                         aria-hidden
                         className="mt-0.5 p-3 rounded-md bg-gray-200 text-gray-500"
@@ -89,11 +87,9 @@ export default function ContactSection() {
                           +48 882 945 714
                         </a>
                       </div>
-                    </RevealOnScroll>
-                  </li>
+                    </li>
 
-                  <li className="flex items-start gap-3">
-                    <RevealOnScroll delay={0.4}>
+                    <li className="flex items-start gap-3">
                       <span
                         aria-hidden
                         className="mt-0.5 p-3 rounded-md bg-gray-200 text-gray-500"
@@ -115,14 +111,13 @@ export default function ContactSection() {
                           się do 24 h. Dziękujemy za cierpliwość!
                         </span>
                       </div>
-                    </RevealOnScroll>
-                  </li>
-                </ul>
-              </address>
+                    </li>
+                  </ul>
+                </address>
+              </RevealOnScroll>
             </section>
           </aside>
 
-          {/* PRAWA: interaktywne (client-only wyspa) */}
           <ContactInteractive />
         </div>
       </Container>
