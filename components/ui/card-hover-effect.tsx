@@ -94,7 +94,7 @@ export const CardTitle = ({
           {icon}
         </div>
       )}
-      <h4 className={cn("text-black/90 font-bold", className)}>{children}</h4>
+      <h3 className={cn("text-black/90 font-bold", className)}>{children}</h3>
     </div>
   );
 };
@@ -106,7 +106,7 @@ export const CardDescription = ({
 }: {
   className?: string;
   children: ReactNode;
-  codeblock?: ReactNode; 
+  codeblock?: ReactNode;
 }) => {
   return (
     <div className={cn("mt-2 text-black/70 text-sm space-y-2", className)}>

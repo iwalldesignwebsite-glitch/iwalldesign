@@ -6,31 +6,25 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import clsx from "clsx";
 
-type CarouselItem = {
-  src: string;
-  alt: string;
-};
-
-type SimpleCarouselProps = {
+type CarouselItem = { src: string; alt: string };
+type Props = {
   items: CarouselItem[];
   className?: string;
-
   sizes?: string;
   autoRotate?: boolean;
   interval?: number;
   showDots?: boolean;
   showArrows?: boolean;
-  quality?: number;
 };
 
-function useReducedMotion() {
+function usePrefersReducedMotion() {
   const [prefers, setPrefers] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handler = () => setPrefers(mq.matches);
-    handler();
-    mq.addEventListener?.("change", handler);
-    return () => mq.removeEventListener?.("change", handler);
+    const onChange = () => setPrefers(mq.matches);
+    onChange();
+    mq.addEventListener?.("change", onChange);
+    return () => mq.removeEventListener?.("change", onChange);
   }, []);
   return prefers;
 }
@@ -43,71 +37,72 @@ export function SimpleCarousel({
   interval = 5000,
   showDots = true,
   showArrows = true,
-  // quality = 90,
-}: SimpleCarouselProps) {
+}: Props) {
   const [i, setI] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef<number | null>(null);
+  const s = items[i];
 
-  const prefersReduced = useReducedMotion();
-  const [visible, setVisible] = useState(true);
+  const prefersReduced = usePrefersReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const [inView, setInView] = useState(true);
 
   const next = () => setI((x) => (x + 1) % items.length);
   const prev = () => setI((x) => (x - 1 + items.length) % items.length);
-
   const clear = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
+    if (timerRef.current) window.clearInterval(timerRef.current);
     timerRef.current = null;
   };
 
-  const start = () => {
-    if (!autoRotate || prefersReduced || !visible || items.length <= 1) return;
-    clear();
-    timerRef.current = setInterval(next, Math.max(2000, interval));
-  };
-
+  // 1) Obserwacja widoczności karuzeli w viewport
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
+      ([entry]) => setInView(entry.isIntersecting),
       { threshold: 0.1 }
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
+  // 2) Autoplay + klawiatura + visibilitychange (wszystko w jednym)
   useEffect(() => {
-    const onVis = () => (document.hidden ? clear() : start());
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoRotate, prefersReduced, visible, interval, items.length]);
+    const canAutoplay =
+      autoRotate && !prefersReduced && inView && items.length > 1;
+    if (canAutoplay) {
+      clear();
+      timerRef.current = window.setInterval(next, Math.max(2000, interval));
+    }
 
-  useEffect(() => {
-    start();
-    return clear;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoRotate, prefersReduced, visible, interval, items.length]);
-
-  const resetAnd = (fn: () => void) => {
-    clear();
-    fn();
-    start();
-  };
-
-  // klawiatura
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") resetAnd(next);
-      if (e.key === "ArrowLeft") resetAnd(prev);
+    const onVis = () => {
+      if (document.hidden) clear();
+      else if (canAutoplay && !timerRef.current) {
+        timerRef.current = window.setInterval(next, Math.max(2000, interval));
+      }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items.length]);
 
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        clear();
+        next();
+      } else if (e.key === "ArrowLeft") {
+        clear();
+        prev();
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVis);
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("keydown", onKey);
+      clear();
+    };
+  }, [autoRotate, prefersReduced, inView, interval, items.length]); // pojedynczy efekt sterujący
+
+  // Swipe
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     clear();
@@ -119,10 +114,7 @@ export function SimpleCarousel({
     if (dx > THRESHOLD) prev();
     else if (dx < -THRESHOLD) next();
     touchStartX.current = null;
-    start();
   };
-
-  const s = items[i];
 
   return (
     <div
@@ -133,6 +125,11 @@ export function SimpleCarousel({
       aria-roledescription="carousel"
       aria-label="Karuzela zdjęć"
     >
+      {/* Status dla czytników ekranowych */}
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        Slajd {i + 1} z {items.length}
+      </p>
+
       <AnimatePresence mode="wait">
         <motion.div
           key={s.src}
@@ -140,18 +137,16 @@ export function SimpleCarousel({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -24 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="absolute inset-0 will-change-transform will-change-opacity"
+          className="absolute inset-0"
         >
           <Image
             src={s.src}
             alt={s.alt}
             fill
             priority={i === 0}
-            // quality={quality}
             sizes={sizes}
             className="object-cover object-center"
           />
-
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
@@ -159,46 +154,40 @@ export function SimpleCarousel({
       {showArrows && items.length > 1 && (
         <>
           <button
-            onClick={() => resetAnd(prev)}
+            onClick={() => {
+              clear();
+              prev();
+            }}
             aria-label="Poprzedni slajd"
-            className="
-              absolute left-3 top-1/2 -translate-y-1/2 z-20
-              rounded-full p-2 shadow
-              bg-white/70 backdrop-blur-sm hover:bg-white/80 transition
-              focus:outline-none focus:ring-2 focus:ring-emerald-500
-            "
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 rounded-full p-3 shadow bg-white/70 backdrop-blur-sm hover:bg-white/80 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
           >
             <ChevronLeft className="h-5 w-5 text-zinc-800" />
           </button>
-
           <button
-            onClick={() => resetAnd(next)}
+            onClick={() => {
+              clear();
+              next();
+            }}
             aria-label="Następny slajd"
-            className="
-              absolute right-3 top-1/2 -translate-y-1/2 z-20
-              rounded-full p-2 shadow
-              bg-white/70 backdrop-blur-sm hover:bg-white/80 transition
-              focus:outline-none focus:ring-2 focus:ring-emerald-500
-            "
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 rounded-full p-3 shadow bg-white/70 backdrop-blur-sm hover:bg-white/80 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
           >
             <ChevronRight className="h-5 w-5 text-zinc-800" />
           </button>
         </>
       )}
 
-      {/* Dots */}
+      {/* Kropki – dekoracyjne, nieklikalne */}
       {showDots && items.length > 1 && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-          {items.map((item, idx) => (
-            <button
-              key={item.src + idx}
-              onClick={() => resetAnd(() => setI(idx))}
-              aria-label={`Przejdź do slajdu ${idx + 1}`}
+        <div
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
+          aria-hidden="true"
+        >
+          {items.map((_, idx) => (
+            <span
+              key={idx}
               className={clsx(
-                "h-2 rounded-full transition-all",
-                idx === i
-                  ? "w-4 bg-emerald-500"
-                  : "w-2 bg-white/70 hover:bg-white"
+                "block h-2 rounded-full transition-all",
+                idx === i ? "w-4 bg-emerald-500" : "w-2 bg-white/70"
               )}
             />
           ))}
