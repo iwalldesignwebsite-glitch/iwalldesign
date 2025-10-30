@@ -4,7 +4,8 @@ import Container from "../assets/Container";
 import RevealOnScroll from "../assets/RevealWrapper";
 
 const content = {
-  titleId: "lokalizacja",
+  sectionId: "lokalizacja",
+  titleId: "lokalizacja-heading",
   leadId: "lead-lokalizacja",
   description:
     "Działamy na terenie Koszalina, Kołobrzegu, Białogardu, Darłowa, Szczecinka i całego województwa zachodniopomorskiego. Realizujemy także projekty w innych częściach Polski — jeśli szukasz najwyższej jakości druku UV, zrealizujemy Twoje zamówienie niezależnie od lokalizacji.",
@@ -13,7 +14,7 @@ const content = {
 export default function Map() {
   return (
     <section
-      id="lokalizacja"
+      id={content.sectionId}
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
     >
