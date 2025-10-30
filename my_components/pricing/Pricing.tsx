@@ -52,18 +52,18 @@ const PricingCardsInfo = [
 ];
 
 const content = {
-  titleId: "cennik",
-  leadId: "lead-cennik",
+  sectionId: "cennik",
+  titleId: "cennik-heading",
+  leadId: "cennik-lead",
   description:
     "Zapomnij o rozwiązaniach, które szybko tracą kolor i wymagają częstej wymiany. Druk UV to technologia, która daje intensywne barwy, perfekcyjne detale i trwałość na lata – bez blaknięcia i ścierania. Efekt wygląda lepiej niż w przypadku tradycyjnych metod i zostaje z Tobą na długo.",
 };
-
 function Pricing() {
   return (
     <section
-      aria-labelledby="cennik"
-      aria-describedby="lead-cennik"
-      id="cennik"
+      id={content.sectionId}
+      aria-labelledby={content.titleId}
+      aria-describedby={content.leadId}
     >
       <Container>
         <Title
