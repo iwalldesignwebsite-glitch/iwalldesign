@@ -15,7 +15,7 @@ const ContactBtn = ({
   const variants = {
     outline:
       "border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-500/10 hover:shadow-lg px-4 py-2",
-    solid: "bg-blue-500 text-white hover:bg-blue-600 hover:shadow-lg px-4 py-2",
+    solid: "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg px-4 py-2",
   };
 
   return (

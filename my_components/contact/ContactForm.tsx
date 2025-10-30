@@ -477,11 +477,11 @@ export default function ContactForm({ onSubmitResult }: Props) {
             className="mt-0.5"
           />
 
-          <label htmlFor="privacy" className="text-sm text-gray-700">
+          <label htmlFor="privacy" className="text-sm text-black/80">
             Zapoznałem(am) się i akceptuję{" "}
             <Link
               href="/polityka-prywatnosci"
-              className="text-emerald-600 underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-sm"
+              className="text-emerald-700 underline-offset-2 underline focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-sm"
               target="_blank"
               rel="noopener noreferrer"
             >

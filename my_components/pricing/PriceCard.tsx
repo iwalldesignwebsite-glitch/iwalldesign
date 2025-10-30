@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import {  ArrowRight, Dot, Info } from "lucide-react";
+import { ArrowRight, Dot, Info } from "lucide-react";
 
 type Props = {
   image: string;
@@ -48,7 +48,7 @@ function PriceCard({ image, title, price, pros, unit, description }: Props) {
           ))}
         </ul>
         {description && description?.length > 0 && (
-          <div className="flex items-start text-black/60 px-4">
+          <div className="flex items-start text-black/60 px-4 mt-4">
             <Info className=" w-10  mr-1" />
             <p className="text-sm ">{description}</p>
           </div>

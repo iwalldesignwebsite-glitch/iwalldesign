@@ -88,7 +88,7 @@ function Pricing() {
             </RevealOnScroll>
           ))}
         </div>
-        <div className="mt-16 mx-auto gap-6  flex items-center justify-center">
+        <div className="mt-16 mx-auto gap-6  flex items-center justify-center flex-col md:flex-row">
           <div>
             <p className="text-xl max-w-2xl font-medium">
               Twój projekt jest nieszablonowy?

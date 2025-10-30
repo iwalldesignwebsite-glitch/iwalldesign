@@ -89,7 +89,7 @@ export default function Footer() {
         <div className="mt-10 flex flex-col items-center justify-center gap-3 border-t pt-6 text-xs text-black/60 md:flex-row">
           <p>© {year} iWallDesign. Wszelkie prawa zastrzeżone.</p>
 
-          <p className="text-xs text-black/50">
+          <p className="text-xs text-black/60">
             <Link
               href="/polityka-prywatnosci"
               className="text-emerald-700 underline underline-offset-2 hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded-sm"
