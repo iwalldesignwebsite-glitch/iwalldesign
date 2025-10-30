@@ -10,11 +10,11 @@ import React from "react";
 export default function List() {
   return (
     <div className="border-2 bg-emerald-500/5 border-emerald-700/20 rounded-md p-5 ">
+      <p className="text-xl xl:text-2xl mb-4">
+        Dlaczego powinieneś wybrać{" "}
+        <span className="text-emerald-500">iWallDesign</span>?
+      </p>
       <ul className="space-y-4">
-        <p className="text-xl xl:text-2xl">
-          Dlaczego powinieneś wybrać{" "}
-          <span className="text-emerald-500">iWallDesign</span>?
-        </p>
         <li className="flex">
           <BriefcaseBusiness
             aria-hidden="true"
