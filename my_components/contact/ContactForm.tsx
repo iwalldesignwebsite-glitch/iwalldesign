@@ -5,6 +5,7 @@ import { useForm, type Resolver } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Send, X } from "lucide-react";
+import Link from "next/link";
 
 /* ------------------------- Walidacja (Zod) ------------------------- */
 
@@ -20,7 +21,7 @@ const schema = z.object({
   email: z.string().trim().email({ message: "Podaj poprawny adres e-mail" }),
   phone: z
     .string()
-    .transform((v) => v.replace(/[^\d]/g, "")) // sanitizacja
+    .transform((v) => v.replace(/[^\d]/g, ""))
     .refine((v) => /^\d{9}$/.test(v), {
       message: "Numer telefonu musi mieć 9 cyfr",
     }),
@@ -39,7 +40,7 @@ const schema = z.object({
   privacy: z.boolean().refine((v) => v === true, {
     message: "Musisz zaakceptować politykę prywatności",
   }),
-  website: z.string().optional().default(""), // honeypot
+  website: z.string().optional().default(""),
 });
 
 type FormData = z.output<typeof schema>;
@@ -467,17 +468,29 @@ export default function ContactForm({ onSubmitResult }: Props) {
         />
 
         {/* Checkbox */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-start gap-2">
           <input
             id="privacy"
             type="checkbox"
             {...register("privacy")}
             disabled={isSubmitting}
+            className="mt-0.5"
           />
+
           <label htmlFor="privacy" className="text-sm text-gray-700">
-            Zapoznałem(am) się i akceptuję Politykę Prywatności
+            Zapoznałem(am) się i akceptuję{" "}
+            <Link
+              href="/polityka-prywatnosci"
+              className="text-emerald-600 underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Politykę Prywatności
+            </Link>
+            .
           </label>
         </div>
+
         {errors.privacy && (
           <p className="text-sm text-red-600 mt-1">{errors.privacy.message}</p>
         )}

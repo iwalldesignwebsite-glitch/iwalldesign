@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useCallback } from "react";
 import { Instagram, Mail, Phone } from "lucide-react";
 
 const SECTIONS = [
@@ -15,29 +12,6 @@ const SECTIONS = [
 ];
 
 export default function Footer() {
-  const scrollWithOffset = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    const header = document.querySelector<HTMLElement>("[data-sticky-header]");
-    if (!el) return;
-    const headerH = header?.offsetHeight ?? 0;
-    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 6;
-    window.scrollTo({ top, behavior: "smooth" });
-  }, []);
-
-  const onSectionClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    slug: string
-  ) => {
-    e.preventDefault();
-    if (location.pathname !== "/") {
-      history.pushState(null, "", `/#${slug}`);
-      location.assign(`/#${slug}`);
-      return;
-    }
-    scrollWithOffset(slug);
-    history.pushState(null, "", `#${slug}`);
-  };
-
   const year = new Date().getFullYear();
 
   return (
@@ -81,7 +55,6 @@ export default function Footer() {
                 <li key={slug}>
                   <Link
                     href={`/#${slug}`}
-                    onClick={(e) => onSectionClick(e, slug)}
                     className="text-black/70 hover:text-black"
                   >
                     {label}
@@ -103,7 +76,7 @@ export default function Footer() {
               <li className="flex items-center gap-2 text-black/70">
                 <Mail className="h-4 w-4" />
                 <a
-                  href="mailto: biuro@iwalldesign.pl"
+                  href="mailto:biuro@iwalldesign.pl"
                   className="hover:text-black"
                 >
                   biuro@iwalldesign.pl
@@ -113,22 +86,17 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs text-black/60 md:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-center gap-3 border-t pt-6 text-xs text-black/60 md:flex-row">
           <p>© {year} iWallDesign. Wszelkie prawa zastrzeżone.</p>
-          <div className="flex items-center gap-4">
+
+          <p className="text-xs text-black/50">
             <Link
               href="/polityka-prywatnosci"
-              className="hover:text-black underline-offset-2 hover:underline"
+              className="text-emerald-700 underline underline-offset-2 hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded-sm"
             >
               Polityka prywatności
             </Link>
-            <Link
-              href="/regulamin"
-              className="hover:text-black underline-offset-2 hover:underline"
-            >
-              Regulamin
-            </Link>
-          </div>
+          </p>
         </div>
       </div>
     </footer>
