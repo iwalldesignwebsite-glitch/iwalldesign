@@ -6,28 +6,7 @@ import List from "./List";
 import RevealOnScroll from "../assets/RevealWrapper";
 import Image from "next/image";
 
-// const images = [
-//   {
-//     name: "zdjecie",
-//     src: "/assets/images/about/about.png",
-//   },
-//   {
-//     name: "zdjecie 2",
-//     src: "/assets/images/gallery/gallery1.png",
-//   },
-//   {
-//     name: "zdjecie 3",
-//     src: "/assets/images/gallery/gallery2.png",
-//   },
-//   {
-//     name: "zdjecie 4",
-//     src: "/assets/images/gallery/gallery3.png",
-//   },
-//   {
-//     name: "zdjecie 5",
-//     src: "/assets/images/gallery/gallery4.png",
-//   },
-// ];
+
 
 const content = {
   titleId: "o-nas-tytul",
@@ -79,14 +58,12 @@ export default function AboutSection() {
 
           <div className="space-y-6 ">
             <RevealOnScroll>
-              {/* <AnimatedTestimonials testimonials={images} /> */}
               <div className="relative w-full  mx-auto aspect-square overflow-hidden rounded-md">
                 <Image
                   src="/assets/images/about/aboutUs.jpg"
                   alt="Zdjęcie zespołu iWallDesign"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                  quality={80}
                   loading="lazy"
                   className="object-cover object-[50%_40%] "
                 />

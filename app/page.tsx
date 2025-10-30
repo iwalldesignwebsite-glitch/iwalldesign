@@ -18,7 +18,6 @@ export default function Home() {
       <Navbar />
       <main className="relative  space-y-12  overflow-hidden ">
         <Hero />
-        {/* <HeroNew /> */}
         <About />
         <Services />
         <WhereUV />

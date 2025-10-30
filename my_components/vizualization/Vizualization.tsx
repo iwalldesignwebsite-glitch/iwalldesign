@@ -18,7 +18,6 @@ import { Toaster, toast } from "sonner";
 
 const LS_KEY = "visualizerProject";
 
-// Limity/typy
 const MAX_FILE_MB = 15;
 const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024;
 const IMAGE_MIME_OK = /^(image\/(png|jpe?g|webp|gif|bmp|svg\+xml))$/i;
@@ -42,7 +41,6 @@ export default function Visualizer() {
   const [loadingBg, setLoadingBg] = useState(false);
   const [loadingFg, setLoadingFg] = useState(false);
 
-  // odciążamy transformacje
   const dScale = useDeferredValue(scale);
   const dRotation = useDeferredValue(rotation);
 
@@ -50,7 +48,6 @@ export default function Visualizer() {
   const fgDisplayWidth = baseFgWidth * dScale;
   const fgDisplayHeight = (fgNatural.h / fgNatural.w) * fgDisplayWidth;
 
-  // Toast – pozycja responsywna
   const [toastPosition, setToastPosition] = useState<
     "bottom-center" | "bottom-right"
   >("bottom-center");
@@ -63,7 +60,6 @@ export default function Visualizer() {
     return () => mql.removeEventListener("change", update);
   }, []);
 
-  // Pomiar obszaru
   useEffect(() => {
     if (!stageRef.current) return;
     const ro = new ResizeObserver(([e]) => {
@@ -74,12 +70,10 @@ export default function Visualizer() {
     return () => ro.disconnect();
   }, []);
 
-  // Wycentrowanie FG po zmianie rozmiaru/po wgraniu
   useEffect(() => {
     if (fgUrl) setPos({ x: stageSize.w / 2, y: stageSize.h / 2 });
   }, [stageSize.w, stageSize.h, fgUrl]);
 
-  // Sprzątanie URL-i przy unmount / zmianie
   useEffect(() => {
     return () => {
       if (bgUrl) URL.revokeObjectURL(bgUrl);
@@ -93,12 +87,10 @@ export default function Visualizer() {
   const clamp = (val: number, min: number, max: number) =>
     Math.min(max, Math.max(min, val));
 
-  /* ---------- input: background ---------- */
   const onPickBackground: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const input = e.currentTarget; // <- zapamiętaj input
+    const input = e.currentTarget; 
     const f = input.files?.[0] ?? null;
 
-    // czyścimy od razu, żeby można było wgrać ten sam plik ponownie
     input.value = "";
 
     if (!f) return;
@@ -137,9 +129,8 @@ export default function Visualizer() {
     }
   };
 
-  /* ---------- input: foreground ---------- */
   const onPickForeground: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const input = e.currentTarget; // <- zapamiętaj input
+    const input = e.currentTarget; 
     const f = input.files?.[0] ?? null;
 
     input.value = "";
@@ -186,8 +177,6 @@ export default function Visualizer() {
       toast.error("Błąd przetwarzania grafiki.");
     }
   };
-
-  /* ---------- drag ---------- */
   const dragRef = useRef<{
     startX: number;
     startY: number;
@@ -220,7 +209,6 @@ export default function Visualizer() {
     setIsDragging(false);
   };
 
-  /* ---------- reset ---------- */
   const resetAll = () => {
     if (!confirm("Na pewno zacząć od nowa?")) return;
     if (bgUrl) URL.revokeObjectURL(bgUrl);
@@ -233,7 +221,6 @@ export default function Visualizer() {
     toast.info("Wyczyszczono projekt.");
   };
 
-  /* ---------- rysowanie/eksport ---------- */
   const drawToCanvas = (canvas: HTMLCanvasElement) => {
     if (!stageRef.current) return;
     const ctx = canvas.getContext("2d");
@@ -244,7 +231,6 @@ export default function Visualizer() {
     canvas.height = stageSize.h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // tło
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, stageSize.w, stageSize.h);
 
@@ -261,7 +247,6 @@ export default function Visualizer() {
       ctx.drawImage(bg, dx, dy, w, h);
     }
 
-    // grafika
     if (fgImgRef.current) {
       ctx.save();
       ctx.translate(pos.x, pos.y);
@@ -316,10 +301,8 @@ export default function Visualizer() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 pt-28 md:pt-24 pb-10">
-      {/* Lokalny Toaster – usuń jeśli masz globalny w layout */}
       <Toaster richColors closeButton position={toastPosition} />
 
-      {/* TOOLBAR */}
       <div className="mb-3 flex flex-wrap items-center gap-2 sm:gap-3">
         <label className="flex min-w-[120px] flex-1 sm:flex-none items-center justify-center cursor-pointer rounded-md border px-3 py-2 text-sm hover:bg-neutral-50">
           <input
@@ -382,7 +365,6 @@ export default function Visualizer() {
         </div>
       </div>
 
-      {/* STAGE */}
       <div
         ref={stageRef}
         className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border bg-neutral-100 select-none"
@@ -443,7 +425,6 @@ export default function Visualizer() {
           </div>
         )}
 
-        {/* ABSOLUTE TOOLBOX */}
         {fgUrl && (
           <div className="pointer-events-none absolute inset-x-2 bottom-2 z-10 flex justify-center">
             <div className="pointer-events-auto w-full max-w-[680px] rounded-md bg-white/95 px-3 py-2 shadow backdrop-blur supports-[backdrop-filter]:bg-white/80 flex flex-wrap items-center justify-center gap-3">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCallback } from "react";
-import { Facebook, Instagram, Mail, Phone } from "lucide-react";
+import { Instagram, Mail, Phone } from "lucide-react";
 
 const SECTIONS = [
   { slug: "o-nas", label: "O nas" },
@@ -44,7 +44,6 @@ export default function Footer() {
     <footer className="relative border-t bg-white">
       <div className="container mx-auto px-4 py-10 lg:py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo + opis */}
           <div className="md:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
               <Image
@@ -64,16 +63,7 @@ export default function Footer() {
 
             <div className="mt-4 flex items-center gap-4">
               <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border hover:bg-gray-50"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
-              <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/iwalldesign.pl/"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
@@ -106,17 +96,17 @@ export default function Footer() {
             <ul className="mt-3 space-y-2 text-sm">
               <li className="flex items-center gap-2 text-black/70">
                 <Phone className="h-4 w-4" />
-                <a href="tel:+48500600700" className="hover:text-black">
-                  +48 500 600 700
+                <a href="tel:+48 882 945 714" className="hover:text-black">
+                  +48 882 945 714
                 </a>
               </li>
               <li className="flex items-center gap-2 text-black/70">
                 <Mail className="h-4 w-4" />
                 <a
-                  href="mailto:kontakt@iwalldesign.pl"
+                  href="mailto: biuro@iwalldesign.pl"
                   className="hover:text-black"
                 >
-                  kontakt@iwalldesign.pl
+                  biuro@iwalldesign.pl
                 </a>
               </li>
             </ul>
