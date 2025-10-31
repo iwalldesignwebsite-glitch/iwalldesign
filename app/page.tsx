@@ -2,7 +2,6 @@ import About from "@/my_components/aboutUs/About";
 import Contact from "@/my_components/contact/ContactSection";
 import Faq from "@/my_components/faq/Faq";
 import Footer from "@/my_components/footer/Footer";
-import HeroNew from "@/my_components/hero/HeroNew";
 import Map from "@/my_components/map/Map";
 import Navbar from "@/my_components/navbar/Navbar";
 import Gallery from "@/my_components/portfolio/Gallery";
