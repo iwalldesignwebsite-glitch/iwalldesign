@@ -104,6 +104,7 @@ function Gallery() {
       aria-labelledby="realizacje-druku-uv"
       aria-describedby="lead-realizacje-druku-uv"
       id="realizacje"
+      className="content-visibility-auto"
     >
       <Container>
         <Title

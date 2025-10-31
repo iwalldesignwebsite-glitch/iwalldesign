@@ -18,7 +18,7 @@ export default function ContactSection() {
       id="kontakt"
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
-      className="mx-auto relative px-4"
+      className="mx-auto relative px-4 content-visibility-auto"
     >
       <Container>
         <Title

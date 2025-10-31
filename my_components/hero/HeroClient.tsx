@@ -112,7 +112,7 @@ export default function HeroClient() {
     });
   }, [index]);
 
-  const desktopSizes = "(max-width: 1280px) 90vw, 1280px";
+  const desktopSizes = "(max-width: 1280px) 1280px, 1920px";
   const mobileSizes = "(max-width: 768px) 250px";
 
   const Current = slides[index];
@@ -141,7 +141,6 @@ export default function HeroClient() {
                   alt={Prev.alt}
                   fill
                   sizes={desktopSizes}
-                  quality={70}
                   className="object-cover"
                   draggable={false}
                   decoding="async"

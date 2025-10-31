@@ -11,6 +11,7 @@ export function VisualizerSection() {
       id="wizualizator"
       aria-labelledby="wizualizator-title"
       aria-describedby="wizualizator-lead"
+      className="content-visibility-auto"
     >
       <Container className="gap-10">
         <Title

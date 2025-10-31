@@ -27,6 +27,11 @@
   animation-direction: var(--animation-direction);
 }
 
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 500px;
+}
+
 html {
   scroll-behavior: auto;
 }

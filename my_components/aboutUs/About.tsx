@@ -19,6 +19,7 @@ export default function AboutSection() {
       id="o-nas"
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
+      className="content-visibility-auto"
     >
       <Container>
         <div className="grid items-start gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">

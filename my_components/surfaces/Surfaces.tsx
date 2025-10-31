@@ -154,6 +154,7 @@ export default function Surfaces() {
     <section
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
+      className="content-visibility-auto"
     >
       <Container>
         <Title

@@ -70,6 +70,7 @@ function WhereUV() {
     <section
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
+      className="content-visibility-auto"
     >
       <Container>
         <Title

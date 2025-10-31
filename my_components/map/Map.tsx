@@ -17,6 +17,7 @@ export default function Map() {
       id={content.sectionId}
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
+      className="content-visibility-auto"
     >
       <Container>
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:items-start">
