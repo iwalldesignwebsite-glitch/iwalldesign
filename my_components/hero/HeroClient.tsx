@@ -235,7 +235,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  type TargetAndTransition,
+} from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -274,9 +278,27 @@ const slides: Slide[] = [
   },
 ];
 
+/** --- animacje: funkcje z custom dir (TS-safe) --- */
+type Dir = 1 | -1;
+type Dyn = (d: Dir) => TargetAndTransition;
+const variants: Record<"enter" | "center" | "exit", Dyn> = {
+  enter: (d) => ({ opacity: 0, x: `${-5 * d}%` }),
+  center: () => ({
+    opacity: 1,
+    x: "0%",
+    transition: { duration: 0.8, ease: "easeOut" },
+  }),
+  exit: (d) => ({
+    opacity: 0,
+    x: `${5 * d}%`,
+    transition: { duration: 0.8, ease: "easeOut" },
+  }),
+};
+
 export default function HeroClient() {
-  const [i, setI] = useState(0);
-  const s = slides[i];
+  const [index, setIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(0);
+  const [dir, setDir] = useState<Dir>(1);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const prefersReducedMotion = useMemo(
@@ -292,13 +314,10 @@ export default function HeroClient() {
       intervalRef.current = null;
     }
   };
-
   const startTimer = () => {
     if (prefersReducedMotion) return;
     clearTimer();
-    intervalRef.current = setInterval(() => {
-      setI((x) => (x + 1) % slides.length);
-    }, 5000);
+    intervalRef.current = setInterval(() => goNext(), 5000);
   };
 
   useEffect(() => {
@@ -306,30 +325,34 @@ export default function HeroClient() {
     return clearTimer;
   }, [prefersReducedMotion]);
 
-  const next = () => {
-    setI((x) => (x + 1) % slides.length);
+  const goNext = () => {
+    setDir(1);
+    setPrevIndex(index);
+    setIndex((x) => (x + 1) % slides.length);
     startTimer();
   };
-  const prev = () => {
-    setI((x) => (x - 1 + slides.length) % slides.length);
+  const goPrev = () => {
+    setDir(-1);
+    setPrevIndex(index);
+    setIndex((x) => (x - 1 + slides.length) % slides.length);
     startTimer();
   };
 
-  /** PRELOAD sąsiednich slajdów (cache przeglądarki) */
+  /** preload sąsiednich */
   useEffect(() => {
-    const nextIdx = (i + 1) % slides.length;
-    const prevIdx = (i - 1 + slides.length) % slides.length;
+    const nextIdx = (index + 1) % slides.length;
+    const prevIdx = (index - 1 + slides.length) % slides.length;
     [slides[nextIdx].image, slides[prevIdx].image].forEach((src) => {
       const img = new window.Image();
       img.src = src;
     });
-  }, [i]);
+  }, [index]);
 
-  const variants = {
-    enter: { opacity: 1, x: "0%" },
-    initial: { opacity: 0, x: "-5%" },
-    exit: { opacity: 0, x: "5%" },
-  };
+  const desktopSizes = "(max-width: 1280px) 90vw, 1280px";
+  const mobileSizes = "100vw";
+
+  const Current = slides[index];
+  const Prev = slides[prevIndex];
 
   return (
     <>
@@ -339,40 +362,61 @@ export default function HeroClient() {
         aria-hidden="true"
       >
         <div className="absolute inset-y-0 right-0 w-svw">
-          {/* NIE używamy AnimatePresence + key, żeby nie remountować <Image /> */}
-          <motion.div
-            // stały element; tylko animujemy wartości na zmianę i
-            animate="enter"
-            initial="initial"
-            exit="exit"
-            variants={variants}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="absolute inset-0"
-            key="desktop-hero-wrapper"
-          >
-            <Image
-              /** <Image> zostaje ten sam — zmienia się tylko src */
-              key="desktop-hero-image"
-              src={s.image}
-              alt={s.alt}
-              fill
-              /** tylko pierwszy obraz ma priorytet */
-              priority={i === 0}
-              fetchPriority={i === 0 ? "high" : "auto"}
-              /** stały slot: prawa kolumna ~90vw do 1280, potem 1280px */
-              sizes="(max-width: 1280px) 90vw, 1280px"
-              quality={70}
-              placeholder="empty"
-              draggable={false}
-              className="object-cover"
-              decoding="async"
-            />
-          </motion.div>
+          <div className="absolute inset-0">
+            <AnimatePresence custom={dir} mode="sync" initial={false}>
+              {/* Poprzedni slajd (wychodzi) */}
+              <motion.div
+                key={`prev-${prevIndex}`}
+                className="absolute inset-0"
+                custom={dir}
+                initial="center"
+                animate="exit"
+                exit="exit"
+                variants={variants}
+              >
+                <Image
+                  src={Prev.image}
+                  alt={Prev.alt}
+                  fill
+                  sizes={desktopSizes}
+                  quality={70}
+                  className="object-cover"
+                  draggable={false}
+                  decoding="async"
+                  priority={false}
+                  fetchPriority="auto"
+                  placeholder="empty"
+                />
+              </motion.div>
 
-          <div
-            className="absolute inset-0 pointer-events-none w-full
-                       bg-[linear-gradient(to_right,white_0%,white_35%,rgba(255,255,255,0.1)_75%,transparent_100%)]"
-          />
+              {/* Aktualny slajd (wchodzi) */}
+              <motion.div
+                key={`cur-${index}`}
+                className="absolute inset-0"
+                custom={dir}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                variants={variants}
+              >
+                <Image
+                  src={Current.image}
+                  alt={Current.alt}
+                  fill
+                  sizes={desktopSizes}
+                  quality={70}
+                  className="object-cover"
+                  draggable={false}
+                  decoding="async"
+                  priority={index === 0}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  placeholder="empty"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="absolute inset-0 pointer-events-none w-full bg-[linear-gradient(to_right,white_0%,white_35%,rgba(255,255,255,0.1)_75%,transparent_100%)]" />
         </div>
       </div>
 
@@ -381,31 +425,57 @@ export default function HeroClient() {
         className="md:hidden absolute inset-x-0 bottom-0 h-full -z-10"
         aria-hidden="true"
       >
-        <motion.div
-          animate="enter"
-          initial="initial"
-          exit="exit"
-          variants={variants}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute inset-0"
-          key="mobile-hero-wrapper"
-        >
-          <Image
-            key="mobile-hero-image"
-            src={s.image}
-            alt={s.alt}
-            fill
-            priority={i === 0}
-            fetchPriority={i === 0 ? "high" : "auto"}
-            /** hero na mobile = pełna szerokość */
-            sizes="100vw"
-            quality={70}
-            placeholder="empty"
-            draggable={false}
-            className="object-cover"
-            decoding="async"
-          />
-        </motion.div>
+        <div className="absolute inset-0">
+          <AnimatePresence custom={dir} mode="sync" initial={false}>
+            <motion.div
+              key={`m-prev-${prevIndex}`}
+              className="absolute inset-0"
+              custom={dir}
+              initial="center"
+              animate="exit"
+              exit="exit"
+              variants={variants}
+            >
+              <Image
+                src={Prev.image}
+                alt={Prev.alt}
+                fill
+                sizes={mobileSizes}
+                quality={70}
+                className="object-cover"
+                draggable={false}
+                decoding="async"
+                priority={false}
+                fetchPriority="auto"
+                placeholder="empty"
+              />
+            </motion.div>
+
+            <motion.div
+              key={`m-cur-${index}`}
+              className="absolute inset-0"
+              custom={dir}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              variants={variants}
+            >
+              <Image
+                src={Current.image}
+                alt={Current.alt}
+                fill
+                sizes={mobileSizes}
+                quality={70}
+                className="object-cover"
+                draggable={false}
+                decoding="async"
+                priority={index === 0}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                placeholder="empty"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
       <div
@@ -421,16 +491,18 @@ export default function HeroClient() {
           role="status"
           aria-live="polite"
         >
-          <motion.span
-            key={s.label} // to może się remountować; to tylko tekst
-            initial={{ opacity: 0, x: "-5%" }}
-            animate={{ opacity: 1, x: "0%" }}
-            exit={{ opacity: 0, x: "5%" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-medium text-zinc-700 shadow"
-          >
-            {s.label}
-          </motion.span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={slides[index].label}
+              initial={{ opacity: 0, x: "-5%" }}
+              animate={{ opacity: 1, x: "0%" }}
+              exit={{ opacity: 0, x: "5%" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-medium text-zinc-700 shadow"
+            >
+              {slides[index].label}
+            </motion.span>
+          </AnimatePresence>
         </div>
       </div>
 
@@ -439,10 +511,10 @@ export default function HeroClient() {
         <div
           className="z-20 flex items-center gap-2"
           role="group"
-          aria-label="Sterowanie slajdami (mobile)"
+          aria-label="Sterowanie slajdami"
         >
           <button
-            onClick={prev}
+            onClick={goPrev}
             aria-label="Poprzedni"
             className="rounded-full p-1 bg-white/85 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
           >
@@ -455,14 +527,14 @@ export default function HeroClient() {
                 key={idx}
                 aria-hidden="true"
                 className={`h-2 w-2 rounded-full transition-all ${
-                  idx === i ? "bg-emerald-500 w-4" : "bg-zinc-400"
+                  idx === index ? "bg-emerald-500 w-4" : "bg-zinc-400"
                 }`}
               />
             ))}
           </div>
 
           <button
-            onClick={next}
+            onClick={goNext}
             aria-label="Następny"
             className="rounded-full p-1 bg-white/85 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
           >

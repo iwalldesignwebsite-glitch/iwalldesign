@@ -41,49 +41,45 @@ const projects = [
 
 const gallery = [
   {
-    src: "/assets/images/services/stickers.webp?v=2",
+    src: "/assets/images/services/stickers.webp",
     alt: "Naklejki i etykiety — cięcie po obrysie",
   },
   {
-    src: "/assets/images/services/posters.webp?v=2",
+    src: "/assets/images/services/posters.webp",
     alt: "Plakaty premium — , duże formaty",
   },
   {
-    src: "/assets/images/services/card.webp?v=2",
+    src: "/assets/images/services/card.webp",
     alt: "Wizytówki",
   },
 ];
 
 const AdvertisingMaterials = () => {
   return (
+    <Container className="flex flex-col items-center justify-center gap-10 md:gap-10 ">
+      <Title
+        titleId={content.titleId}
+        lead={content.leadId}
+        description={content.description}
+      >
+        <ShinyWord>Naklejki, plakaty i wizytówki</ShinyWord> – profesjonalny
+        druk reklamowy w Koszalinie
+      </Title>
 
-      <Container className="flex flex-col items-center justify-center gap-10 md:gap-10 ">
-        <Title
-          titleId={content.titleId}
-          lead={content.leadId}
-          description={content.description}
-        >
-          <ShinyWord>Naklejki, plakaty i wizytówki</ShinyWord> – profesjonalny
-          druk reklamowy w Koszalinie
-        </Title>
-
-        <div className="w-full flex flex-col justify-between lg:grid lg:grid-cols-[1.2fr_1fr]  items-center gap-10 md:gap-5 lg:gap-20">
-          <SimpleCarousel
-            items={gallery}
-            sizes="(max-width: 1024px) 100vw, 500px"
-            autoRotate
-            interval={5000}
-            className="relative w-full mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[600px] lg:order-2"
-            aria-label="Galeria materiałów reklamowych: naklejki, plakaty i wizytówki"
-          />
-          <div className="w-full">
-            <CompareCards projects={projects} />
-          </div>
+      <div className="w-full flex flex-col justify-between lg:grid lg:grid-cols-[1.2fr_1fr]  items-center gap-10 md:gap-5 lg:gap-20">
+        <SimpleCarousel
+          items={gallery}
+          sizes="(max-width: 1024px) 100vw, 500px"
+          autoRotate
+          interval={5000}
+          className="relative w-full mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[600px] lg:order-2"
+          aria-label="Galeria materiałów reklamowych: naklejki, plakaty i wizytówki"
+        />
+        <div className="w-full">
+          <CompareCards projects={projects} />
         </div>
-      </Container>
-
-    
-    
+      </div>
+    </Container>
   );
 };
 
