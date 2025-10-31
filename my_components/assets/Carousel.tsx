@@ -54,7 +54,6 @@ export function SimpleCarousel({
     timerRef.current = null;
   };
 
-  // 1) Obserwacja widoczności karuzeli w viewport
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -66,7 +65,6 @@ export function SimpleCarousel({
     return () => io.disconnect();
   }, []);
 
-  // 2) Autoplay + klawiatura + visibilitychange (wszystko w jednym)
   useEffect(() => {
     const canAutoplay =
       autoRotate && !prefersReduced && inView && items.length > 1;
@@ -100,9 +98,8 @@ export function SimpleCarousel({
       window.removeEventListener("keydown", onKey);
       clear();
     };
-  }, [autoRotate, prefersReduced, inView, interval, items.length]); // pojedynczy efekt sterujący
+  }, [autoRotate, prefersReduced, inView, interval, items.length]);
 
-  // Swipe
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     clear();
@@ -125,7 +122,6 @@ export function SimpleCarousel({
       aria-roledescription="carousel"
       aria-label="Karuzela zdjęć"
     >
-      {/* Status dla czytników ekranowych */}
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         Slajd {i + 1} z {items.length}
       </p>
@@ -176,7 +172,6 @@ export function SimpleCarousel({
         </>
       )}
 
-      {/* Kropki – dekoracyjne, nieklikalne */}
       {showDots && items.length > 1 && (
         <div
           className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
