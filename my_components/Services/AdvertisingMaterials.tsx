@@ -41,15 +41,15 @@ const projects = [
 
 const gallery = [
   {
-    src: "/assets/images/services/stickers.webp",
+    src: "/assets/images/services/stickers.webp?v=2",
     alt: "Naklejki i etykiety — cięcie po obrysie",
   },
   {
-    src: "/assets/images/services/posters.webp",
+    src: "/assets/images/services/posters.webp?v=2",
     alt: "Plakaty premium — , duże formaty",
   },
   {
-    src: "/assets/images/services/card.webp",
+    src: "/assets/images/services/card.webp?v=2",
     alt: "Wizytówki",
   },
 ];

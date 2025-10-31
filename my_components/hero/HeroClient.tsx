@@ -14,32 +14,32 @@ type Slide = {
 const slides: Slide[] = [
   {
     label: "Ściany",
-    image: "/assets/images/hero/wall_1.jpg",
+    image: "/assets/images/hero/wall_1.jpg?v=2",
     alt: "nadruk UV naścienny",
   },
   {
     label: "Ściany",
-    image: "/assets/images/hero/wall_2.jpg",
+    image: "/assets/images/hero/wall_2.jpg?v=2",
     alt: "nadruk UV naścienny",
   },
   {
     label: "Odzież",
-    image: "/assets/images/hero/clothing.jpg",
+    image: "/assets/images/hero/clothing.jpg?v=2",
     alt: "Nadruk uv na białej koszulce",
   },
   {
     label: "Ściany",
-    image: "/assets/images/hero/wall_3.jpg",
+    image: "/assets/images/hero/wall_3.jpg?v=2",
     alt: "nadruk UV naścienny",
   },
   {
     label: "Naklejki",
-    image: "/assets/images/hero/stickers.jpg",
+    image: "/assets/images/hero/stickers.jpg?v=2",
     alt: "naklejki",
   },
   {
     label: "Plakaty",
-    image: "/assets/images/hero/posters.jpg",
+    image: "/assets/images/hero/posters.jpg?v=2",
     alt: "plakaty",
   },
 ];
@@ -131,7 +131,6 @@ export default function HeroClient() {
         </div>
       </div>
 
-      {/* ===== MOBILE/TABLET ===== */}
       <div
         className="md:hidden absolute inset-x-0 bottom-0 h-full -z-10"
         aria-hidden="true"

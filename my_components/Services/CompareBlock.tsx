@@ -10,8 +10,8 @@ export function CompareBlock() {
           Po nadruku UV
         </span>
         <Compare
-          firstImage="/assets/images/before.png"
-          secondImage="/assets/images/after.png"
+          firstImage="/assets/images/before.png?v=2"
+          secondImage="/assets/images/after.png?v=2"
           firstImageClassName="object-cover object-left-top w-full"
           secondImageClassname="object-cover object-left-top w-full"
           className="relative w-full   aspect-square overflow-hidden rounded-md shadow-lg "
