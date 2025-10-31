@@ -15,12 +15,7 @@ const nextConfig: NextConfig = {
       16, 24, 32, 48, 64, 96, 128, 256, 320, 360, 372, 384, 409, 512, 640,
     ],
     minimumCacheTTL: 60 * 60 * 24 * 30,
-    localPatterns: [
-      // dopuszcza np. /assets/images/hero/wall_1.jpg?v=2
-      { pathname: "/assets/images/**", search: "v=**" },
-      // jeśli część plików nie ma query stringa:
-      { pathname: "/assets/images/**", search: "" },
-    ],
+  
   },
 };
 
