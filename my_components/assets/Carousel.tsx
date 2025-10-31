@@ -32,7 +32,7 @@ function usePrefersReducedMotion() {
 export function SimpleCarousel({
   items,
   className = "relative w-full max-w-[600px] mx-auto aspect-square overflow-hidden rounded-md shadow-lg",
-  sizes = "(max-width: 1024px) 100vw, 500px",
+  sizes = "(max-width: 768px) 600px, 800px",
   autoRotate = true,
   interval = 5000,
   showDots = true,
