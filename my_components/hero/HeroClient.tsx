@@ -14,32 +14,32 @@ type Slide = {
 const slides: Slide[] = [
   {
     label: "Ściany",
-    image: "/assets/images/hero/wall_1.jpg?v=2",
+    image: "/assets/images/hero/wall_1.jpg",
     alt: "nadruk UV naścienny",
   },
   {
     label: "Ściany",
-    image: "/assets/images/hero/wall_2.jpg?v=2",
+    image: "/assets/images/hero/wall_2.jpg",
     alt: "nadruk UV naścienny",
   },
   {
     label: "Odzież",
-    image: "/assets/images/hero/clothing.jpg?v=2",
+    image: "/assets/images/hero/clothing.jpg",
     alt: "Nadruk uv na białej koszulce",
   },
   {
     label: "Ściany",
-    image: "/assets/images/hero/wall_3.jpg?v=2",
+    image: "/assets/images/hero/wall_3.jpg",
     alt: "nadruk UV naścienny",
   },
   {
     label: "Naklejki",
-    image: "/assets/images/hero/stickers.jpg?v=2",
+    image: "/assets/images/hero/stickers.jpg",
     alt: "naklejki",
   },
   {
     label: "Plakaty",
-    image: "/assets/images/hero/posters.jpg?v=2",
+    image: "/assets/images/hero/posters.jpg",
     alt: "plakaty",
   },
 ];
@@ -111,10 +111,10 @@ export default function HeroClient() {
               <Image
                 src={s.image}
                 alt={s.alt}
-                fill
+                
                 priority={i === 0}
                 fetchPriority={i === 0 ? "high" : "auto"}
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1280px"
+                sizes="(max-width: 768px) 50vw, (max-width: 1280px) 90vw, 1280px"
                 quality={70}
                 placeholder="empty"
                 draggable={false}

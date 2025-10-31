@@ -58,10 +58,10 @@ export default function AboutSection() {
             <RevealOnScroll>
               <div className="relative w-full  mx-auto aspect-square overflow-hidden rounded-md">
                 <Image
-                  src="/assets/images/about/aboutUs.jpg?v=2"
+                  src="/assets/images/about/aboutUs.jpg"
                   alt="Zdjęcie zespołu iWallDesign"
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 600px"
                   loading="lazy"
                   className="object-cover object-[50%_40%] "
                 />
