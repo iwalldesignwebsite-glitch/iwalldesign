@@ -3,7 +3,6 @@ import { ShinyWord } from "../navbar/ShinyWord";
 import { Tabs } from "@/components/ui/tabs";
 import Title from "../assets/Title";
 import Container from "../assets/Container";
-import RevealOnScroll from "../assets/RevealWrapper";
 import ContactBtn from "../assets/ContactBtn";
 
 type Material = { label: string; img: string };
@@ -165,11 +164,9 @@ export default function Surfaces() {
           Druk UV na każdej <ShinyWord>płaskiej powierzchni</ShinyWord>
         </Title>
 
-        <RevealOnScroll>
-          <div className="mt-12 h-[40rem] md:h-[20rem] [perspective:10000px]   relative  flex flex-col  mx-auto w-full  items-start justify-start mb-36">
-            <Tabs tabs={surfaces} />
-          </div>
-        </RevealOnScroll>
+        <div className="mt-12 h-[40rem] md:h-[20rem] [perspective:10000px]   relative  flex flex-col  mx-auto w-full  items-start justify-start mb-36">
+          <Tabs tabs={surfaces} />
+        </div>
         <div className="mx-auto gap-6  flex items-center justify-center">
           <div>
             <p className="text-xl max-w-2xl font-medium">
@@ -185,4 +182,3 @@ export default function Surfaces() {
     </section>
   );
 }
-
