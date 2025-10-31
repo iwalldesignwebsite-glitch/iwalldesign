@@ -69,7 +69,7 @@ const AdvertisingMaterials = () => {
       <div className="w-full flex flex-col justify-between lg:grid lg:grid-cols-[1.2fr_1fr]  items-center gap-10 md:gap-5 lg:gap-20">
         <SimpleCarousel
           items={gallery}
-          sizes="(max-width: 1024px) 100vw, 500px"
+          sizes="(max-width: 768px) 300px, (max-width: 1280px) 800px, 1280px"
           autoRotate
           interval={5000}
           className="relative w-full mx-auto aspect-square overflow-hidden rounded-md shadow-lg lg:max-w-[600px] lg:order-2"

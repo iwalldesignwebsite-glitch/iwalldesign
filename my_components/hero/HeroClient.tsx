@@ -349,7 +349,7 @@ export default function HeroClient() {
   }, [index]);
 
   const desktopSizes = "(max-width: 1280px) 90vw, 1280px";
-  const mobileSizes = "(max-width: 768px) 500px";
+  const mobileSizes = "(max-width: 768px) 250px";
 
   const Current = slides[index];
   const Prev = slides[prevIndex];
