@@ -9,7 +9,6 @@ export default function ContactInteractive() {
   return (
     <div>
       <ContactForm onSubmitResult={(s) => setToast(s)} />
-      {/* aria-live, aby czytniki usłyszały status */}
       <div aria-live="polite" aria-atomic="true">
         <AlertToast status={toast} onClose={() => setToast("idle")} />
       </div>

@@ -12,7 +12,7 @@ export type RevealOnScrollProps = {
   amount?: number;
 };
 
-const easing: [number, number, number, number] = [0.22, 1, 0.36, 1]; 
+const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function RevealOnScroll({
   children,
@@ -20,11 +20,11 @@ export function RevealOnScroll({
   style,
   delay = 0,
   once = true,
-  amount = 0.6,
+  amount = 0.3,
 }: RevealOnScrollProps) {
   const prefersReducedMotion = useReducedMotion();
 
-  const distance = 12;  
+  const distance = 12;
 
   const initial = prefersReducedMotion
     ? { opacity: 1, y: 0 }

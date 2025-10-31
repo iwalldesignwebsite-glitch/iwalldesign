@@ -364,7 +364,6 @@ export default function HeroClient() {
         <div className="absolute inset-y-0 right-0 w-svw">
           <div className="absolute inset-0">
             <AnimatePresence custom={dir} mode="sync" initial={false}>
-              {/* Poprzedni slajd (wychodzi) */}
               <motion.div
                 key={`prev-${prevIndex}`}
                 className="absolute inset-0"
@@ -389,7 +388,6 @@ export default function HeroClient() {
                 />
               </motion.div>
 
-              {/* Aktualny slajd (wchodzi) */}
               <motion.div
                 key={`cur-${index}`}
                 className="absolute inset-0"
@@ -420,7 +418,6 @@ export default function HeroClient() {
         </div>
       </div>
 
-      {/* ===== MOBILE TŁO ===== */}
       <div
         className="md:hidden absolute inset-x-0 bottom-0 h-full -z-10"
         aria-hidden="true"
@@ -484,7 +481,6 @@ export default function HeroClient() {
         aria-hidden="true"
       />
 
-      {/* ===== LABEL ===== */}
       <div className="w-fit mx-auto items-end justify-center">
         <div
           className="absolute right-3 bottom-3 md:right-6 md:top-6 pointer-events-none"
@@ -506,7 +502,6 @@ export default function HeroClient() {
         </div>
       </div>
 
-      {/* ===== CONTROLS ===== */}
       <div className="w-full h-full flex items-end justify-center mb-5">
         <div
           className="z-20 flex items-center gap-2"

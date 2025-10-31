@@ -8,14 +8,13 @@ import { X } from "lucide-react";
 type Props = {
   status: "idle" | "success" | "error";
   onClose: () => void;
-  duration?: number; // ms
+  duration?: number; 
 };
 
 export default function AlertToast({ status, onClose, duration = 4000 }: Props) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  // auto-dismiss
   useEffect(() => {
     if (status === "idle") return;
     const t = setTimeout(onClose, duration);
@@ -29,7 +28,6 @@ export default function AlertToast({ status, onClose, duration = 4000 }: Props) 
   const content = (
     <div
       className={[
-        // pozycja: na mob. center bottom; od sm: prawy dół
         "fixed z-[1000] w-[min(92vw,36rem)]",
         "left-1/2 -translate-x-1/2 bottom-4",
         "sm:right-6 sm:left-auto sm:translate-x-0 sm:bottom-6",
@@ -59,6 +57,5 @@ export default function AlertToast({ status, onClose, duration = 4000 }: Props) 
     </div>
   );
 
-  // portal do <body> – zero „skakania” layoutu
   return createPortal(content, document.body);
 }
