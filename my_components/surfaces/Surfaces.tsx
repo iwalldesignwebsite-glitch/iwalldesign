@@ -167,7 +167,7 @@ export default function Surfaces() {
         <div className="mt-12 h-[40rem] md:h-[20rem] [perspective:10000px]   relative  flex flex-col  mx-auto w-full  items-start justify-start mb-36">
           <Tabs tabs={surfaces} />
         </div>
-        <div className="mx-auto gap-6  flex items-center justify-center">
+        <div className="mx-auto gap-6  flex items-center justify-center flex-col md:flex-row">
           <div>
             <p className="text-xl max-w-2xl font-medium">
               Nie masz pewności, czy powierzchnia nadaje się do nadruku UV?

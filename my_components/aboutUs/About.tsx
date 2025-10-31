@@ -6,8 +6,6 @@ import List from "./List";
 import RevealOnScroll from "../assets/RevealWrapper";
 import Image from "next/image";
 
-
-
 const content = {
   titleId: "o-nas-tytul",
   leadId: "o-nas-opis",
