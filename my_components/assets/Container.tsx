@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx"; // opcjonalnie – do łączenia klas bez pustych stringów
+import clsx from "clsx"; 
 
 type Props = {
   children: React.ReactNode;

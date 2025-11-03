@@ -1,16 +1,30 @@
-// app/polityka-prywatnosci/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/my_components/navbar/Navbar";
 import Container from "@/my_components/assets/Container";
 import { ShinyWord } from "@/my_components/navbar/ShinyWord";
 import Footer from "@/my_components/footer/Footer";
 
-export const metadata = {
-  title: "Polityka prywatności | iWallDesign",
+export const metadata: Metadata = {
+  title: "Polityka prywatności",
   description:
     "Dowiedz się, jak iWallDesign z Karlina przetwarza Twoje dane osobowe zgodnie z RODO. Zasady bezpieczeństwa, przechowywania i kontaktu w sprawie danych.",
   alternates: {
-    canonical: "https://iwalldesign.vercel.app/polityka-prywatnosci",
+    canonical: "https://iwalldesign.pl/polityka-prywatnosci",
+  },
+  openGraph: {
+    title: "Polityka prywatności – iWallDesign",
+    description:
+      "Informacje o przetwarzaniu danych osobowych zgodnie z RODO. Sprawdź, jak iWallDesign dba o Twoją prywatność.",
+    url: "https://iwalldesign.pl/polityka-prywatnosci",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "iWallDesign – Polityka prywatności",
+      },
+    ],
   },
 };
 
@@ -36,8 +50,8 @@ export default function Privacy() {
             <h2>1. Administrator danych</h2>
             <p>
               Administratorem danych osobowych jest <strong>iWallDesign</strong>{" "}
-              z siedzibą w<strong> Karlinie</strong>. Kontakt w sprawie danych:{" "}
-              <a href="mailto:iwalldesign@mail.com">iwalldesign@mail.com</a>,
+              z siedzibą w <strong>Karlinie</strong>. Kontakt w sprawie danych:{" "}
+              <a href="mailto:biuro@iwalldesign.pl">biuro@iwalldesign.pl</a>,
               tel. <a href="tel:+48882945714">+48 882 945 714</a>.
             </p>
 
@@ -68,7 +82,7 @@ export default function Privacy() {
               Dane nie są sprzedawane ani udostępniane podmiotom trzecim. Mogą
               być powierzone zaufanym dostawcom usług niezbędnych do działania
               serwisu (np. operatorowi poczty e-mail lub serwisowi wysyłki
-              wiadomości), wyłącznie na podstawie umów powierzenia i w zakresie
+              wiadomości) wyłącznie na podstawie umów powierzenia i w zakresie
               koniecznym do realizacji usługi.
             </p>
 
