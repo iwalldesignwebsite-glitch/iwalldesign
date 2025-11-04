@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     "druk plakatów Koszalin",
     "iWallDesign",
   ],
+  verification: {
+    google: "9COgsLr7R_xjErPO_s0eOIwMF6OndXUK9urjIvGaOaw",
+  },
   openGraph: {
     type: "website",
     locale: "pl_PL",
