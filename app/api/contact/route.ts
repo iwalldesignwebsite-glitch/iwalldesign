@@ -1,10 +1,10 @@
-// app/api/contact/route.ts
+
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
-// limity i typy plików
+
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB / plik
 const ALLOWED_TYPES = new Set<string>([
   "image/jpeg",
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     const message = trim((form.get("message") as string) || "");
     const files = form.getAll("files") as File[];
 
-    // --- WALIDACJA ---
+    
     if (!name || !email.includes("@")) {
       return NextResponse.json(
         { error: "Błędne imię lub e-mail." },
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Podaj miasto." }, { status: 400 });
     }
 
-    // pliki są OPCJONALNE: 0–3
+  
     if (files.length > 3) {
       return NextResponse.json(
         { error: "Dodaj maksymalnie 3 pliki." },
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
       }
     }
 
-    // załączniki tylko jeśli są pliki
+ 
     let attachments: { filename: string; content: Buffer }[] | undefined;
     if (files.length > 0) {
       attachments = await Promise.all(
@@ -80,7 +80,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // konfiguracja maila
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CONTACT_TO_EMAIL;
     const from = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
@@ -93,7 +92,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // inicjalizacja dopiero tutaj
     const resend = new Resend(apiKey);
 
     const html = `
