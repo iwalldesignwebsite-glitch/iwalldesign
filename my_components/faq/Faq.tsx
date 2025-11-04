@@ -55,7 +55,7 @@ const faqs = [
 function Faq() {
   return (
     <section
-      className="bg-white"
+      className="bg-white content-visibility-auto"
       id="faq"
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}

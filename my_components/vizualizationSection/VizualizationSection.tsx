@@ -11,6 +11,7 @@ export function VisualizerSection() {
       id="wizualizator"
       aria-labelledby="wizualizator-title"
       aria-describedby="wizualizator-lead"
+      className="content-visibility-auto"
     >
       <Container className="gap-10">
         <Title
@@ -32,8 +33,9 @@ export function VisualizerSection() {
                 <Image
                   src="/assets/images/timeline/uploadStep.png"
                   alt="Krok 1 — przesyłanie zdjęcia powierzchni"
-                  width={800}
-                  height={520}
+                  width={340}
+                  height={221}
+                  sizes="(max-width: 768px) 250px, (max-width: 1024px) 300px, 340px"
                   className="relative z-10 w-full h-auto rounded-xl"
                   priority
                 />
@@ -70,8 +72,9 @@ export function VisualizerSection() {
                 <Image
                   src="/assets/images/timeline/adjustStep.png"
                   alt="Krok 2 — dopasowanie grafiki"
-                  width={800}
-                  height={520}
+                  width={340}
+                  height={221}
+                  sizes="(max-width: 768px) 250px, (max-width: 1024px) 300px, 340px"
                   className="relative z-10 w-full h-auto rounded-xl"
                 />
               </div>
@@ -105,8 +108,9 @@ export function VisualizerSection() {
                 <Image
                   src="/assets/images/timeline/finalStep.png"
                   alt="Krok 3 — realistyczny podgląd i zatwierdzenie"
-                  width={800}
-                  height={520}
+                  width={340}
+                  height={221}
+                  sizes="(max-width: 768px) 250px, (max-width: 1024px) 300px, 340px"
                   className="relative z-10 w-full h-auto rounded-xl"
                 />
               </div>

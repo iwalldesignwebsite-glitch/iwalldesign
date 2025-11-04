@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Send, X } from "lucide-react";
 import Link from "next/link";
 
-/* ------------------------- Walidacja (Zod) ------------------------- */
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
 const ALLOWED_TYPES = new Set<string>([
@@ -47,7 +46,6 @@ type FormData = z.output<typeof schema>;
 type SubmitResult = "success" | "error";
 type Props = { onSubmitResult?: (r: SubmitResult) => void };
 
-/* ----------------------------- Komponent ----------------------------- */
 
 export default function ContactForm({ onSubmitResult }: Props) {
   const [isOver, setIsOver] = useState(false);
@@ -82,7 +80,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
 
   const files = watch("files");
 
-  /* ---------- dodawanie/usuwanie plików (input + drag&drop) ---------- */
 
   const mergeAndSetFiles = (incoming: File[]) => {
     const current = getValues("files") ?? [];
@@ -133,7 +130,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
     setLiveMsg(`Usunięto plik ${idx + 1}.`);
   };
 
-  /* ----------------------------- submit ------------------------------ */
 
   const fullReset = () => {
     reset();
@@ -144,7 +140,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
 
   const onSubmit = async (data: FormData) => {
     try {
-      // honeypot
       if (data.website && data.website.trim() !== "") {
         onSubmitResult?.("success");
         fullReset();
@@ -172,7 +167,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
     }
   };
 
-  /* ---------------------- Miniatury obrazków ---------------------- */
   const previews = useMemo(
     () =>
       files.map((f) =>
@@ -193,7 +187,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
     return `${n} B`;
   };
 
-  /* ------ Blokada nie-cyfr w telefonie ------ */
   const allowOnlyDigits = (e: React.FormEvent<HTMLInputElement>) => {
     // @ts-ignore nativeEvent.data dla beforeinput
     const data: string | null = e.nativeEvent?.data ?? null;
@@ -224,7 +217,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
     if (!/^\d$/.test(e.key)) e.preventDefault();
   };
 
-  /* ------ Zczytywanie projektu z wizualizatora------ */
 
   useEffect(() => {
     const saved = localStorage.getItem("visualizerProject");
@@ -248,7 +240,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
-        {/* Imię + Email */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="name" className="block text-sm font-medium">
@@ -293,7 +284,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
           </div>
         </div>
 
-        {/* Telefon + Miasto */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="phone" className="block text-sm font-medium">
@@ -341,7 +331,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
           </div>
         </div>
 
-        {/* Dropzone + lista + miniatury */}
         <div>
           <label className="block text-sm font-medium">
             Dodaj zdjęcia powierzchni lub projektu (opcjonalnie, max 3)
@@ -437,7 +426,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
           )}
         </div>
 
-        {/* Wiadomość (wymagana) */}
         <div>
           <label htmlFor="message" className="block text-sm font-medium">
             Wiadomość*
@@ -457,7 +445,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
           )}
         </div>
 
-        {/* Honeypot (anty-spam) */}
         <input
           type="text"
           tabIndex={-1}
@@ -467,7 +454,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
           aria-hidden="true"
         />
 
-        {/* Checkbox */}
         <div className="flex items-start gap-2">
           <input
             id="privacy"
@@ -495,7 +481,6 @@ export default function ContactForm({ onSubmitResult }: Props) {
           <p className="text-sm text-red-600 mt-1">{errors.privacy.message}</p>
         )}
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={isSubmitting}

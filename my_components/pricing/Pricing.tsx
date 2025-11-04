@@ -64,6 +64,7 @@ function Pricing() {
       id={content.sectionId}
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
+      className="content-visibility-auto"
     >
       <Container>
         <Title

@@ -6,8 +6,6 @@ import List from "./List";
 import RevealOnScroll from "../assets/RevealWrapper";
 import Image from "next/image";
 
-
-
 const content = {
   titleId: "o-nas-tytul",
   leadId: "o-nas-opis",
@@ -21,6 +19,7 @@ export default function AboutSection() {
       id="o-nas"
       aria-labelledby={content.titleId}
       aria-describedby={content.leadId}
+      className="content-visibility-auto"
     >
       <Container>
         <div className="grid items-start gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
@@ -63,7 +62,7 @@ export default function AboutSection() {
                   src="/assets/images/about/aboutUs.jpg"
                   alt="Zdjęcie zespołu iWallDesign"
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 600px"
                   loading="lazy"
                   className="object-cover object-[50%_40%] "
                 />

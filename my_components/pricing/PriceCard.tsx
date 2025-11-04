@@ -20,9 +20,8 @@ function PriceCard({ image, title, price, pros, unit, description }: Props) {
           alt={title}
           width={400}
           height={300}
-          priority
           className="w-full h-full object-cover"
-          sizes="(min-width: 1024px) 400px, 100vw"
+          sizes="(max-width: 768px) 360px, 500px"
         />
       </div>
 

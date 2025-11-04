@@ -66,7 +66,7 @@ const content = {
 function Services() {
   return (
     <section
-      className="scroll-mt-14 lg:scroll-mt-16"
+      className="scroll-mt-14 lg:scroll-mt-16 content-visibility-auto"
       id="oferta"
       aria-labelledby="dlaczego-druk-uv"
       aria-describedby="lead-dlaczego"

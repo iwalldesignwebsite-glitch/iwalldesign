@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import clsx from "clsx";
 
 type CarouselItem = { src: string; alt: string };
+
 type Props = {
   items: CarouselItem[];
   className?: string;
@@ -17,22 +18,10 @@ type Props = {
   showArrows?: boolean;
 };
 
-function usePrefersReducedMotion() {
-  const [prefers, setPrefers] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const onChange = () => setPrefers(mq.matches);
-    onChange();
-    mq.addEventListener?.("change", onChange);
-    return () => mq.removeEventListener?.("change", onChange);
-  }, []);
-  return prefers;
-}
-
 export function SimpleCarousel({
   items,
   className = "relative w-full max-w-[600px] mx-auto aspect-square overflow-hidden rounded-md shadow-lg",
-  sizes = "(max-width: 1024px) 100vw, 500px",
+  sizes = "(max-width: 768px) 600px, 800px",
   autoRotate = true,
   interval = 5000,
   showDots = true,
@@ -41,80 +30,109 @@ export function SimpleCarousel({
   const [i, setI] = useState(0);
   const s = items[i];
 
-  const prefersReduced = usePrefersReducedMotion();
+  const prefersReduced = useReducedMotion();
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const timerRef = useRef<number | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touchStartX = useRef<number | null>(null);
-  const [inView, setInView] = useState(true);
+  const inViewRef = useRef(true); 
 
-  const next = () => setI((x) => (x + 1) % items.length);
-  const prev = () => setI((x) => (x - 1 + items.length) % items.length);
-  const clear = () => {
-    if (timerRef.current) window.clearInterval(timerRef.current);
-    timerRef.current = null;
-  };
+  const clearTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
 
-  // 1) Obserwacja widoczności karuzeli w viewport
+  const next = useCallback(() => {
+    setI((x) => (x + 1) % items.length);
+  }, [items.length]);
+
+  const prev = useCallback(() => {
+    setI((x) => (x - 1 + items.length) % items.length);
+  }, [items.length]);
+
+ 
+  useEffect(() => {
+    const canAutoplay =
+      autoRotate && !prefersReduced && inViewRef.current && items.length > 1;
+
+    clearTimer();
+    if (canAutoplay) {
+      const delay = Math.max(2000, interval);
+      timerRef.current = setTimeout(next, delay);
+    }
+
+    return clearTimer;
+  }, [i, autoRotate, prefersReduced, interval, items.length, next, clearTimer]);
+
+  
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
+
     const io = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.1 }
+      ([entry]) => {
+        inViewRef.current = entry.isIntersecting;
+       
+        if (entry.isIntersecting) {
+       
+          setI((x) => x);
+        } else {
+          clearTimer();
+        }
+      },
+      { threshold: 0.25 }
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  // 2) Autoplay + klawiatura + visibilitychange (wszystko w jednym)
-  useEffect(() => {
-    const canAutoplay =
-      autoRotate && !prefersReduced && inView && items.length > 1;
-    if (canAutoplay) {
-      clear();
-      timerRef.current = window.setInterval(next, Math.max(2000, interval));
-    }
 
     const onVis = () => {
-      if (document.hidden) clear();
-      else if (canAutoplay && !timerRef.current) {
-        timerRef.current = window.setInterval(next, Math.max(2000, interval));
-      }
-    };
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") {
-        clear();
-        next();
-      } else if (e.key === "ArrowLeft") {
-        clear();
-        prev();
-      }
+      if (document.hidden) clearTimer();
+      else setI((x) => x); 
     };
 
     document.addEventListener("visibilitychange", onVis);
-    window.addEventListener("keydown", onKey);
-
     return () => {
+      io.disconnect();
       document.removeEventListener("visibilitychange", onVis);
-      window.removeEventListener("keydown", onKey);
-      clear();
     };
-  }, [autoRotate, prefersReduced, inView, interval, items.length]); // pojedynczy efekt sterujący
+  }, [clearTimer]);
 
-  // Swipe
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    clear();
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current == null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX.current;
-    const THRESHOLD = 30;
-    if (dx > THRESHOLD) prev();
-    else if (dx < -THRESHOLD) next();
-    touchStartX.current = null;
-  };
+  const onTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      touchStartX.current = e.touches[0].clientX;
+      clearTimer();
+    },
+    [clearTimer]
+  );
+
+  const onTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      const start = touchStartX.current;
+      if (start == null) return;
+      const dx = e.changedTouches[0].clientX - start;
+      const THRESHOLD = 30;
+      if (dx > THRESHOLD) prev();
+      else if (dx < -THRESHOLD) next();
+      touchStartX.current = null;
+    },
+    [next, prev]
+  );
+
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "ArrowRight") {
+        clearTimer();
+        next();
+      } else if (e.key === "ArrowLeft") {
+        clearTimer();
+        prev();
+      }
+    },
+    [next, prev, clearTimer]
+  );
+
+  const duration = prefersReduced ? 0 : 0.45;
 
   return (
     <div
@@ -122,10 +140,11 @@ export function SimpleCarousel({
       className={clsx("group relative select-none", className)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
+      onKeyDown={onKeyDown}
+      tabIndex={0}
       aria-roledescription="carousel"
       aria-label="Karuzela zdjęć"
     >
-      {/* Status dla czytników ekranowych */}
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         Slajd {i + 1} z {items.length}
       </p>
@@ -136,15 +155,18 @@ export function SimpleCarousel({
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -24 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
+          transition={{ duration, ease: "easeOut" }}
           className="absolute inset-0"
         >
           <Image
             src={s.src}
             alt={s.alt}
             fill
-            priority={i === 0}
             sizes={sizes}
+            priority={i === 0}
+            fetchPriority={i === 0 ? "high" : "auto"}
+            decoding="async"
+            draggable={false}
             className="object-cover object-center"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
@@ -155,7 +177,7 @@ export function SimpleCarousel({
         <>
           <button
             onClick={() => {
-              clear();
+              clearTimer();
               prev();
             }}
             aria-label="Poprzedni slajd"
@@ -163,9 +185,10 @@ export function SimpleCarousel({
           >
             <ChevronLeft className="h-5 w-5 text-zinc-800" />
           </button>
+
           <button
             onClick={() => {
-              clear();
+              clearTimer();
               next();
             }}
             aria-label="Następny slajd"
@@ -176,7 +199,6 @@ export function SimpleCarousel({
         </>
       )}
 
-      {/* Kropki – dekoracyjne, nieklikalne */}
       {showDots && items.length > 1 && (
         <div
           className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"

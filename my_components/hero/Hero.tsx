@@ -10,7 +10,7 @@ export default function Hero() {
       aria-roledescription="Slajder promocyjny"
       className="relative isolate overflow-hidden bg-white mt-14 xl:mt-16"
     >
-      <div className="container mx-auto flex flex-col-reverse items-center md:flex-row-reverse md:items-center p-2 px-5 md:px-10 lg:px-15 xl:px-20 h-[72svh] md:h-[60svh] xl:h-[72svh]">
+      <div className="container mx-auto flex flex-col items-center md:flex-row md:items-center p-2 px-5 md:px-10 lg:px-15 xl:px-20 h-[72svh] md:h-[60svh] xl:h-[72svh]">
         <HeroClient />
 
         <div className="max-w-[500px] z-10  md:max-w-[400px]  xl:max-w-[650px]  py-5 ">
