@@ -30,8 +30,9 @@ export const metadata: Metadata = {
     "iWallDesign",
   ],
   verification: {
-    google: "9COgsLr7R_xjErPO_s0eOIwMF6OndXUK9urjIvGaOaw",
+    google: "r4wB6pM5vv3r1ntOCteC4SOKwH0HmtFbM4Z2J5QwhP0",
   },
+
   openGraph: {
     type: "website",
     locale: "pl_PL",
