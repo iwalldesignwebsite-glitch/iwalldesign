@@ -8,7 +8,7 @@ const StatCard = () => {
       <RevealOnScroll>
         <dl
           aria-label="Statystyka — liczba zrealizowanych projektów"
-          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+          className="rounded-lg border-black/10 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
         >
           <dt className="text-2xl font-semibold">
             <ShinyWord>500+</ShinyWord>
@@ -22,7 +22,7 @@ const StatCard = () => {
       <RevealOnScroll delay={0.2}>
         <dl
           aria-label="Statystyka — procent zadowolonych klientów"
-          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+          className="rounded-lg border-black/10 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
         >
           <dt className="text-2xl font-semibold">
             <ShinyWord>100%</ShinyWord>
@@ -36,7 +36,7 @@ const StatCard = () => {
       <RevealOnScroll delay={0.3}>
         <dl
           aria-label="Statystyka — liczba klientów powracających"
-          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+          className="rounded-lg border-black/10 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
         >
           <dt className="text-2xl font-semibold">
             <ShinyWord>8/10</ShinyWord>
@@ -50,7 +50,7 @@ const StatCard = () => {
       <RevealOnScroll delay={0.4}>
         <dl
           aria-label="Statystyka — lata doświadczenia firmy"
-          className="rounded-lg border-black/20 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
+          className="rounded-lg border-black/10 bg-white p-4 shadow-md border-2 flex flex-col items-center text-center h-full"
         >
           <dt className="text-2xl font-semibold">
             <ShinyWord>2+</ShinyWord>

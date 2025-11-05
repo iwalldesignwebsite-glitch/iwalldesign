@@ -13,20 +13,24 @@ const geist = Geist({
 export const metadata: Metadata = {
   metadataBase: new URL("https://iwalldesign.pl"),
   title: {
-    default: "iWallDesign – Druk UV Koszalin i okolice",
+    default:
+      "Drukarnia iWallDesign – Druk UV Koszalin, Karlino, Białogard i okolice",
     template: "%s | iWallDesign",
   },
   description:
-    "Personalizowany druk UV w Koszalinie i okolicach. Nadruki na ścianach, szkle, drewnie, reklamie, wizytówkach i plakatach.",
+    "Nowoczesna drukarnia UV w Koszalinie, Karlinie i okolicach. Personalizowany druk na szkle, drewnie, ścianach i materiałach reklamowych.",
   keywords: [
+    "drukarnia Koszalin",
+    "drukarnia UV Koszalin",
+    "drukarnia Karlino",
+    "drukarnia Białogard",
     "druk UV Koszalin",
+    "druk UV Karlino",
+    "drukarnia Kołobrzeg",
+    "druk UV Białogard",
     "druk na szkle",
     "druk na drewnie",
-    "druk na ścianie",
-    "druk reklamowy Koszalin",
-    "nadruki UV Kołobrzeg",
-    "personalizowane nadruki UV",
-    "druk plakatów Koszalin",
+    "druk reklamowy",
     "iWallDesign",
   ],
   verification: {
@@ -37,33 +41,35 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pl_PL",
     url: "https://iwalldesign.pl",
-    title: "iWallDesign – Druk UV Koszalin i okolice",
+    title:
+      "Drukarnia iWallDesign – Druk UV Koszalin, Karlino, Białogard i okolice",
     description:
-      "Druk UV na ścianach, szkle, drewnie, reklamie – Koszalin, Kołobrzeg, Białogard i okolice.",
+      "Nowoczesna drukarnia UV w Koszalinie, Karlinie i okolicach. Personalizowany druk na szkle, drewnie, ścianach i materiałach reklamowych.",
     siteName: "iWallDesign",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Przykładowa realizacja druku UV iWallDesign",
+        alt: "Logo drukarni iWallDesign",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "iWallDesign – Druk UV Koszalin i okolice",
+    title:
+      "Drukarnia iWallDesign – Druk UV Koszalin, Karlino, Białogard i okolice",
     description:
-      "Nadruki UV na ścianach, szkle, drewnie i reklamie – Koszalin i okolice.",
-    images: ["/og-image.jpg"],
+      "Nowoczesna drukarnia UV w Koszalinie, Karlinie i okolicach. Personalizowany druk na szkle, drewnie, ścianach i materiałach reklamowych.",
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "https://iwalldesign.pl",
   },
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/assets/favicon.svg",
+    shortcut: "/assets/favicon.svg",
+    apple: "/assets/apple-touch-icon.svg",
   },
 };
 
@@ -73,15 +79,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     "@type": "LocalBusiness",
     name: "iWallDesign",
     url: "https://iwalldesign.pl",
-    image: "https://iwalldesign.pl/og-image.jpg",
+    image: "https://iwalldesign.pl/og-image.png",
     email: "biuro@iwalldesign.pl",
     telephone: "+48 882 945 714",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Koszalin",
+      addressLocality: "Karlino",
       addressCountry: "PL",
     },
-    areaServed: ["Koszalin", "Kołobrzeg", "Białogard", "Pomorze Zachodnie"],
+    areaServed: [
+      "Koszalin",
+      "Kołobrzeg",
+      "Białogard",
+      "Pomorze Zachodnie",
+      "Karlino",
+      "Sławno",
+      "Sianów",
+      "Mielno",
+      "Darłowo",
+      "Słupsk",
+      "Bobolice",
+      "Świdwin",
+    ],
     openingHours: "Mo-Su 09:00-21:00",
   };
 
