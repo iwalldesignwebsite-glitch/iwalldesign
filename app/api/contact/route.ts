@@ -1,9 +1,7 @@
-
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export const runtime = "nodejs";
-
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB / plik
 const ALLOWED_TYPES = new Set<string>([
@@ -30,7 +28,6 @@ export async function POST(req: Request) {
     const message = trim((form.get("message") as string) || "");
     const files = form.getAll("files") as File[];
 
-    
     if (!name || !email.includes("@")) {
       return NextResponse.json(
         { error: "Błędne imię lub e-mail." },
@@ -47,7 +44,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Podaj miasto." }, { status: 400 });
     }
 
-  
     if (files.length > 3) {
       return NextResponse.json(
         { error: "Dodaj maksymalnie 3 pliki." },
@@ -69,7 +65,6 @@ export async function POST(req: Request) {
       }
     }
 
- 
     let attachments: { filename: string; content: Buffer }[] | undefined;
     if (files.length > 0) {
       attachments = await Promise.all(
@@ -82,7 +77,7 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CONTACT_TO_EMAIL;
-    const from = process.env.CONTACT_FROM_EMAIL || "no-reply@iwalldesign.pl";
+    const from = process.env.CONTACT_FROM_EMAIL || "biuro@iwalldesign.pl";
 
     if (!apiKey || !to) {
       console.error("Missing RESEND_API_KEY or CONTACT_TO_EMAIL");
